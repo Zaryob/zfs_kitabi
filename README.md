@@ -4,7 +4,7 @@ description: ZFS ve OpenZFS üzerine Türkçe bir kaynak oluşturma çabamın me
 
 # Giriş
 
-## 
+## Lisans
 
 ```text
 Copyright (C) 2020 Süleyman POYRAZ <zaryob.dev@gmail.com>.
@@ -20,5 +20,13 @@ Copyright (C) 2020 Süleyman POYRAZ <zaryob.dev@gmail.com>.
 
 2010 yılında Sun Microsystems'in Oracle tarafından alt şirket olarak satın alınmasının ardından ZFS ve Solaris kaynak havuzunda yer alan kodlar kapatıldı. İlerleyen dönemde ZFS'nin yaratıcılarının da aralarında bulunduğu bir grup geliştiricinin Oracle/Sun dan ayrılmasının ardından ZFS disk tipinin açık kaynak kodlu devamı niteliğinde OpenZFS projesi çıkarılmıştır. Şu an ZFS iki ayrı koldan geliştirilmeye devam edilmektedir.
 
-### 
+## Bu Belgeleme Hakkında
+
+Bu belgeleme bir harmanlama projesidir. **ZFS** hakkında yazılmış bütün kaynakları inceleyerek, Türkçe bir kaynak oluşturma çabasına girmemin bir ürünürdür.
+
+Bu belgelendirmede yararlanılan kaynaklar Kaynakça bölümünde belirtilecektir. 
+
+Ayrıca belgelendirmede sıkça kullanılan **ZFS** ibaresi disk yönetim sistemi olan ve NetApp tarafından [Write Anywhere File Layout](https://en.wikipedia.org/wiki/Write_Anywhere_File_Layout) ile patentlenen dosya sistemini açıklamaktadır. Kullanılan araçlar, açık kaynak kodlu olarak devam eden **OpenZFS**'yi işaret etmektedir. 
+
+
 

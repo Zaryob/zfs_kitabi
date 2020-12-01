@@ -1,2 +1,16 @@
 # Ekler
 
+
+
+## Sıkça Sorulan Sorular!
+
+### ?
+
+.
+
+### ?
+
+.
+
+
+
