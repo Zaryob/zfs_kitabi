@@ -4,5 +4,5 @@
 
 ## Linux distrolarında ZFS kullanmak
 
-#### ZFS on Root \(Kök sisteminde ZFS Kullanmak\)
+### ZFS on Root \(Kök sisteminde ZFS Kullanmak\)
 

@@ -1,7 +1,5 @@
 # Ekler
 
-
-
 ## Sıkça Sorulan Sorular!
 
 ### ?
@@ -11,6 +9,4 @@
 ### ?
 
 .
-
-
 
