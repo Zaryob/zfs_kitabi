@@ -3,7 +3,7 @@
 * [Giriş](README.md)
 * [ZFS'nin Özellikleri](zfsnin-oezellikleri.md)
 * [ZFS'yi Anlamak](zfsyi-anlamak.md)
-* [ZFS'yi Gerçek Ortamda Kullanmak](zfsyi-gercek-ortamda-kullanmak.md)
+* [ZFS'yi Çalışma Ortamına Kurmak](zfsyi-gercek-ortamda-kullanmak.md)
 * [ZFS Disk Yönetimi - Basit Disk Operasyonları](zfs-disk-yoenetimi-basit-disk-operasyonlari.md)
 * [ZFS Disk Yönetimi - Detaylı Disk Yönetimi](zfs-disk-yoenetimi-detayli-disk-yoenetimi.md)
 * [Ekler](ekler.md)
