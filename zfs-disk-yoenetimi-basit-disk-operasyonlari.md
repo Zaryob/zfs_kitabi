@@ -89,7 +89,7 @@ NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALT
 tank  29.0G   148K  29.0G        -         -     0%     0%  1.00x    ONLINE  -
 ```
 
-Eklediğimiz yeni disk alanını, daha fazla disk alanına sahip olmak için kullanmak zorunda değiliz. Bunu daha öncesinde belirttiğim aynalama yani `mirror` işlemi için de kullanmak isteyebiliriz. Bu durumda bize `RAID` yuvalaması \(nesting\) yardımıza koşuyor. Bu sayede eklediğimiz diskleri gruplayarak ekleyebiliriz. Kimi diskleri günlükleme kimi diskleri geçici depolama ve önbellekleme için kullanabiliriz. Bu durumda disk alanını oluştururken şunu yapmamız yeterlidir.
+Eklediğimiz yeni disk alanını, daha fazla disk alanına sahip olmak için kullanmak zorunda değiliz. Bunu daha öncesinde belirttiğim aynalama yani `mirror` işlemi için de kullanmak isteyebiliriz. Bu durumda bize `RAID` yuvalaması \(nesting\) yardımıza koşuyor. Bunu bir sonraki kısımda özellikle detaylandırarak anlatacağım ama şimdi bahsetmeden geçmemek istedim. Bu özellik sayesinde eklediğimiz diskleri gruplayarak ekleyebiliriz. Kimi diskleri günlükleme kimi diskleri geçici depolama ve önbellekleme için kullanabiliriz. Bu durumda disk alanını oluştururken şunu yapmamız yeterlidir.
 
 ```text
 ~# zpool create tank mirror /dev/sdb /dev/sdc
