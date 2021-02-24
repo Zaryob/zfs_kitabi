@@ -1,3 +1,7 @@
+---
+description: ZFS'nin havuz işlemleri ve vdev işlemleri ile başlayan ufak bir ısınma turu
+---
+
 # ZFS Disk Yönetimi - Basit Disk Operasyonları
 
 ZFS'de disk alanları ve dosya sistemleri, sanal disk havuzunun altında oluşturulan katmandır. Farklı ZFS diskler ve farklı bölümleri aynı havuz içerisine kaydedilerek bu havuza ekleme ve çıkarma işlemi yapılabilir.

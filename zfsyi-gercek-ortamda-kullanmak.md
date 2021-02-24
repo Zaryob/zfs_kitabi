@@ -1,4 +1,10 @@
-# ZFS'yi Gerçek Ortamda Kullanmak
+---
+description: >-
+  ZFS dosya sistemini reel donanım üzerinde kullanmak için OpenZFS'yi indirmeye
+  dair.
+---
+
+# ZFS'yi Çalışma Ortamına Kurmak
 
 ## ZFS'yi Gerçek Ortamda Kullanmak
 
