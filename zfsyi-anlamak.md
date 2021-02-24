@@ -42,23 +42,17 @@ Sabit diskler \(**HDD**\), katı hal diskleri \(**SSD**\), hibrit diskler \(**HH
 
 Ayrıca cihazların çeşitli kullanım alanları mevcuttur. Bunlardan en yaygın olanı **vdev**'ler içerisinde veri depolama görevini üstlenmesidir, bir diğer yandan bu cihazlar özelleştirilebilir. Örneğin bir cihaz özelliğini Hotspare için kullanarak **vdev**'lerden bağımsız olarak veri depolayabilirsiniz. Bu cihaz normal cihazlardan farklı olarak tek **vdev**’e ait değil, tüm **zpool**'a aittir.
 
-**zpool** bileşimi, benzer cihazlarla sınırlı değildir,  **ZFS**'nin sorunsuz bir şekilde bir araya topladığı ve daha sonra farklı dosya sistemlerine gereken alanı bıraktığı **geçici cihazlar \(Temporary devices\)**, **heterojen cihaz koleksiyonlarından \(HDC\)** ve özelleştirilmiş başka cihazlardan oluşan büyük bir yapıdır. 
+**zpool** bileşimi, benzer cihazlarla sınırlı değildir, **ZFS**'nin sorunsuz bir şekilde bir araya topladığı ve daha sonra farklı dosya sistemlerine gereken alanı bıraktığı **geçici cihazlar \(Temporary devices\)**, **heterojen cihaz koleksiyonlarından \(HDC\)** ve özelleştirilmiş başka cihazlardan oluşan büyük bir yapıdır.
 
 Ayrıca cihazlar **zpool**'un boyutunu artırmak için de kullanılabilir. Özelleştirilerek **zpool** içerisine eklenen cihazlar havuz boyutunun artırılmasına ve depolama kapasitesinin düzenlenmesine yardımcı olur.
 
 Bu açıdan bakıldığında cihazlar aslında **ZFS**'nin bir diğer önemli yapı taşını ihtiva etmektedir. Şimdi bazı sık kullanılan cihazlara göz atalım.
 
-#### Yansı Cihazları 
+#### Yansı Cihazları
 
 Yansı cihazları daha önceki sayfalardan aşina olduğumuz bir terim. Yansılama ile anlık verileri birden fazla cihazda tutabilir, verileri koruyabilirsiniz. Ayrıca bu cihazlar bir başka amaçla daha kullanılır. **ZFS** dosya sistemleri diğer havuzlara, ayrıca ağ üzerindeki uzak ana bilgisayarlara taşınabilmesi bu yansı cihazları ile mümkündür. Bu akış cihazı ile, belirli bir anlık görüntüde dosya sisteminin tüm içeriğini veya anlık görüntüler arasında bir delta içeriğini yerel veya ağ üzerinden yansılayabiliriz. Bu cihaz, örneğin site dışı yedeklemeleri veya bir havuzun yüksek kullanılabilirlik aynalarını senkronize etmek için verimli bir strateji sağlar.
 
-#### Özel vdev Cihazları 
+#### Özel vdev Cihazları
 
 **ZFS** 0.8 ve sonrasında, dosya sistemi meta verilerini tercihli olarak depolamak için Özel bir **vdev** sınıfı ve isteğe bağlı olarak Veri Tekilleştirme Tablosu \(DDT\) kullanarak küçük dosya sistemi blokları yapılandırmak mümkündür. Bu, örneğin, meta verileri depolamak için hızlı katı hal depolamada özel bir vdev oluşturup, normal dosya verilerin daha yavaş olan disklerde depolanması için kullanılabilir. Aslında bu özellik önceki sayfalardan aşina olduğumuz **ARC** ve **L2ARC** yapısından türetilmiştir**.** Bu cihazları kullanarak, tüm dosya sistemini katı hal depolamadan bir başka disk üzerine depolama masrafı olmadan geçişi, düzeltme ve yeniden yapılandırma gibi yoğun meta veri işlemlerini hızlandırabiliriz.
-
-#### 
-
-
-
-#### 
 

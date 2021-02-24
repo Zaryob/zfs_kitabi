@@ -12,7 +12,6 @@ Copyright (C) 2020 Süleyman POYRAZ <zaryob.dev@gmail.com>.
 İşbu belgeyi kopyalama, dağıtma ve/veya değiştirme hakkı, Özgür Yazılım Vakfı tarafından yayımlanan GNU Özgür Belgelendirme Lisansı Sürüm 1.3 ya da daha sonraki sürümler kapsamında verilmiş olup; Değişmeyen Kısımlar, Ön Kapak Metinleri ve Arka Kapak Metinleri’ni içermez. İşbu lisansın bir kopyası “GNU Özgür Belgelendirme Lisansı” bölümünde mevcuttur.
 ```
 
-
 ## ZFS nedir?
 
 **ZFS** ya da eski adı ile **Zettabyte File System**, ilk olarak [Sun Microsystems](https://www.oracle.com/sun/) şirketi tarafından [Solaris işletim sistemi](https://www.oracle.com/solaris/solaris11/) için özelleştirilmiş bir dosya sistemi oluşturmak amacı ile ortaya çıktı. Sun firmasında çalıştıkları sırada Jeff Bonwick, Bill Moore ve Matthew Ahrens tarafından 2001 yılında başlanılan ZFS dosya sistemi ilk olarak 14 Eylül 2004 yılında duyruldu ve Solaris'e 31 Ekim 2005 yılında dahil edildi.
@@ -25,9 +24,7 @@ Copyright (C) 2020 Süleyman POYRAZ <zaryob.dev@gmail.com>.
 
 Bu belgeleme bir harmanlama projesidir. **ZFS** hakkında yazılmış bütün kaynakları inceleyerek, Türkçe bir kaynak oluşturma çabasına girmemin bir ürünürdür.
 
-Bu belgelendirmede yararlanılan kaynaklar Kaynakça bölümünde belirtilecektir. 
+Bu belgelendirmede yararlanılan kaynaklar Kaynakça bölümünde belirtilecektir.
 
-Ayrıca belgelendirmede sıkça kullanılan **ZFS** ibaresi disk yönetim sistemi olan ve NetApp tarafından [Write Anywhere File Layout](https://en.wikipedia.org/wiki/Write_Anywhere_File_Layout) ile patentlenen dosya sistemini açıklamaktadır. Kullanılan araçlar, açık kaynak kodlu olarak devam eden **OpenZFS**'yi işaret etmektedir. 
-
-
+Ayrıca belgelendirmede sıkça kullanılan **ZFS** ibaresi disk yönetim sistemi olan ve NetApp tarafından [Write Anywhere File Layout](https://en.wikipedia.org/wiki/Write_Anywhere_File_Layout) ile patentlenen dosya sistemini açıklamaktadır. Kullanılan araçlar, açık kaynak kodlu olarak devam eden **OpenZFS**'yi işaret etmektedir.
 

@@ -8,7 +8,7 @@ description: Lisans metni
 
 Sürüm 1.3, Kasım 2008
 
-Copyright \(C\) 2000, 2001, 2002, 2007, 2008 Özgür Yazılım Vakfı 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 ABD  [https://fsf.org/](https://fsf.org/)
+Copyright \(C\) 2000, 2001, 2002, 2007, 2008 Özgür Yazılım Vakfı 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 ABD [https://fsf.org/](https://fsf.org/)
 
 Bu lisans belgesinin tam kopyasının herkes tarafından koplayalanması ve dağıtımı serbest olup, değiştirilmesi yasaktır.
 
