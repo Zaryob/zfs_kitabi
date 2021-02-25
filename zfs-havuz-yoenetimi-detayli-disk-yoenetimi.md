@@ -94,7 +94,68 @@ tank  7.50G   300K  7.50G        -         -     0%     0%  1.00x    ONLINE  -
 ```
 
 ### Yansı Diskleri Oluşturma ve Depolama Havuzuna Ekleme 
+
+Yansıtılmış bir havuz oluşturmak için, `mirror` anahtar sözcüğünü ve ardından aynayı oluşturacak herhangi bir sayıda depolama aygıtını kullanın. Komut satırında mirror anahtar sözcüğü tekrarlanarak birden çok ayna belirtilebilir. Aşağıdaki komut, iki, iki yönlü aynaya sahip bir havuz oluşturur:
+
+
+```
+~# zpool create tank mirror /dev/sdb /dev/sdc
+```
+
+Yansılanmış olan sanal cihazlar oluşturmak için en az iki adet cihaz gerekmektedir. Bu cihazlardan ikinde ana dosyalar depolanırken ikincisinde ise buradaki dosyaların anlık yansıları yani kopyaları bulunmaktadır. Bu sayede bu iki cihazdan birisi bozulursa diğerini kullanarak disk havuzumuzu kurtarabiliriz. Burda önemli olan nokta şu. Bu iki yansı diskinden en az bir tanesinin düzgün durumda olması gerekmektedir. Birden fazla diskten oluşan aynalarda da yine aynı durum geçerli. Bu disklerden en az bir tanesinin düzgün olması gerekmekte.
+
+Buraya kadar anlattıklarım pratiğe dökülmediği için anlamsız olabilir. Hemen bir örnek ile izah edelim. Bu örnek için 2 tane dosya sanal diski oluşturalım. İlki tek bir dosyadan oluşsun.
+
+```
+~# zpool create tank /dev/sdb
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+	NAME          STATE     READ WRITE CKSUM
+	tank          ONLINE       0     0     0
+	  sdb         ONLINE       0     0     0
+
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  3.75G   105K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+```
+Boyut görüldüğü şekildedir. Şimdi 2 diskten oluşan bir disk oluşturalım.
+
+```
+~# zpool create tank /dev/sdb /dev/sdc
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  7.50G   128K  7.50G        -         -     0%     0%  1.00x    ONLINE  -
+```
+
+Bu durumda da boyut bu şekildedir. Ancak 2 diskten oluşan aynalanmış bir disk için ise şöyle bir tablo karşımıza çıkar.
+
+```
+~# zpool create tank mirror /tmp/file1 /tmp/file2 
+~# zpool status 
+  pool: tank
+  state: ONLINE
+  config:
+
+	NAME            STATE     READ WRITE CKSUM
+	tank            ONLINE       0     0     0
+	  mirror-0      ONLINE       0     0     0
+	    sdb         ONLINE       0     0     0
+	    sdc         ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  3.75G   122K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+```
+
+Bizim için bu durumda `/dev/sdc` diski `/dev/sdb` için yansı ihtiva etmektedir.
+
+
 ### RAID ve RAIDZ Diskleri Oluşturma ve Depolama Havuzuna Ekleme 
+
 ### Yedek Diskleri Oluşturma ve Depolama Havuzuna Ekleme 
 ### Önbellek Diskleri Oluşturma ve Depolama Havuzuna Ekleme 
 
