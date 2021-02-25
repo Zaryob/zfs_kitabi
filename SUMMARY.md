@@ -8,6 +8,7 @@
 * [ZFS Havuz Yönetimi - Basit Havuz Operasyonları](zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md)
 * [ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi](zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.md)
 * [ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Özellikleri](zfs-havuz-yoenetimi-bazi-ek-oezellikler.md)
+* [ZFS Disk Hiyerarşisi](zfs-hiyerarshisi.md)
 * [Ekler](ekler.md)
 * [Kaynakça](kaynakca.md)
 * [GNU Özgür Belgelendirme Lisansı](lisans.md)

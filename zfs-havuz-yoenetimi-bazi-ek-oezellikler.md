@@ -1,9 +1,9 @@
 ---
-description: ZFS Disk Yönetimi Komutları
+description: ZFS Havuz Yönetimi Komutları
 ---
 
 
-# ZFS Disk Yönetimi - Bazı Ek Disk Yönetimi Özellikleri
+# ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Özellikleri
 
 Bu kısımda önceki öğrendiğimiz komutların haricinde bazı ek ZFS komutlarına örnekler verecek ve bunlara ait örnek komutlar vereceğim.
 Burada çoğunlukla kullanmayacağınız ama yine de önemli olan bazı ZFS özelliklerinden bahsedeceğim.
