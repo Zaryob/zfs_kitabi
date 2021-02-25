@@ -133,7 +133,7 @@ tank  7.50G   128K  7.50G        -         -     0%     0%  1.00x    ONLINE  -
 Bu durumda da boyut bu şekildedir. Ancak 2 diskten oluşan aynalanmış bir disk için ise şöyle bir tablo karşımıza çıkar.
 
 ```
-~# zpool create tank mirror /tmp/file1 /tmp/file2 
+~# zpool create tank mirror /dev/sdb /dev/sdc
 ~# zpool status 
   pool: tank
   state: ONLINE
