@@ -2,30 +2,6 @@
 description: ZFS'nin havuz işlemleri ve vdev işlemleri ile başlayan ufak bir ısınma turu
 ---
 
-# ZFS Disk Yönetimi - Basit Disk Operasyonları
-
-ZFS'de disk alanları ve dosya sistemleri, sanal disk havuzunun altında oluşturulan katmandır. Farklı ZFS diskler ve farklı bölümleri aynı havuz içerisine kaydedilerek bu havuza ekleme ve çıkarma işlemi yapılabilir. ZFS dosya sistemleri, herhangi bir temel disk alanı ayırmanıza veya biçimlendirmenize gerek kalmadan dinamik olarak oluşturulabilir ve yok edilebilir. Dosya sistemleri çok hafif olduğundan ve ZFS'de merkezi yönetim noktası olduklarından, bunlar hem oldukça esnek hem de manüplasyonu tehlikeli yapılardır. Yani yaptığımız düzenlemeler kesinlikle çok dikkatlice yapılmalıdır. 
-
-Başlamak için, ZFS bunları dahili olarak kapsamlı bir şekilde kullandığından, sanal cihazları veya **VDEV**'leri anlamamız gerekir. Temel olarak, bir veya daha fazla fiziksel cihazı temsil eden bir meta cihazımız var. Linux yazılım RAID'inde, 4 diskten oluşan RAID-5 dizisini temsil eden bir "/dev/md0" aygıtınız olabilir. Bu durumda, "/dev/md0" sizin "**VDEV**" aygıtınız olacaktır.
-
-ZFS'de yedi tür VDEV vardır:
-
-* **disk \(varsayılan\):** Sisteminizdeki fiziksel sabit sürücüler. 
-* **dosya \(file\):** Önceden ayrılmış dosyaların / görüntülerin mutlak yolu. 
-* **ayna \(mirror\):** Standart yazılım RAID-1 aynası
-* **raidz1/2/3:** Standart olmayan dağıtılmış eşlik tabanlı yazılım RAID seviyeleri. 
-* **yedek \(spare\):** ZFS RAID için "etkin yedek" olarak işaretlenmiş sabit sürücüler. 
-* **önbellek \(cache\):** Seviye 2 uyarlanabilir okuma önbelleği \(L2ARC\) için kullanılan cihaz. 
-* **günlük \(log\):** "ZFS Amaç Günlüğü" veya ZIL adı verilen ayrı bir günlük \(SLOG\).
-
-
-
-ZFS dosya sistemleri, `zfs` komutu kullanılarak yönetilir. ZFS komutu, dosya sistemlerinde belirli işlemleri gerçekleştiren bir dizi alt komut sağlar. Bu alt komutlar basit disk işlemleri \(disk alanı ekleme, çıkarma, kontrol etme\) haricinde daha öncesinde bahsettiğim aynalama \(`mirror`\) ve yedekleme \(`spare`\) işlerini de sağlar.
-
-ZFS dosya sistemlerini oluşturmak ve yönetmek için ilk yapmamız gereken işlem bir ZFS disk havuzu oluşturmak. İlk adımda bu havuzları nasıl oluşturup nasıl manüple edeceğimizi göreceğiz.
-
-Bu aşamada temel işlemleri ikiye ayıracağım. ZFS Disk yönetim sistemi için bir disk havuzu oluşturmak zorundayız. Bu bizim birinci kısmımızı oluşturacak. İkincisi ise bu havuzlar içerisinde ZFS disk bölümleri oluşturabilmeyi ve üzerinde işlemler yapmayı öğreneceğiz.
-
 ## ZFS Disk Havuzunda Temel İşlemler
 
 ZFS yönetimi, basitlik göz önünde bulundurularak tasarlanmıştır. Tasarım hedefleri arasında, kullanılabilir bir dosya sistemi oluşturmak için gereken komutların sayısını azaltmaktır. Örneğin, yeni bir havuz oluşturduğunuzda, otomatik olarak yeni bir ZFS dosya sistemi oluşturulur ve bağlanır. Bağlama konumu \(siz aksini belirtmedikçe\) sisteminizin kök dizinidir.
@@ -318,122 +294,28 @@ Bütün bir disk havuzunu silmek için ise `zpool destroy` komutunu kullanabilir
 no pools available
 ```
 
+### ZFS Disk Havuzlarının Dışa Aktarılması
 
-## ZFS Disk Hiyerarşisinde Temel İşlemler
+Diyelim ki üzerinde çalıştığımız ZFS havuzunu başka bir bilgisayara aktarmak istiyoruz. Halihazırda ekleme yapmayı yukarıda anlattım ama başka bir bilgisayara bağlamadan önce güvenli bir şekilde çalıştığımız bilgisayardan kaldırmamız lazım. Bu işlem için `zpool export` komutu kullanılır.
 
-Verilerinizi depolamak için bir depolama havuzu oluşturduktan sonra, dosya sistemi hiyerarşinizi oluşturabilirsiniz. Hiyerarşiler, bilgiyi organize etmek için basit ama güçlü mekanizmalardır. Bir dosya sistemi kullanmış olanlara da çok aşinadırlar.
-
-Aslında ZFS geleneksel disk yönetim sistemi kullananlar için biraz karmaşık bir yapıya sahip. Ancak basitleştirmek gerekirse ZFS, dosya sistemlerinin, her dosya sisteminin yalnızca tek bir ana öğeye sahip olduğu hiyerarşiler halinde düzenlenmesine izin verir. Hiyerarşi aslında UNIX kök dosya yapısına benzemektedir. Hiyerarşinin kökü her zaman havuz adıdır. ZFS, özellik mirasını destekleyerek bu hiyerarşiden yararlanır, böylece ortak özellikler, tüm dosya sistemleri ağaçlarında hızlı ve kolay bir şekilde ayarlanabilir.
-
-### ZFS Dosya Sistemi Hiyerarşini Belirleme
-
-ZFS dosya sistemleri, merkezi yönetim noktasıdır. Hafiftirler ve kolayca oluşturulabilirler. Kullanılacak iyi bir model, kullanıcı veya proje başına bir dosya sistemi oluşturmaktır, çünkü bu model özelliklerin, anlık görüntülerin ve yedeklemelerin kullanıcı başına veya proje bazında kontrol edilmesine izin verir.
-
-ZFS, dosya sistemlerinin hiyerarşiler halinde düzenlenmesine izin verir, böylece benzer dosya sistemleri gruplanabilir. Bu model, özellikleri kontrol etmek ve dosya sistemlerini yönetmek için merkezi bir yönetim noktası sağlar. Benzer dosya sistemleri ortak bir isim altında oluşturulmalıdır.
-
-Çoğu dosya sistemi özelliği, özellikler tarafından kontrol edilir. Bu özellikler, dosya sistemlerinin nereye monte edileceği, nasıl paylaşılacağı, sıkıştırma kullanıp kullanmadıkları ve herhangi bir kotanın geçerli olup olmadığı gibi çeşitli davranışları kontrol eder.
-
-ZFS Dosya Sistemleri, NFS kullanılarak paylaşılabilir ve sıkıştırma etkinleştirilebilir. Ek olarak, kullanıcı veya projeler için için kotalar uygulanabilir.
-
-ZFS dosya sistemi komutları, `zfs` komutu ile yönetilir.
-
-### ZFS Dosya Sistemi Hiyerarşi Oluşturma
-
-ZFS'de dosya sistemi `zfs create` komutu ile oluşturulur. Parametre olarak da ZFS disk havuzunu ve disk yolunu belirtmeniz yeterlidir.
-
-```text
-~# zfs create tank/home
 ```
-
-Oluşturulan dosya sistemi otomatik olarak kök dizinde yer alan havuzumuzun bağlandığı klasör altına bağlanır \(yine siz aksini belirtmedikçe\).
-
-Ayrıca ZFS'de recursive olarak dosya hiyerarşisi oluşturabiliriz.
-
-```text
-~# zfs create tank/home/zaryob
-~# zfs create tank/home/sulo
+~# zpool export tank
 ```
+Bu işlem bütün disklerin yapılandırması ve verilerin senkronize edilerek ayrılması biraz uzun sürecektir. Bu sürenin ardından uygun şekilde bağlanacak ve kök sisteme bu havuz bağlanacaktır.
 
-### ZFS Dosya Sistemi Hiyerarşilerini Görüntülemek
 
-ZFS'de `zfs list` komutu ile dosya sisteminin detaylarını görüntülemek için kullanılır.
+### ZFS Havuz Geçmiş
+ZFS disk havuz sistemi, bu yaptığımız işlemleri adım adım görmemize imkan sağlayan bir geçmiş günlüğü yapısına sahiptir. Bütün bu değişimleri `zpool history` ile görebiliriz. Bu komuta ek olarak havuzumuzun adını verirsek, özel olarak o havuza ait geçmişi verecektir. Eğer herhangi bir parametre vermezsek bütün havuzlara ait geçmişleri verecektir. Bu geçmiş bilgisi disk içerisine toplanır, yani başka bir bilgisayara bu diskleri aktardığımız zaman silimez. Ancak `zpool destroy` komutu ile bu disk havuzunu yokettiğimizde bu geçmişi de kaybederiz.
 
-```text
-~# zfs list
-NAME                   USED  AVAIL  REFER  MOUNTPOINT
-tank                  100.0K  67.0G   19K   /tank
-tank/home             18.0K   67.0G     6K  /tank/zfs
 ```
+~# zpool history tank
 
-### ZFS Dosya Sistemi Hiyerarşinin Özelliklerini Belirtmek
-
-ZFS'de `zfs set` komutu ile dosya sisteminin özelliklerini belirlemek için kullanılır. Aslında özellikleri tek tek açıklamak çok uzun sürecektir çünkü pek çok özellik var ve hepsini `zfs set --help` komutu ile görebilirsiniz.
-
-Bir diğer yandan temel bazı özellikleri değiştirelim.
-
-```text
-~# zfs set mountpoint=/mnt/zfs/home tank/home
-```
-
-`mountpoint` parametresi belirttiğimiz dosya sisteminin belirttiğimiz klasöre bağlanmasını sağlar. Bu örnek için `tank/home` dosya sistemi `/mnt/zfs` yoluna bağlanacaktır.
-
-```text
-~# zfs set sharenfs=on tank/home
-```
-
-`sharenfs` parametresi belirtilen dosya sistemini NFS üzerinden paylaşılmasını sağlar.
-
-```text
-~# zfs set compression=on tank/home
-```
-
-`compression` parametresi ise dosya sistemini sıkıştırarak kaydetmeyi sağlar.
-
-```text
-~# zfs set quota=10G tank/home
-```
-
-`quota` parametresi ise dosya sistemine bir sanal bir kota verir. Bu sayede dosya sistemini limitleyebiliriz.
-
-Bütün bu özellikleri ise `zfs get` komutu ile öğrenebiliriz.
-
-```text
-~# zfs get compression tank/home
-NAME             PROPERTY       VALUE                      SOURCE
-tank/home        compression    on                         local
-```
-
-### ZFS Dosya Sistemi Hiyerarşi Yeniden Adlandırma
-
-Bir ZFS dosya sistemini yeniden adlandırmak için `zfs rename` komutu kullanılır.
-
-```text
-~# zfs rename tank/home/zaryob tank/home/zaryob_old
-```
-
-Bu bir hiyerarşiyi başka bir dizine taşımayı da sağlar.
-
-```text
-~# zfs rename tank/home/zaryob tank/zaryob/
-```
-
-### ZFS Dosya Sistemi Hiyerarşi Yok Etme
-
-Bir ZFS dosya sistemini yok etmek için `zfs destroy` komutu kullanılır. İmha edilen dosya sistemi otomatik olarak ayrılır ve paylaştırılmaz.
-
-```text
-~# zfs destroy tank/home
-```
-
-İmha edilecek dosya sistemi meşgulse ve bağlantısı kesilemezse, `zfs destroy` komutu başarısız olur. Aktif bir dosya sistemini yok etmek için `-f` seçeneğini kullanın. Etkin dosya sistemlerini kaldırabileceği, paylaşımını kaldırabileceği ve yok ederek beklenmedik uygulama davranışına neden olabileceği için bu seçeneği dikkatli kullanın.
-
-```text
-~# zfs destroy -f tank/home
-```
-
-Eğer ki `tank/home` dosya sistemi alt başka sistemlere de sahipse bu durumda `-R` parametresi gerekmektedir.
-
-```text
-~# zfs destroy -R tank/home
+History for 'tank':
+2021-02-25.13:16:26 zpool create tank /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdb4 /dev/sdb5 /dev/sdb6
+2021-02-25.13:19:38 zpool remove tank sdb5
+2021-02-25.13:23:28 zpool remove tank sdb6
+2021-02-25.13:25:42 zpool add tank mirror sdb4 sdb5 sdb6
+2021-02-25.13:31:12 zpool export tank
+2021-02-25.13:36:23 zpool import tank
 ```
 
