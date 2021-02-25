@@ -154,7 +154,151 @@ tank  3.75G   122K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
 Bizim için bu durumda `/dev/sdc` diski `/dev/sdb` için yansı ihtiva etmektedir.
 
 
-### RAID ve RAIDZ Diskleri Oluşturma ve Depolama Havuzuna Ekleme 
+### RAIDZ Diskleri Oluşturma ve Depolama Havuzuna Ekleme 
+
+Daha öncesinde belirttiğim gibi ZFS'nin kendi RAIDZ yönetimi bulunmakta. RAIDZ'yi anlamak için öncelikli olarak RAID yapısını anlamamız gerekmekte. Genellikle birden çok diske yayılmış verilerde birden çok veri kopyasına ihtiyaç duyulur. Donanımsal olarak bu özellik, bir **RAID** denetleyicisi kullanılarak elde edilebilir. Yani donanımsal olarak birden fazla diski birlikte kullanmaya imkan sağlayan bu yapıya biz RAID diyoruz. RAID eşlik tabanlı seviyelere ihtiyaç duymakta ve her bir seviye için farklı şeylere ihtiyacımız var. Örneğin RAID-5 dizisi için en az 3 diskten oluşan bir disk şeridine ihtiyacımız var. RAID, bunu sağlarken iki diskteki verileri birleştirir, daha sonra, kümedeki tüm üç şeridin XOR'u sıfır olarak hesaplanacak şekilde bir eşlik biti hesaplanır. Eşlik daha sonra diske yazılır. Bu, bir disk arızasına maruz kalmanıza ve verileri yeniden hesaplamanıza olanak tanır. Ayrıca, RAID-5'te, dizideki tek bir disk eşlik verileri için ayrılmamıştır. Bunun yerine, eşlik tüm disklere dağıtılır. Böylece, herhangi bir disk arızalanabilirse veriler yine de geri yüklenebilir. Ancak RAID-5'in bir sorunu var. Herhangi bir eşlik biti (parity) yazımı sırasında diskle veya donanımla alakalı bir hata meydana gelmesi durumunda bütün veriler kaybedilebilir. Kötü olan durum ise, çoğu donanım yazılım tabanlı RAID'in bir sorunun varlığını tespit edemeyip veriyi öylece yazmasıdır. Eşlik bitlerinin verilerle tutarsız olduğunu belirleyen yazılım çözümleri var, ancak bunlar yavaş ve güvenilir değiller. Sonuç olarak, yazılım tabanlı RAID, depolama yöneticilerinin çoğu için iyi bir çözüm değil. Donanım destekli RAID ise arızalara ve kararsızlıklara sebep olmasından dolayı yönetmesi ve sürekliliği hayli zor.
+
+ZFS, birim yöneticisi ve dosya sistemlerinin görevlerini birleştirir. Bu, yeni bir havuz oluştururken diskleriniz için aygıt düğümlerini belirtebileceğiniz anlamına gelir ve ZFS bunları tek bir mantıksal havuzda birleştirir ve daha sonra bu birimin üstünde farklı kullanımlar için veri kümeleri ve disk alanları oluşturabilirsiniz. RAID için bir alternatif olarak ZFS, RAID'in donanımsal katmanını tahliye etmek için kendi RAID yapısını getirmektedir.
+
+ZFS kendi RAIDZ'si sayesinde donanım bazlı RAID'e disk yönetimi noktasında bir alternatif oluşturur. RAIDZ oluşturması sırasında şerit genişliğinin statik olarak ayarlanmasından ziyade, şerit genişliği dinamiktir. İşlemsel olarak diske aktarılan her blok kendi şerit genişliğine sahiptir ve bu sayede veri sağlaması yapılabilir. Bu da RAID'in sorunlarına karşı bir çözüm oluşturur. Ayrıca her RAIDZ yazımı, tam şeritli bir yazma sağlar. Ayrıca, eşlik biti şeritle eşzamanlı olarak işlenmektedir ve bu özelliği daha önce belirttiğim RAID-5'in yazma sorunlarını tamamen ortadan kaldırılır. Dolayısıyla, bir elektrik kesintisi durumunda, ya en son veri akışına sahip olursunuz ya da son veri akışının tamamlanmamış kısımlarını kaybedersiniz ancak bu sebeple herhangi bir disk sorunu yaşanmamış olursunuz.
+
+Ayrıca ZFS'nin RAIDZ yapısı donanım tabanından daha az işlem maaliyetine sahip bir çözüm getirmekte. ZFS, sessiz hataları algılayabilir ve anında düzeltebilir. Bir an için dizideki diskte herhangi bir nedenle verilerin hatayla değiştirildiğini veya bozulduğunu  varsayalım. Uygulama veriyi talep ettiğinde, ZFS şeridi az önce öğrendiğimiz gibi oluşturulur ve her bloğu `fletcher4` olarak bilinen bir sağlama toplamı ile karşılaştırır meta verilerdeki sağlama toplamları ile karşılaştırır. Okuma şeridi sağlama toplamı ile eşleşmiyorsa, ZFS bozuk bloğu bulur, ardından eşlik bitlerini okur ve kombinatoryal yeniden yapılandırma yoluyla düzeltir. Daha sonra uygulamaya düzeltilmiş veriler döndürür. Tüm bunlar, özel bir donanımın yardımı olmadan ZFS'nin kendisinde gerçekleştirilir. 
+
+RAIDZ seviyelerinin bir başka yönü de, şerit dizideki disklerden daha uzunsa, bir disk arızası varsa veya eşlikli veriler bozulursa, verileri yeniden yapılandıramaz. Bu nedenle, ZFS, bunun olmasını önlemek için şeritteki bazı verileri aynalayacaktır.
+
+RAIDZ 5 katmanda incelenir: RAIDZ-1, RAIDZ-2, RAIDZ-3, RAIDZ-4 ve RAIDZ-5 olarak bunlar sıralanabilir. Sonda yer alan sayılar da eşlik biti sayısını göstermektedir.
+Son olarak, performans açısından, aynalar her zaman RAIDZ seviyelerinden daha iyi performans gösterecektir. Hem okurken hem de yazarken ayna yapısı RAIDZ'den daha az maliyete sahiptir. Ayrıca RAIDZ-1, RAIDZ-2'den daha iyi performans gösterecek ve RAIDZ-2'de RAIDZ-3'ten daha iyi performans gösterecektir. Ne kadar çok eşlik biti hesaplamak zorunda kalırsanız, verileri hem okumak hem de yazmak o kadar uzun sürecektir. Ayrıca aynı diskler için üretilen RAIDZ'lerin eşlik bitlerinin artması durumunda kullanılabilir boş alan azalacaktır. Elbette, depolama ve performansın bir kısmını en üst düzeye çıkarmak için **VDEV**'lerinize her zaman şerit ekleyebilirsiniz. RAID-1+0 gibi iç içe geçmiş RAID seviyeleri, eşliksiz diskleri kaybedebileceğiniz esneklik ve şeritten elde ettiğiniz verim nedeniyle "RAID seviyelerinin Kadillağı" olarak kabul edilir. Özetle, en hızlıdan en yavaşa, iç içe olmayan RAID düzeyleriniz şu şekilde performans gösterir:
+
+   1. RAID-0 (en hızlı)
+   2. RAID-1
+   3. RAIDZ-1
+   4. RAIDZ-2
+   5. RAIDZ-3 (en yavaş)
+
+#### RAIDZ Diskleri: RAIDZ-1
+RAIDZ-1, dizideki tüm disklere dağıtılan tek bir eşlik biti olması açısından RAID-5'e benzer.  Her bir disk şeridi için bir adet eşlik biti bulunurken, RAID5'den farklı olarak şerit genişliği değişkendir ve dizideki disklerin genişliğine bağlı olarak RAIDZ yapısı, daha az diski veya daha fazla diski kapsayabilir. 
+
+RAIDZ-1'de minimum 3 disk kullanılmalıdır. RAIDZ-1 verileri korumak için bir disk arızasına izin verir. İkici diskte yaşanan bir veri hatası veri kaybına neden olur. RAIDZ-1 için depolama kapasitesi, dizinizdeki en küçük diskin depolanma miktarı ile hesaplanır. Bunlar arasında bir tane disk, eşlik depolama için kullanılır. Örneğin 3 diskimiz bulunması durumunda bunların 2 tanesi veri depolama için kullanılır. Bir diğer yandan depolamayı da 2 disk arasında en düşük kapasiteye sahip disk belirler. Bu disklerden birinin boyutu 100 GB olsun diyelim, diğerinin boyutu 90 GB olması durumunda; toplam disk boyutunun tavan boyutu 180GB olacaktır.
+
+RAIDZ-1 ile bir havuz kurmak için, "raidz1" **VDEV** anahtarını kullanıyoruz:
+
+```
+~# zpool create tank raidz1 /dev/sdb /dev/sdc /dev/sdd
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+	NAME                 STATE     READ WRITE CKSUM
+	tank                 ONLINE       0     0     0
+	  raidz1-0           ONLINE       0     0     0
+	    sdb              ONLINE       0     0     0
+	    sdc              ONLINE       0     0     0
+	    sdd              ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME    SIZE   ALLOC    FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  100.5G   190K   100.5G        -         -     0%     0%  1.00x    ONLINE  -
+```
+
+#### RAIDZ Diskleri: RAIDZ-2
+
+RAIDZ-2, dizideki tüm disklere dağıtılan bir ikili eşlik biti olması açısından RAID-6'ya benzer. Şerit genişliği değişkendir. Bu RAIDZ yapısı verileri korumak için iki disk arızasına izin verir. Üçüncü diskte yaşanmış bir hata veri kaybına neden olur. RAIDZ-2'de minimum 4 disk kullanılmalıdır. Disklerden ilki eşlik bitlerini içerir. Veri depolama şeritinin boyutunu önceki durumdaki gibi en küçük boyutlu disk belirler.
+
+RAIDZ-2 ile bir zpool kurmak için "raidz2" **VDEV** anahtarını kullanıyoruz:
+
+```
+~# zpool create tank raidz2 /dev/sdb /dev/sdc /dev/sdd /dev/sde
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+	NAME                 STATE     READ WRITE CKSUM
+	tank                 ONLINE       0     0     0
+	  raidz2-0           ONLINE       0     0     0
+	    sdb              ONLINE       0     0     0
+	    sdc              ONLINE       0     0     0
+	    sdd              ONLINE       0     0     0
+	    sde              ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME    SIZE   ALLOC    FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  182.2G   270K   182.2G        -         -     0%     0%  1.00x    ONLINE  -
+```
+
+
+#### RAIDZ Diskleri: RAIDZ-3
+
+RAIDZ-3, herhangi bir RAID yapısına eşdeğer değildir. RAIDZ-3'te minimum 5 disk kullanılmalıdır.  Şerit genişliği değişkendir. Bu RAIDZ yapısı verileri korumak için üç disk arızasına izin verir. Dördüncü diskte yaşanmış bir hata veri kaybına neden olur. Disklerden ilki eşlik bitlerini içerir. Veri depolama şeritinin boyutunu önceki durumdaki gibi en küçük boyutlu disk belirler.
+
+RAIDZ-2 ile bir zpool kurmak için "raidz3" **VDEV** anahtarını kullanıyoruz:
+
+```
+~# zpool create tank raidz3 /dev/sdb /dev/sdc /dev/sdd /dev/sde /dev/sdf
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+	NAME                 STATE     READ WRITE CKSUM
+	tank                 ONLINE       0     0     0
+	  raidz3-0           ONLINE       0     0     0
+	    sdb              ONLINE       0     0     0
+	    sdc              ONLINE       0     0     0
+	    sdd              ONLINE       0     0     0
+	    sde              ONLINE       0     0     0
+	    sdf              ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME    SIZE   ALLOC    FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  273.2G   410K   273.2G        -         -     0%     0%  1.00x    ONLINE  -
+```
+
+#### RAIDZ Diskleri: Hybrid RAIDZ
+
+Ne yazık ki, eşlik tabanlı RAID, özellikle tek bir şeritte çok sayıda diskiniz olduğunda (örneğin 48 diskli bir JBOD) yavaş olabilir. İşleri biraz hızlandırmak için, tek büyük RAIDZ sanal diski birden fazla RAIDZ sanal disk şeridine ayırmak bir çözüm olabilir. Bu işleme Hybrid RAIDZ sanal disk şeridi demekteyiz. Bu hibrit sanal disk şeridi işleri kolaylaştırırken, depolamanın devamlılığının sağlanması için kullanılabilir disk alanına mal olur ancak performansı büyük ölçüde artırabilir.
+
+
+Elbette, önceki RAIDZ sanal disklerinde olduğu gibi, şerit genişliği her yuvalanmış RAIDZ disk şeridi için değişkendir. Her RAIDZ seviyesi için, her sanal diskte o kadar çok diski kaybedebilirsiniz. Örneğin, üç RAIDZ-1 sanal disk şeridiniz varsa, sanal disk başına bir disk olmak üzere toplam üç disk arızasına maruz kalabilirsiniz. Kullanılabilir alan benzer şekilde hesaplanacaktır. Ve her sanal diskteki eşlik depolaması nedeniyle üç diski kaybedersiniz.
+
+Bu kavramı açıklamak için, 12 diskli bir depolama sunucumuz olduğunu varsayalım ve şerit performansını en üst düzeye çıkarırken olabildiğince az disk kaybetmek istiyoruz. Bu nedenle, her biri 3 diskten oluşan 4 RAIDZ-1 sanal diski oluşturacağız. Bu bize 4 disk kullanılabilir depolamaya mal olacak, ancak aynı zamanda bize 4 disk arızasına maruz kalma yeteneği verecek ve 4 sanal diskteki şerit performansı artıracaktır.
+
+4 RAIDZ-1 sanal diski ile bi havuz kurmak için, komutumuzda "raidz1" parametresini 4 kez kullanıyoruz
+```
+~# zpool create tank raidz1 /dev/sdb /dev/sdc /dev/sdd raidz1 /dev/sde /dev/sdf /dev/sdg raidz1 /dev/sdh /dev/sdi /dev/sdk raidz1 /dev/sdl /dev/sdm /dev/sdn
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+	NAME                 STATE     READ WRITE CKSUM
+	tank                 ONLINE       0     0     0
+	  raidz1-0           ONLINE       0     0     0
+	    sdb              ONLINE       0     0     0
+	    sdc              ONLINE       0     0     0
+	    sdd              ONLINE       0     0     0
+      raidz1-0           ONLINE       0     0     0
+	    sde              ONLINE       0     0     0
+	    sdf              ONLINE       0     0     0
+	    sdg              ONLINE       0     0     0
+      raidz1-0           ONLINE       0     0     0
+	    sdh              ONLINE       0     0     0
+	    sdi              ONLINE       0     0     0
+	    sdk              ONLINE       0     0     0
+      raidz1-0           ONLINE       0     0     0
+	    sdl              ONLINE       0     0     0
+	    sdm              ONLINE       0     0     0
+	    sdn              ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME    SIZE   ALLOC    FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  547.1G   6000K   347.1G        -         -     0%     0%  1.00x    ONLINE  -
+```
 
 ### Yedek Diskleri Oluşturma ve Depolama Havuzuna Ekleme 
 ### Önbellek Diskleri Oluşturma ve Depolama Havuzuna Ekleme 
