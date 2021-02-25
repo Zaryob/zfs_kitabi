@@ -230,6 +230,15 @@ tank              ONLINE       0     0     0
         sdf     ONLINE       0     0     0
 ```
 
+### ZFS Disk Havuzlarının İçe Aktarılması
+
+Diyelim ki bir başka bilgisayarda uğraştığımız bir ZFS havuzu var. Bu havuzu başka bir bilgisayara bağlamak için `zpool import` komutu kullanılır.
+
+```
+~# zpool import tank
+```
+Bu işlem bütün disklerin yapılandırması ve uygun şekilde bağlanması için biraz süre gerekecektir. Bu sürenin ardından uygun şekilde bağlanacak ve kök sisteme bu havuz bağlanacaktır.
+
 
 
 ### ZFS Disk Havuzundan Disk Çıkarmak
