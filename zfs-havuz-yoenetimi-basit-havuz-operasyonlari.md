@@ -2,13 +2,13 @@
 description: ZFS'nin havuz işlemleri ve vdev işlemleri ile başlayan ufak bir ısınma turu
 ---
 
-## ZFS Aygıt Havuzunda Temel İşlemler
+# ZFS Havuz Yönetimi - Basit Havuz Operasyonları
 
 ZFS yönetimi, basitlik göz önünde bulundurularak tasarlanmıştır. Tasarım hedefleri arasında, kullanılabilir bir dosya sistemi oluşturmak için gereken komutların sayısını azaltmaktır. Örneğin, yeni bir havuz oluşturduğunuzda, otomatik olarak yeni bir ZFS dosya sistemi oluşturulur ve bağlanır. Bağlama konumu \(siz aksini belirtmedikçe\) sisteminizin kök dizinidir.
 
 ZFS'de aygıt havuzu işlemleri `zpool` komutu ile yönetilir.
 
-### ZFS Aygıt Havuzu Oluşturmak
+## ZFS Aygıt Havuzu Oluşturmak
 
 İlk olarak `zpool` komutu ile elimizdeki aygıt havuzu listesini görelim.
 
@@ -50,7 +50,7 @@ tank  14.5G   100K  14.5G        -         -     0%     0%  1.00x    ONLINE  -
 
 Bu komutun çıktısında gördüğümüz gibi aygıt havuzunun toplam boyutu, kullanılan ve boş alan, aygıt havuzundaki disklerin sağlığı durumu ve ek bazı detaylar var. Bu komut sayesinde sisteminizde yer alan bütün ZFS havuzlarının listesini kolaylıkla görebilirsiniz.
 
-###  Birden Fazla Diskle ZFS Disk Havuzu Oluşturmak
+## Birden Fazla Diskle ZFS Disk Havuzu Oluşturmak
 
 `zpool` ile aynı anda birden fazla diski de tek havuzda kullanabileceğimizden bahsetmiştim. Bunu ilk kurulum aşamasında yapabiliriz. Bunun için şu komutu vermemiz yeterlidir.
 
@@ -143,7 +143,7 @@ Bunlara ek olarak aygıt havuzunda birden fazla grup da ekleyebiliriz
 
 Gördüğünüz gibi tek bir zpool havuzu sayesinde birden fazla diske ait bütün alanı eşzamanlı olarak kullanabiliyoruz. Ayrıca farklı disk alanlarını aynı havuz içerisinde farklı amaçlarla da kullanabiliyoruz. Bu sayede birden fazla diske sahip olan sunucularda ayrı ayrı diskleri bölümlendirmek ve bağlamakla uğraşmak yerine bir seferde bunları tek bir disk alanı gibi kullanabiliyoruz ve bir tek konuma bağlayabiliyoruz.
 
-### ZFS Disk Havuzuna Yeni Diskler Eklemek
+## ZFS Disk Havuzuna Yeni Diskler Eklemek
 
 Şimdi bir senaryo ile geleyim. Halihazırda `/dev/sdb` ve `/dev/sdc` disklerini eklediğimiz bir havuz var ve tüm depolama alanının dolmuş olduğunu varsayalım. Eğer yeterli boş disk slotumuz varsa ek diskler ekleyerek yeni boş alanlar oluşturabiliriz. Ama dur bir saniye. Bütün bu disk havuzunu sıfırlamamız mı lazım. Tabi ki hayır. Geleneksel disk yönetim sistemlerinin aksine ZFS'de bunu havuza eklemek için basit bir komut yeterlidir.
 
@@ -206,19 +206,17 @@ tank              ONLINE       0     0     0
         sdf     ONLINE       0     0     0
 ```
 
-### ZFS Aygıt Havuzlarının İçe Aktarılması
+## ZFS Aygıt Havuzlarının İçe Aktarılması
 
 Diyelim ki bir başka bilgisayarda uğraştığımız bir ZFS havuzu var. Bu havuzu başka bir bilgisayara bağlamak için `zpool import` komutu kullanılır.
 
-```
+```text
 ~# zpool import tank
 ```
 
 Bu işlem bütün disklerin ve temel aygıtların yapılandırması, bellek şeritlerinin okunması ve uygun şekilde bağlanması için biraz süre gerekecektir. Bu sürenin ardından uygun şekilde bağlanacak ve kök sisteme bu havuz bağlanacaktır.
 
-
-
-### ZFS Aygıt Havuzundan Disk Çıkarmak
+## ZFS Aygıt Havuzundan Disk Çıkarmak
 
 Şimdi yaptığımız işleri birazcık da geri sardıralım.
 
@@ -280,9 +278,7 @@ config:
       sdc     ONLINE       0     0     0
 ```
 
-
-
-### ZFS Aygıt Havuzunu Yok Etmek
+## ZFS Aygıt Havuzunu Yok Etmek
 
 Bütün bir aygıt havuzunu silmek için ise `zpool destroy` komutunu kullanabiliriz.
 
@@ -295,20 +291,21 @@ Bütün bir aygıt havuzunu silmek için ise `zpool destroy` komutunu kullanabil
 no pools available
 ```
 
-### ZFS Aygıt Havuzlarının Dışa Aktarılması
+## ZFS Aygıt Havuzlarının Dışa Aktarılması
 
 Diyelim ki üzerinde çalıştığımız ZFS havuzunu başka bir bilgisayara aktarmak istiyoruz. Halihazırda ekleme yapmayı yukarıda anlattım ama başka bir bilgisayara bağlamadan önce güvenli bir şekilde çalıştığımız bilgisayardan kaldırmamız lazım. Bu işlem için `zpool export` komutu kullanılır.
 
-```
+```text
 ~# zpool export tank
 ```
+
 Bu işlem bütün disklerin yapılandırması ve verilerin senkronize edilerek ayrılması biraz uzun sürecektir. Bu sürenin ardından uygun şekilde bağlanacak ve kök sisteme bu havuz bağlanacaktır.
 
+## ZFS Havuz Geçmiş
 
-### ZFS Havuz Geçmiş
 ZFS aygıt havuzu sistemi, bu yaptığımız işlemleri adım adım görmemize imkan sağlayan bir geçmiş günlüğü yapısına sahiptir. Bütün bu değişimleri `zpool history` ile görebiliriz. Bu komuta ek olarak havuzumuzun adını verirsek, özel olarak o havuza ait geçmişi verecektir. Eğer herhangi bir parametre vermezsek bütün havuzlara ait geçmişleri verecektir. Bu geçmiş bilgisi disklerin aygıt havuzunu belirten hearder kısımları içerisine toplanır, yani başka bir bilgisayara bu diskleri aktardığımız zaman silinemez. Ancak `zpool destroy` komutu ile bu aygıt havuzunu yokettiğimizde bu geçmişi de kaybederiz.
 
-```
+```text
 ~# zpool history tank
 
 History for 'tank':

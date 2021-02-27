@@ -1,8 +1,6 @@
+# ZFS'ye Giriş
 
-
-# ZFS Disk Yönetimi - Basit Disk Operasyonları
-
-ZFS'de disk yönetimi iki temel üzerinde ele alınır. Üstte sanal disk havuzu **(zpool)** bulunmaktadır. Bu sanal disk boyutu altında farklı disk alanları ve dosya hiyerarşilerinden oluşan bir grup dosya sistemi bulunmaktadır **(Z File System)**.
+ZFS'de disk yönetimi iki temel üzerinde ele alınır. Üstte sanal disk havuzu **\(zpool\)** bulunmaktadır. Bu sanal disk boyutu altında farklı disk alanları ve dosya hiyerarşilerinden oluşan bir grup dosya sistemi bulunmaktadır **\(Z File System\)**.
 
 ZFS'de disk alanları ve dosya sistemleri, sanal disk havuzunun altında oluşturulan katmandır. Farklı ZFS diskler ve farklı bölümleri aynı havuz içerisine kaydedilerek bu havuza ekleme ve çıkarma işlemi yapılabilir. ZFS dosya sistemleri, herhangi bir temel disk alanı ayırmanıza veya biçimlendirmenize gerek kalmadan dinamik olarak oluşturulabilir ve yok edilebilir. Dosya sistemleri çok hafif olduğundan ve ZFS'de merkezi yönetim noktası olduklarından, bunlar hem oldukça esnek hem de manüplasyonu tehlikeli yapılardır. Yani yaptığımız düzenlemeler kesinlikle çok dikkatlice yapılmalıdır. Çünkü dosya sistemleri üzerinde meydana gelen bir hasar kesinlikle bütün havuzu etkileyecektir ve hatta havuzun yok olmasına bile sebep olabilecek bir veri sorununa sebep olacaktır.
 
@@ -18,10 +16,7 @@ ZFS'de yedi tür VDEV cihazı türü vardır:
 * **önbellek \(cache\):** Seviye 2 uyarlanabilir okuma önbelleği \(L2ARC\) için kullanılan cihaz. 
 * **günlük \(log\):** "ZFS Amaç Günlüğü" veya ZIL adı verilen ayrı bir günlük \(SLOG\).
 
-
-
 ZFS dosya sistemleri, `zfs` komutu kullanılarak yönetilir. ZFS komutu, dosya sistemlerinde belirli işlemleri gerçekleştiren bir dizi alt komut sağlar. Bu alt komutlar basit disk işlemleri \(disk alanı ekleme, çıkarma, kontrol etme\) haricinde daha öncesinde bahsettiğim aynalama \(`mirror`\) ve yedekleme \(`spare`\) işlerini de sağlar.
-
 
 ZFS dosya sistemlerini oluşturmak ve yönetmek için ilk yapmamız gereken işlem bir ZFS disk havuzu oluşturmak. İlk adımda bu havuzları nasıl oluşturup nasıl manüple edeceğimizi göreceğiz.
 
