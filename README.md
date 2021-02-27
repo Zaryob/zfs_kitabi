@@ -22,7 +22,7 @@ Copyright (C) 2020 Süleyman POYRAZ <zaryob.dev@gmail.com>.
 
 ## Bu Belgeleme Hakkında
 
-Bu belgeleme bir harmanlama projesidir. **ZFS** hakkında yazılmış bütün kaynakları inceleyerek, Türkçe bir kaynak oluşturma çabasına girmemin bir ürünürdür.
+Bu belgeleme bir harmanlama projesidir. **ZFS** hakkında yazılmış bütün kaynakları inceleyerek, Türkçe bir kaynak oluşturma çabasına girmemin bir ürünüdür.
 
 Bu belgelendirmede yararlanılan kaynaklar Kaynakça bölümünde belirtilecektir.
 
