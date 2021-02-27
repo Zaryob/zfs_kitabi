@@ -1,5 +1,5 @@
 ---
-description: Detaylı ZFS Disk Yönetimi Komutları
+description: ZFS Disk Hiyerarşisini ve temel işlemleri açıklamaktadır.
 ---
 
 # ZFS Disk Hiyerarşisi

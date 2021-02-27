@@ -10,6 +10,7 @@
 * [ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Özellikleri](zfs-havuz-yoenetimi-bazi-ek-oezellikler.md)
 * [ZFS Disk Hiyerarşisi](zfs-hiyerarshisi.md)
 * [ZFS Üst Düzey Disk Hiyerarşi Komutları](zfs-uest-duezey-disk-hiyerarsi-komutlari.md)
+* [ZFS Veri Kurtarma Senaryoları](zfs-veri-kurtarma-senaryolari.md)
 * [Ekler](ekler.md)
 * [Kaynakça](kaynakca.md)
 * [GNU Özgür Belgelendirme Lisansı](lisans.md)

@@ -1,5 +1,5 @@
 ---
-description: Karmaşadan düzen oluşturmak...
+description: ZFS'nin Terminolojisinin teknik detaylar ile harmanlandığı nokta.
 ---
 
 # ZFS'yi Anlamak

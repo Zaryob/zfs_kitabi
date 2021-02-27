@@ -1,5 +1,8 @@
 ---
-description: Lisans metni
+description: >-
+  Lisans metninin Türkçesidir. Aslında çeviridir. Lisansın İngilizce
+  versiyonunun açıklaması niteliğindedir. Lisansın doğru anlaşılması için asıl
+  metni okunması önemle rica olunur.
 ---
 
 # GNU Özgür Belgelendirme Lisansı

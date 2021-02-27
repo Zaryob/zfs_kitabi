@@ -1,3 +1,7 @@
+---
+description: ZFS'nin temel özellikleri ve terminolojisi üzerine birkaç sayfa.
+---
+
 # ZFS'nin Özellikleri
 
 ## ZFS'nin Özellikleri

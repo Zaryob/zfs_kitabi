@@ -1,7 +1,8 @@
 ---
 description: >-
-  ZFS dosya sistemini reel donanım üzerinde kullanmak için OpenZFS'yi indirmeye
-  dair.
+  ZFS dosya sistemini işletim sistemi üzerinde kullanmak için OpenZFS'yi
+  edinmeyi anlatmaktadır. Esasen FreeBSD, Linux detaylı anlatılmışken, OSX ve
+  Windows desteğine dair yüzeysel bilgi verilmiştir.
 ---
 
 # ZFS'yi Çalışma Ortamına Kurmak

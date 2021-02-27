@@ -1,5 +1,5 @@
 ---
-description: ZFS Havuz Yönetimi Komutları
+description: ZFS Havuz Yönetimine dair bazı ek özellikleri açıklamaktadır.
 ---
 
 # ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Özellikleri

@@ -1,5 +1,5 @@
 ---
-description: Detaylı ZFS Havuz Yönetimi Komutları
+description: Detaylı ZFS Havuz Yönetimi Komutlarını içermektedir.
 ---
 
 # ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
