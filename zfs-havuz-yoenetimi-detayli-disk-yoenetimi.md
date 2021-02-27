@@ -8,7 +8,7 @@ description: Detaylı ZFS Havuz Yönetimi Komutları
 
 Bu kısıma kadar ufak bir giriş yaptığımız ZFS aygıt yönetim sisteminin daha öncesinde bahsettiğimiz özelliklerine değineceğiz. Bunu yaparken bir önceki bölümde kısaca değindiğimiz aynalanmış disk sistemleri oluşturmayı, RAIDZ diskleri oluşturma ve bu disklerin özelliklerini açıklayacağım ve gerçek zamanlı bazı örneklerden bahsedeceğim.
 
-## ZFS Aygıt Tipleri
+## ZFS Aygıt Tipleri ve Havuzdaki Kullanımları
 
 Bir önceki bölümde bahsettiğim gibi temel olarak 5 bölüm bulunmakta.  Bunlar **disk \(varsayılan\):**, **dosya \(file\)**, **ayna \(mirror\)**, **raidz1/2/3**, **yedek \(spare\)**, **önbellek \(cache\)**, **günlük \(log\)**dir. Şimdi tek tek bunların özelliklerinden bahsedelim ve havuza bunları eklemeyi görelim.
 
@@ -445,6 +445,19 @@ tank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
 
 Gördüğümüz gibi `mirror` blogu tek bir ana disk alanı ihtiva ederken `cache` buna ek olarak bir aygıt alanı getirmemektedir. Yani bu alan fiziksel depolama için kullanılamamaktadır.
 
+## ZFS'de Havuz Aktarım İşlemleri
+
+### ZFS Havuzunu Dışa Aktarmak
+
+### ZFS Havuzunu İçe Aktarmak
+
+## ZFS Havuzunda Veri Kontrolleri
+
+### Scrub
+
+### Resilvering
+
+## ZFS Havuzunda Snapshot İşlemleri
 
 
-
+## ZFS Havuzunun Detaylı Öznitelikleri

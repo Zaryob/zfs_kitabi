@@ -12,4 +12,3 @@
 * [Ekler](ekler.md)
 * [Kaynakça](kaynakca.md)
 * [GNU Özgür Belgelendirme Lisansı](lisans.md)
-
