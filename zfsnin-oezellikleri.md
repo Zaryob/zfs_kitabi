@@ -10,7 +10,7 @@ ZFS disk yapısının getirdiği sistem mevcut disk yapıları ve RAID dizilerin
 
 **Dosyalama sistemi ve Kapasite**
 
-**ZFS**, **"128bit"** bir dosya sistemidir. Yani **128bit**, içindeki herhangi bir birim için en büyük boyutlu adrestir. Bu boyut, öngörülebilir gelecekte herhangi bir zamanda sınırlandırılması muhtemel olmayan kapasitelere ve boyutlara izin verir. Örneğin, uyguladığı teorik sınırlar dizin başına 2^48 giriş, maksimum dosya boyutu **16 EB** \(2 ^ 64 veya ~ 16 \* 2 ^ 18 bayt\) ve "**zpool**" başına maksimum 2^64 sanal aygıtı içerebilir.
+**ZFS**, **"128bit"** bir dosya sistemidir. Yani **128bit**, içindeki herhangi bir birim için en büyük boyutlu adrestir. Bu boyut, öngörülebilir gelecekte herhangi bir zamanda sınırlandırılması muhtemel olmayan kapasitelere ve boyutlara izin verir. Örneğin, uyguladığı teorik sınırlar dizin başına 2^48 giriş, maksimum dosya boyutu **16 EB** \(2^64 veya ~ 16\*2^18 bayt\) ve "**zpool**" başına maksimum 2^64 sanal aygıtı içerebilir.
 
 ZFS 128-bit adresleme şeması sayesinde 256 katrilyon zettabayt depolayabilir, bu da **1000 PB \(petabayt\)** depolama kapasitesini aşan ölçeklenebilir bir dosya sistemine dönüşürken, tekli veya çoklu **RAIDz** dizilerinde yönetilmesine izin verir.
 

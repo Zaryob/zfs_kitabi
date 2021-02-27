@@ -58,14 +58,14 @@ Bu komutun çıktısında gördüğümüz gibi aygıt havuzunun toplam boyutu, k
 ~# zpool create tank /dev/sdb /dev/sdc
 ```
 
-Bu komutla iki tane 16 GB'lık diski bir zpool içerisine eklemiş olduk. Bu işlem sonucunda havuz alanımız şu şekilde görünecektir.
+Bu komutla iki tane 16 GB'lık diski bir aygıt havuzu içerisine eklemiş olduk. Bu işlem sonucunda havuz alanımız şu şekilde görünecektir.
 
 ```text
 NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
 tank  29.0G   148K  29.0G        -         -     0%     0%  1.00x    ONLINE  -
 ```
 
-Eklediğimiz yeni disk alanını, daha fazla disk alanına sahip olmak için kullanmak zorunda değiliz. Bunu daha öncesinde belirttiğim aynalama yani `mirror` işlemi için de kullanmak isteyebiliriz. Bu durumda bize `RAID` yuvalaması \(nesting\) yardımıza koşuyor. Bunu bir sonraki kısımda özellikle detaylandırarak anlatacağım ama şimdi bahsetmeden geçmemek istedim. Bu özellik sayesinde eklediğimiz diskleri gruplayarak ekleyebiliriz. Kimi diskleri günlükleme kimi diskleri geçici depolama ve önbellekleme için kullanabiliriz. Bu durumda disk alanını oluştururken şunu yapmamız yeterlidir.
+Eklediğimiz yeni diski, daha fazla havuz alanına sahip olmak için kullanmak zorunda değiliz. Bunu daha öncesinde belirttiğim aynalama yani `mirror` işlemi için de kullanmak isteyebiliriz. Bu durumda bize ZFS'nin disk yuvalaması \(nesting\) yardımıza koşuyor. Bunu bir sonraki kısımda özellikle detaylandırarak anlatacağım ama şimdi bahsetmeden geçmemek istedim. Bu özellik sayesinde eklediğimiz diskleri gruplayarak ekleyebiliriz. Kimi diskleri günlükleme kimi diskleri geçici depolama veya önbellekleme için kullanabiliriz. Bu durumda disk alanını oluştururken şunu yapmamız yeterlidir.
 
 ```text
 ~# zpool create tank mirror /dev/sdb /dev/sdc
@@ -141,7 +141,7 @@ Bunlara ek olarak aygıt havuzunda birden fazla grup da ekleyebiliriz
       sdi           ONLINE       0     0     0
 ```
 
-Gördüğünüz gibi tek bir zpool havuzu sayesinde birden fazla diske ait bütün alanı eşzamanlı olarak kullanabiliyoruz. Ayrıca farklı disk alanlarını aynı havuz içerisinde farklı amaçlarla da kullanabiliyoruz. Bu sayede birden fazla diske sahip olan sunucularda ayrı ayrı diskleri bölümlendirmek ve bağlamakla uğraşmak yerine bir seferde bunları tek bir disk alanı gibi kullanabiliyoruz ve bir tek konuma bağlayabiliyoruz.
+Gördüğünüz gibi tek bir aygıt havuzu sayesinde birden fazla diske ait bütün alanı eşzamanlı olarak kullanabiliyoruz. Ayrıca farklı disk alanlarını aynı havuz içerisinde farklı amaçlarla da kullanabiliyoruz. Bu sayede birden fazla diske sahip olan sunucularda ayrı ayrı diskleri bölümlendirmek ve bağlamakla uğraşmak yerine bir seferde bunları tek bir disk alanı gibi kullanabiliyoruz ve bir tek konuma bağlayabiliyoruz.
 
 ## ZFS Disk Havuzuna Yeni Diskler Eklemek
 
@@ -184,7 +184,7 @@ tank              ONLINE       0     0     0
         sdc       ONLINE       0     0     0
 ```
 
-Şimdi de yeni bir mirror seti ekleyelim.
+Şimdi de yeni bir ayna grubu ekleyelim.
 
 ```text
 ~# zpool add tank mirror /dev/sdd /dev/sdf
