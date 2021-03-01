@@ -441,17 +441,225 @@ Gördüğümüz gibi `mirror` blogu tek bir ana disk alanı ihtiva ederken `cach
 
 ## ZFS'de Havuz Aktarım İşlemleri
 
+ZFS'de aygıt havuzları sadece sıfırdan oluşturma yolu ile değil aktarım yolu ile de elde edilebilir. Geleneksel disk yönetim sistemlerinde diskler takıldığı anda diski bağlamak için tek yapmamız gereken diskin bağlama komutunu vermek olacaktır. Çoğunlukla diski bağlamak için kullandığımız komutlar işletim sistemleri tarafından karşılanmaktadır. Ancak, ZFS'de bu diskleri uygun şekilde bulup bağlamamız gerekmektedir.
+
+
+Yine aynı şekilde geleneksel disk yönetim sistemlerinde diskleri ayırmak için kullanılan disk domutları çoğunlukla işletim sistemi tarafından gelmektedir. ZFS'de ise geleneksel yöntemlerin aksine bu işlem için `zpool` havuz yöneticisi tarafından kullanılan komutları kullanmamız gerekmektedir.
+
+Bir diğer önemli husus ise geleneksel disk yönetim sistemlerinin aksine ZFS'de bu işlemlerde basit bir güç kesme işleminin aksine bazı önemli işlemlerin tamamlanmasını beklemek gerekmektedir, ki bu işlemler tamamen veri güvenliğini sağlamak için kullanılmaktadır. Örneğim dışa aktarma esnasında, yazılmamış verileri diske temizler, diske dışa aktarmanın yapıldığını belirten verileri yazar ve havuzla ilgili tüm bilgileri sistemden kaldırır. İçe aktarma esnasında ise diskleri okuyarak havuzu oluşturur, aynalamaları kontrol eder ve veri kayıplarını tespit eder, kayıp kaynakları bulup eşleştirmeler yolu ile kayıp olan kaynakları telafi etmeye çalışır ve bütün verileri kök sisteme `veya nereye isteseniz` bağlar.
+
+ZFS'de içe aktarma ve dışa aktarma yapmayı daha öncesinde göstermiştim. `zpool import` ve `zpool export` komutları içe ve dışa aktarma işleri için kullanılmaktadır.
+
 ### ZFS Havuzunu Dışa Aktarmak
+
+Bir havuzu dışa aktarmak için `zpool export` komutunu kullanılır.
+
+```
+~# zpool export tank
+```
+
+Bu komut, devam etmeden önce havuzdaki bağlı dosya hiyerarşilerini kaldırmaya çalışır. Dosya hiyerarşilerini daha detaylandırmadım lakin dosya hiyerarşiler bir şekilde işletim sistemi ile havuz arasındaki bağlantıyı sağlıyor diyebilirim. Bazen dışa aktarma işlemi esnasında işletim sistemine ait işlemlerin bitmesi beklenir. Bu sebeple dosya hiyerarşileri havuzları kilitleyebilir. Dosya hiyerarşilerinin bu kilit durumunu kaldırmak için, `-f` parametresini kullanabilir ve bunları zorla kaldırabilirsiniz. Örneğin:
+
+```
+~# zpool ihracat tankı
+'/ export / home / eschrock' bağlantısı kesilemiyor: Cihaz meşgul
+~# zpool export -f tankı
+```
+
+Havuzda ZFS birimleri kullanılıyorsa, havuz `-f` seçeneğiyle bile dışa çıkarılamaz. ZFS'de hacimli bir havuzu dışa aktarmak için, öncelikle birimin üzerindeki çalışan işleticilerin ve göreletin tamamlanmış ve artık aktif olmadığından emin olun.
+
+Bu komutun yerine getirilmesinden sonra aygıt havuz artık sistemden ayrılmış olur.
+
+**NOT:** Dışa aktarma sırasında havuza ait bütün cihazlar mevcut değilse, cihazlar temiz bir şekilde dışa aktarılmış olarak tanımlanamaz. Bu durum potansiyel olarak bazı havuz hatalarına sebep olabilir. Bu yüzden bütün diskleri aktarım işlemleri sırasında kontrol ediniz.
+
+`zpool` tarafından kullanılan bütün aktif havuzları kaldırmak için ise `-a` parametresini kullanmamız gerekmektedir.
+
+```
+~# zpool list
+NAME      SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank      3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+tank2     3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+filetank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+hometank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+serv      3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+
+~# zpool export -a
+~# zpool list
+no pools available
+
+```
 
 ### ZFS Havuzunu İçe Aktarmak
 
+Havuz sistemden kaldırıldıktan sonra (açık bir dışa aktarım yoluyla veya cihazları zorla kaldırarak), cihazları başka bir sisteme ekleyebilirsiniz. ZFS, yalnızca `mandatory` olan bazı cihazların mevcut olduğu bazı durumlarda içe aktarma yapabilir, ancak başarılı bir havuz aktarımı, cihazların genel sağlığına bağlıdır. Ancak, başka bir sistem tarafından bir depolama ağı üzerinden kullanımda olan bir havuzu içe aktarmak, her iki sistem de aynı depolama alanına yazmaya çalıştığından veri bozulmasına ve paniğe neden olabilir. 
+
+Ek olarak, cihazların aynı cihaz adı altında bağlanması gerekmez. ZFS, taşınan veya yeniden adlandırılan cihazları algılar ve yapılandırmayı uygun şekilde ayarlar. Kullanılabilir havuzları keşfetmek için, zpool içe aktarma komutunu seçenek olmadan çalıştırın. Örneğin:
+
+```
+~# zpool import
+
+ pool: tank
+    state: ONLINE
+    action: The pool can be imported using its name or numeric identifier.
+    config:
+
+        tank        ONLINE
+          mirror-0  ONLINE
+            sdb     ONLINE
+            sdc     ONLINE
+```
+Bu komut sadece içe aktarılacak aygıların listesini bize verecektir. Bu aşamadan sonra **`zpool import tank`** diyerek içeri aktarımı tamamlayabiliriz. Bu komutun avantajı içe aktarım yapmadan önce aktarımda yaşanabilecek öngörülebilir hataları bize vermesidir.
+
+Havuzdaki bazı cihazlar mevcut değilse ancak kullanılabilir bir havuz sağlamak için yeterli yedek veri mevcutsa, havuz BOZULMUŞ durumda görünür. Örneğin:
+
+```
+~# zpool import
+    pool: tank
+    state: DEGRADED
+    status: One or more devices are missing from the system.
+    action: The pool can be imported despite missing or damaged devices.  The
+        fault tolerance of the pool may be compromised if imported. 
+    
+    config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        DEGRADED     0     0     0
+          mirror-0  DEGRADED     0     0     0
+            sdc     UNAVAIL      0     0     0  cannot open
+            sdd     ONLINE       0     0     0
+```
+
+Bağlama yapılacağı zaman yedekleri kullanarak asıl havuzu inşaa edebilir, yani import işlemi için hala izin verebilir. Ancak diskleri kaybedebileceğimiz bir hatada havuz bağlanamaz durumda olabilir.
+
+```
+~# zpool import
+  pool: tank
+  state: FAULTED
+  action: The pool cannot be imported. Attach the missing
+          devices and try again.
+  config:
+        raidz1-0       FAULTED
+          sdc          ONLINE
+          sdd          FAULTED
+          sde          ONLINE
+          sdf          FAULTED
+```
+
+Bu durumda import işlemi için izin verilmeyecektir. `FAULTED` olarak işaretlenmiş olan aygıt havuzu bağlanamayacaktır.
+
 ## ZFS Havuzunda Veri Kontrolleri
 
-### Scrub
+Geleneksel disk yönetim sistemlerinde veri kontrolleri yardımcı programlar aracılığı ile yapılır. Windows'ta otomatik bazı araçlar yardımı ile yapılırken; GNU/Linux'ta, diskteki veri bütünlüğünü doğrulamak, bir dizi dosya sistemi kontrol pogramları aracılığı ile yapılmaktadır. Bu işlem, `fsck` araç kiti aracılığıyla yapılır.
 
-### Resilvering
+Bununla birlikte, `fsck` sisteminin birkaç büyük dezavantajı vardır. İlk olarak, veri hatalarını düzeltmeyi düşünüyorsanız diski çevrimdışı olarak kontrol etmeniz gerekir. Bu, diskin kontrol ve düzeltme esnasında kullanılamaz halde olması demektir. Bu nedenle, `fsck`'den önce disklerinizi ayırmak için `umount` komutunu kullanmalısınız. 
 
-## ZFS Havuzunda Snapshot İşlemleri
+Bu örnek vermek gerekirse, kök dizinin bağlı bulunduğu disk bozulması durumunda, kontrolü yapmak için bir CDROM veya USB bellek gibi başka bir ortamdan bir sistem önyüklemesi yapmamız gerekmektedir. Disklerin boyutuna bağlı olarak saatler sürebilen bu işlem, büyük sistemler için saatlerce sürecek sistem kesintilerine sebep olabilir. 
+
+İkincisi ise şudur ki, `ext3` veya `ext4` gibi geleneksel dosya sistemleri, `LVM` veya `RAID` gibi üst düzey veri yapıları ve disk sistemleri ile bağlantı katmanı yoktur. Örneğin RAID dizisi için bir diskte bozuk bir bloğunuz olabilir, ancak başka bir diskte herhangi bir sorun bulunmayabilir ancak, Linux'taki disk yazılımı RAID'in bağlanması ve kontrol edilmesi esnasında hangisinde veri kaybı olduğu hakkında hiçbir fikri yoktur. `ext3` veya `ext4` açısından, sorunsuz diskten bloklar okunduğunda düzgün veri alınırken bozuk bloğu içeren diskten okurken, ister istemez, bozuk veri alınır. Verilerin hangi diskten çekileceği ve bozulmanın düzeltilmesi üzerinde herhangi bir kontrol yapısı da bulunmamaktadır. Bu hatalar **"sessiz veri hataları"** olarak bilinir ve standart GNU/Linux dosya sistemi yığınıyla bu konuda yapabileceğiniz hiçbir şey yoktur.
+
+ZFS'nin belki de en iyi yanı bu sessiz hataları kendi içerisinde halletmektedir. Bu işlemi herhangi bir hizmet kesintisi olmadan sağlayabilmektedir. Bu işlemi yaparken de tüm diskler uygun şekilde yeniden yapılandırılabilmekte ve tamamen kullanıcı müdahalesine gerek kalmadan bu işlemler yapılmaktadır.
+
+Linux'ta ZFS ile sessiz veri hatalarının tespiti ve düzeltilmesi, diskleri temizleyerek yapılır. Bu, ECC RAM'leri ile teknik olarak benzerdir; burada ECC DIMM'de bir hata varsa, sistem otomatik olarak iyi verileri içeren başka bir kayıt bulabilir ve onu kötü kaydı düzeltmek için kullanabilir.
+
+Bu tip sessiz veri düzeltmeleri bir süredir pek çok donanımda kullanılmaktadır. Ayrıca, bu yöntem sayesinde bir sistemde ECC RAM'i kesinti olmadan temizleyebildiğiniz gibi, disklerinizi kesinti olmadan da temizleyebilmelisiniz. Ancak geleneksel dosya sistemlerinde bu tarz bir yapı bulunmamaktadır. Bunun temelindeki sebep ise hız gerektiren durumlarda disk üzerinde bu şekilde işlem yapan bir yapı istenmemesidir. `BTRFS` gibi sonradan geliştirilen disk yönetim sistemlerinde her ne kadar bu yer almaya başladıysa bile hala aktif olarak pek çok geleneksel sistemde bulunmamaktadır.
+
+
+ZFS bu işlemleri kolaylaştırmak için temizleme ve yeniden yayımlama işlemi yapan iki adet altyapı ile gelmektedir.
+
+ZFS, havuzunuzda bir temizleme işlemi yaparken, depolama havuzundaki her bloğun bilinen sağlama toplamına göre kontrol eder. Yukarıdan aşağıya her blok, varsayılan olarak uygun bir algoritma kullanılarak sağlama toplamı alınır. Daha öncesinde belirttiğim gibi bu sağlama topları, 256 bitlik bir algoritma olan **"fletcher4"** algoritması ile alınmaktadır.
+Diğer dosya sistemlerinin aksinde **fletcher4** kullanılmasının sebebi, SHA-256 sağlama toplamının hesaplanması fletcher4'ten daha maliyetli olmasındandır. Ancak ZFS yine de SHA256 sistemini kendi içerisinde de getirmektedir ve önerilmese de, SHA-256 algoritması blok kontrol yapısında kullanılabilir.
+
+ZFS, disklerdeki verileri kurtarmak ve düzeltmek için yine bu ikili sağlama toplamları kullanılmaktadır. Burada önemli olan nokta herhangi bir yedek ya da aynalama diskine sahip bir havuza sahip olup olmamızdır. Bu şekilde bir yedekli yapımız bulunuyorsa ZFS'de veri kendi kendine düzeltilebilmektedir. Bu işleme `self-healing` yani kendini iyileştirme işlemi denmektedir.
+
+### ZFS'de Sorun Temizleme İşlemi: Scrub
+
+ZFS depolama havuzlarını temizlemek, otomatik olarak gerçekleşen bir işlem değildir. Bu işlemi manuel olarak tetiklememiz gerekir. Verileri bu şekilde kontrol etmek ve temizlemek için bize gerekecek süre disk türüne bağlı olarak değişmekle beraber sıklıkla yapılması gerekmektedir.
+
+Bu temizlik işlemi `zpool scrub` komutu ile yapılmaktadır.
+
+```
+~# zpool scrub tank
+~# zpool status
+  pool: tank
+  state: ONLINE
+  scan: scrub repaired 0B in 00:00:01 with 0 errors on Mon Mar  1 11:02:01 2021
+  config:
+
+	NAME           STATE     READ WRITE CKSUM
+	tank           ONLINE       0     0     0
+	  mirror-0     ONLINE       0     0     0
+	    sdc        ONLINE       0     0     0
+	    sdd        ONLINE       0     0     0
+	logs	
+	    sde        ONLINE       0     0     0
+	    sdf        ONLINE       0     0     0
+
+errors: No known data errors
+
+```
+
+Gördüğümüz gibi `scan:` olarak görülen yeni bir durum tagı açıldı. Ve burada ilerlememizi kolayca görebiliriz. Devam eden bir temizlik işlemini de aşağıdaki komutla durdurabiliriz.
+
+```
+~# zpool scrub -s tank
+```
+
+### Resilvering Kavramı ve Bozuk Disklerin Tasfiye İşlemi
+
+Verileri yeniden yayımlamak `(resilvering)`, verileri yeni diskte diziye yeniden oluşturmak veya yeniden eşitlemek demektir. Ancak,  donanım bazlı RAID denetleyicileri ve diğer geleneksel RAID uygulamaları ile hangi blokların gerçekte sorunsuz olduğu ve hangilerinin olmadığı arasında bir ayrım yapamazlar. Bu nedenle, yeniden oluşturma diskin başlangıcında başlar ve diskin sonuna ulaşıncaya kadar durdurulamaz. 
+
+ZFS, RAIDZ yapısını ve dosya sistemi meta verilerini bildiğinden, verileri yeniden oluşturma konusunda daha akıllıca bir yol izler. ZFS, veri bloklarının saklanmadığı boş diskte boşa zaman harcamak yerine, sadece veri blokları bulunan canlı bloklarla işlem yapmaktadır. Bu, depolama havuzu kısmen doluysa önemli ölçüde zaman tasarrufu sağlayabilir. Örneğin havuzun yalnızca %25'i doluysa, bu, sürücülerin yalnızca %25'inde işlem yapmak ve bir diski düzeltmek için kullanılacak zamanın %25'inin bütün diski düzeltmek için yeteceği anlamına gelmektedir. 
+
+Ne yazık ki zamanla disk havuzundaki diskler ölecek ve değiştirilmeleri gerekecek. Depolama havuzunuzda bu diskleri karşılayabilecek fazlalık diskler olması ve bazı arızaları karşılayabilmeniz koşuluyla (örneğin daha öncesinde belirttiğim gibi RAIDZ1 için 3 diskte sadece 1 disk arızası yaşanması koşulu gibi), havuz "DEGRADED" modunda olsa bile uygulamalara veri gönderip alabilir ve diskleri onarabilirsiniz. 
+
+Sistem çalışır durumdayken disk değiştirme lüksüne sahipseniz, diski kesinti olmadan değiştirebilirsiniz, değilse, yine de ölü diski tanımlamanız ve değiştirmeniz gerekecektir. Havuzunuzda çok sayıda disk varsa, bu bir angarya olabilir, çünkü takılı disklerin hepsini tanıyıp elle değiştirmeniz gerekmekte. Hepsinin seri numarasını "hdparm" adlı bir yardımcı programla tespit etseniz de diskleri söküp yerine yenisini takmak için bütün disk havuzundaki diskleri tek tek bulup doğru diski tespi etmemiz gerekmektedir. Örneğin, havuz içerisinde kullandığımız 5 tane disk olsun diyelim, bunlar aşağıdaki gibi id'lenmiş olsun.
+
+```
+/dev/sdc: WD-WX21A689CJ0H
+/dev/sdd: HSGT-HG23F829AJ9F
+/dev/sde: K34X52ADC2RX
+/dev/sdf: /dev/sde: No such file or directory
+/dev/sdg: AX231DEF
+```
+
+Görünüşe göre `/dev/sde` diskinin seri numarasına ulaşılamadı yani bu disk benim için ölü disk ve havuzda görülemiyor.
+
+Diski çıkarıp, yenisiyle değiştirelim ve bunu başka bir diskle değiştirelim. Eklediğimiz disk `/dev/sdh` üzerine bağlanmış olsun. Bu diskleri `zpool replace` komutu ile değiştirelim.
+
+
+```
+~# zpool replace tank sde sdh
+~# zpool status tank
+   pool: tank
+   state: ONLINE
+   status: One or more devices is currently being resilvered.  The pool will
+           continue to function, possibly in a degraded state.
+   action: Wait for the resilver to complete.
+   scrub: resilver in progress for 0h2m, 16.43% done, 0h13m to go
+   config:
+
+        NAME          STATE       READ WRITE CKSUM
+        tank          DEGRADED       0     0     0
+          mirror-0    DEGRADED       0     0     0
+            sdc       ONLINE         0     0     0
+            sdd       ONLINE         0     0     0
+          mirror-1    ONLINE         0     0     0
+            replacing DEGRADED       0     0     0
+            sdh       ONLINE         0     0     0
+            sdf       ONLINE         0     0     0
+          mirror-2    ONLINE         0     0     0
+            sdg       ONLINE         0     0     
+```
+
+
+### ZFS Havuzunun Sorunlarını Tespit Etmek
+
+ZFS aygıt havuzunun durumunu tespit etmek için `zpool status` komutunu kullandığımızı hatırlıyor olmalıyız. Bu komuta verilecek `-x` parametresi aygıt havuzumuza dair detaylı durumu bize aktaracaktır.
+
+```
+~# zpool status -x
+all pools are healthy
+```
 
 ## ZFS Havuzunun Detaylı Öznitelikleri
 
