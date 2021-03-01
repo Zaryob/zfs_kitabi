@@ -663,3 +663,102 @@ all pools are healthy
 
 ## ZFS Havuzunun Detaylı Öznitelikleri
 
+`ext4` ve GNU/Linux'taki birçok dosya sisteminde çeşitli bayraklar yardımı ile disk alanının davranışlarını ayarlayabiliriz. Disk bayraları, varsayılan montaj seçeneklerini ve diğer ayarları ayarlamak gibi işlere yaramaktadır.
+
+ZFS'de de durum farklı değil ancak ZFS'deki bayrak yapısı çok daha ayrıntılıdır. Bu özellikler, hem havuz hem de içerdiği veri kümeleri için her tür değişkeni değiştirmemize izin verir. Böylece, dosya sistemini kendi zevkimize veya ihtiyaçlarımıza göre "ayarlayabiliriz". Ancak, bazı öntanımlı özellikler vardır ki bunlar maalesef ayarlanamaz. Bazı özellikler ise salt okunurdur. Ancak, her bir özelliğin ne olduğunu ve havuzu nasıl etkilediğini tanımlayacağız. 
+
+Bu bölümde sadece ZFS havuzunun özelliklerinden bahsedeceğiz. Dosya hiyerarşisinin de kendi özellikleri vardır ancak bunları hiyerarşi altında inceleyeceğiz.
+
+  * **allocated**: Tüm ZFS veri kümeleri tarafından havuza kaydedilen veri miktarıdır. Bu ayar salt okunurdur.
+  * **altroot**: Alternatif bir kök dizini tanımlar. Ayarlanırsa, bu dizin havuzu ayarlanan bağlama noktasının başına ekler. Bu özellik bilinmeyen bir havuzu incelerken, bağlama noktalarına güvenilemiyorsa, bağlama noktasında başka bir dizin veya havuz bulunuyorsa veya tipik yolların geçerli olmadığı alternatif bir önyükleme ortamına ZFS diski bağlanıyorsa kullanılarak alternatif bir diske bağlama sağlanır. "cachefile = none" olarak ayarlanmış havuzlarda, bu geçersiz kılınabilir.
+  * **ashift**: Yalnızca havuz oluşturma sırasında ayarlanabilir, sonrasında salt okunur olarak işaretlenir. Havuz sektör boyutu 2'nin üstelleri olarak ayarlanır yani bu şu demek. Varsayılan değer olan 9 için, 2^9 = 512 bize boyut sınırını oluşturur ve I/O işlemleri, belirtilen boyut sınırlarına göre hizalanır. Standart sektör boyutu, işletim sistemi yardımcı programları için verileri okumak ve yazmak için kullanır. Örneğin, 4 KiB sınırına sahip gelişmiş formatlı sürücüler için, değer "ashift = 12" olarak 2 ^ 12 = 4096 olarak ayarlanmalıdır ki bu sayede bloklar diskin donanımına uygun olarak ayarlanmış olur.
+  * **autoexpand**: Havuzunuzdaki ilk sürücüyü değiştirmeden önce ayarlanmalıdır. Temel **LUN** büyüdüğünde otomatik havuz genişletmeyi kontrol eder. Varsayılan "kapalı" **`(off)`**dır. Havuzdaki tüm sürücüler daha büyük sürücülerle değiştirildikten sonra, havuz otomatik olarak yeni boyuta büyür. Bu ayar için değerler **`on`** veya **`off`**'dur.
+  * **autoreplace**:  Havuzunuzdaki "yedek" bir **VDEV**'nin otomatik cihaz değişimini kontrol eder.  Varsayılan "kapalı" **`(off)`**dır. Bu nedenle, cihaz değişimi "**`zpool replace`**" komutu kullanılarak manuel olarak başlatılmalıdır. Bu ayar için değerler **`on`** veya **`off`**'dur.
+  * **bootfs**: Havuzdaki önyüklenebilir ZFS diskleri için veri kümesini tanımlayan salt okunur ayardır. Bu genellikle kernel tarafından denetlenen bir önyükleme programı için ayarlanmaktadır.
+  * **cachefile**: Havuz yapılandırmasının önbelleğe alındığı yeri kontrol eder. Bir sistemdeki bir `zpool`'u içe aktarırken, ZFS disklerdeki meta verileri kullanarak sürücü geometrisini ve havuz dağılımı algılayabilir. Ancak, bazı kümeleme ortamlarında, otomatik olarak içe aktarılmayacak havuzlar için önbellek dosyasının farklı bir konumda depolanması gerekebilir. Bu değer bu konumu belirler, önbellek dosyası bir konuma ayarlanabilir, ancak çoğu ZFS kurulumu için önerilen "**`/etc/zfs/zpool.cache`**" varsayılan konumu olmalıdır.
+  * **capacity**: Kullanılan havuz alanı yüzdesini tanımlayan salt okunur değerdir. Havuz genişledikçe otomatik olarak ayarlanır.
+  * **comment**: Havuz hatalı olsa bile kullanılabilen bir parametredir. 32'den fazla yazdırılabilir ASCII karakterinden oluşan bir metin dizesi yazmayı sağlar. Bu ayarı kullanarak bir havuz hakkında ek bilgi yazabilir ve gelecekte bu bilgileri kullanarak havuzu düzenleyebilirsiniz.
+  * **dedupditto**: Bir blok tekilleştirme eşiği ayarlar ve tekilleştirilmiş bir bloğun referans sayısı eşiğin üzerine çıkarsa, bloğun bir kopyası otomatik olarak saklanır. Varsayılan değer 0'dır. Herhangi bir pozitif sayı olabilir.
+  * **dedupratio**: Bir havuz için belirtilen salt okunur tekilleştirme oranı, çarpan olarak ifade edilir
+  * **delegation**: Ayrıcalıklı olmayan bir kullanıcıya veri kümesi için tanımlanan erişim izinlerinin verilip verilmediğini denetler. Ayar bir boolean'dır, bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`on`**.
+  * **expandsize**:  Havuzun toplam kapasitesini artırmak için kullanılabilecek havuz veya cihazdaki kullanılmamış alan miktarı. Kullanılmamış alan, EFI etiketli bir vdev üzerindeki çevrimiçi duruma getirilmemiş herhangi bir alandan oluşur (yani **`zpool online -e`**). Bu boşluk, bir **LUN** dinamik olarak genişletildiğinde oluşur.
+  * **failmode**: Katastrofik havuz arızası durumunda sistem davranışını kontrol eder. Bu durum, tipik olarak, temeldeki depolama cihazlarına bağlantı kaybının veya havuz içindeki tüm cihazların arızalanmasının bir sonucudur. Böyle bir olayın davranışı şu şekilde belirlenir:
+    * **wait**: Cihaz bağlantısı kurtarılıncaya ve hatalar giderilene kadar tüm I/O erişimini engeller. Bu, varsayılan davranıştır.
+    * **continue**: EIO'yu yeni yazma I/O isteklerine döndürür, ancak kalan sağlıklı cihazlardan herhangi birine okumaya izin verir. Henüz diske işlenmemiş yazma istekleri engellenecektir.
+    * **panic**: Konsola bir mesaj yazdırır ve bir sistem kilitlenme dökümü oluşturur.
+  * **feature@xxx**: OpenZFS'nin gelecekte eklenecek ve şu an beta olarak getirilen özellikleri tanımlayacaktır.
+  * **free**: Havuzdaki ayrılmamış blokların sayısını tanımlayan salt okunur değer.
+  * **guid**: Havuz için benzersiz tanımlayıcıyı tanımlayan salt okunur özellik. Ext4 dosya sistemleri için UUID dizesine benzer bir özelliğe sahiptir, bu guid ile bağlama ve ayrılmaya izin verir.
+  * **health**: Havuzun mevcut durumunu tanımlayan salt okunur özelliktir; `status` komutunda buna ait detaylar paylaşılmıştır.
+  * **listsnapshots**: Bu havuzla ilişkili anlık görüntü bilgilerinin "**`zfs list`**" komutuyla görüntülenip görüntülenmeyeceğini denetler. Bu özellik devre dışı bırakılırsa, anlık görüntü bilgileri "**`zfs list -t snapshot`**" komutuyla görüntülenebilir. Bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`off`**'dur.
+  * **readonly**: Bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`off`**'dur. Yazmaları ve veri bozulmalarını önlemek için havuzu salt okunur moda ayarlamayı denetler. 
+  * **version**: Havuzun geçerli disk üzerindeki sürümünü tanımlayan yazılabilir ayardır. "**`zpool upgrade -v`**" komutunun çıktısına kadar herhangi bir değer olabilir. Bu özellik, geriye dönük uyumluluk için belirli bir sürüm gerektiğinde kullanılabilir.
+
+### ZFS'de Parametreleri Ayarlamak
+
+Bundan daha öncesinde bahsetmiştim. `zpool get` ve `zpool set` sayesinde parametreleri görebiliriz. Bütün parametrelerini görüntülemek için  `zpool get all havuz_adi` komutu kullanılır.
+
+```
+~# zpool get all tank
+NAME  PROPERTY                       VALUE                          SOURCE
+tank  size                           3.75G                          -
+tank  capacity                       0%                             -
+tank  altroot                        -                              default
+tank  health                         ONLINE                         -
+tank  guid                           16008357831728779071           -
+tank  version                        -                              default
+tank  bootfs                         -                              default
+tank  delegation                     on                             default
+tank  autoreplace                    off                            default
+tank  cachefile                      -                              default
+tank  failmode                       wait                           default
+tank  listsnapshots                  off                            default
+tank  autoexpand                     off                            default
+tank  dedupratio                     1.00x                          -
+tank  free                           3.75G                          -
+tank  allocated                      180K                           -
+tank  readonly                       off                            -
+tank  ashift                         0                              default
+tank  comment                        -                              default
+tank  expandsize                     -                              -
+tank  freeing                        0                              -
+tank  fragmentation                  0%                             -
+tank  leaked                         0                              -
+tank  multihost                      off                            default
+tank  checkpoint                     -                              -
+tank  load_guid                      2495128167517849836            -
+tank  autotrim                       off                            default
+tank  feature@async_destroy          enabled                        local
+tank  feature@empty_bpobj            enabled                        local
+tank  feature@lz4_compress           active                         local
+tank  feature@multi_vdev_crash_dump  enabled                        local
+tank  feature@spacemap_histogram     active                         local
+tank  feature@enabled_txg            active                         local
+tank  feature@hole_birth             active                         local
+tank  feature@extensible_dataset     active                         local
+tank  feature@embedded_data          active                         local
+tank  feature@bookmarks              enabled                        local
+tank  feature@filesystem_limits      enabled                        local
+tank  feature@large_blocks           enabled                        local
+tank  feature@large_dnode            enabled                        local
+tank  feature@sha512                 enabled                        local
+tank  feature@skein                  enabled                        local
+tank  feature@edonr                  enabled                        local
+tank  feature@userobj_accounting     active                         local
+tank  feature@encryption             enabled                        local
+tank  feature@project_quota          active                         local
+tank  feature@device_removal         enabled                        local
+tank  feature@obsolete_counts        enabled                        local
+tank  feature@zpool_checkpoint       enabled                        local
+tank  feature@spacemap_v2            active                         local
+tank  feature@allocation_classes     enabled                        local
+tank  feature@resilver_defer         enabled                        local
+tank  feature@bookmark_v2            enabled                        local
+tank  feature@redaction_bookmarks    enabled                        local
+tank  feature@redacted_datasets      enabled                        local
+tank  feature@bookmark_written       enabled                        local
+tank  feature@log_spacemap           active                         local
+tank  feature@livelist               enabled                        local
+tank  feature@device_rebuild         enabled                        local
+tank  feature@zstd_compress          enabled                        local
+```
