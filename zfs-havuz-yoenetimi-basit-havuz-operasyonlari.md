@@ -50,7 +50,48 @@ tank  14.5G   100K  14.5G        -         -     0%     0%  1.00x    ONLINE  -
 
 Bu komutun çıktısında gördüğümüz gibi aygıt havuzunun toplam boyutu, kullanılan ve boş alan, aygıt havuzundaki disklerin sağlığı durumu ve ek bazı detaylar var. Bu komut sayesinde sisteminizde yer alan bütün ZFS havuzlarının listesini kolaylıkla görebilirsiniz.
 
-## Birden Fazla Diskle ZFS Disk Havuzu Oluşturmak
+## Aygıt Havuzunun Durumunu Görüntülemek
+
+Basit bir disk havuzu oluşturalım
+```text
+~# zpool create tank /dev/sdb
+```
+
+ZFS havuzumuza ait detayları görüntüleyelim şimdi. Bunun için de bir diğer komuta ihtiyacımız var. `zpool status` ile havuzumuza bağlı bütün diskleri ve durumlarını görebiliriz.
+
+```text
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME        STATE     READ WRITE CKSUM
+    tank        ONLINE       0     0     0
+        sdb     ONLINE       0     0     0
+
+errors: No known data errors
+```
+
+"Zpool status" komutundaki satırlar, havuz hakkında size çoğu kendinden açıklamalı hayati bilgiler verir. Çıktıyı anlaması ve regex ile işlemesi oldukça basittir. Üstten aşağı olarak bazı tag'lar altında bazı bilgiler bize aktarılmakta. Hepsi burada görünmese bile ben bütün tanımları aktarmak istiyorum:
+
+  * **pool:** Havuzun adı.
+  * **state:** Havuzun mevcut sağlığı. 
+  * **status:** Havuzda neyin yanlış olduğuna dair bir açıklama. Sorun bulunmazsa bu alan yazılmayacaktır. Ancak hatalar yaşanması durumunda detaylı bilgiler bu anahtar başlık altına basılacaktır.
+  * **action:** Hata bulunması durumunda onarmak için önerilen eylem. Bu alan, kullanıcıyı dokumantasyon bölümlerinden veya daha öncesinde açılmış hata bildilerinden birine yönlendiren kısaltılmış bir formdur. Sorun bulunmazsa bu alan yazılmayacaktır.
+  * **see:** Ayrıntılı onarım bilgilerini içeren bir bilgi makalesine referans verir. Sorun bulunmazsa bu alan yazılmayacaktır.
+  * **scrub:** Son disk düzenlemesinin tamamlandığı tarih ve saati, devam eden bir düzenleme işleminin durumunu veya herhangi bir düzenleme talebi istenmemişse dahil olabilen bir düzenleme işleminin mevcut durumunu tanımlar.
+  * **errors:** Bilinen veri hatalarını veya bilinen veri bloğu hatalarının yokluğunu tanımlar.
+  * **config:** Havuzu oluşturan cihazların konfigürasyon düzeninin yanı sıra durumlarını ve cihazlardan üretilen hataları açıklar. Durum belirteçleri şunlardan biri olabilir: **ONLINE**, **FAULTED**, **DEGRADED**, **UNAVAILABLE**, veya **OFFLINE**. Durum **ONLINE** dışında bir şeyse, havuzun hata toleransı havuzu tehlikeye atılmıştır.
+
+  Durum çıktısındaki sütunlar ise şu şekilde tanımlanır:
+
+    * **NAME:** Havuzdaki her bir **VDEV**'in iç içe sırayla sunulan adı.
+    * **STATUS:** Havuzdaki her **VDEV**'nin durumu. Durum, yukarıdaki "config" de bulunan durumlardan herhangi biri olabilir.
+    * **READ:** Bir okuma talebi yayınlanırken yaşanan I/O hatalarını aktarır.
+    * **WRITE:** Bir yazma talebi sırasında yaşanan I/O hatalarını aktarır.
+    * **CHKSUM:** Sağlama toplamı hataları. Cihaz, bir okuma isteğinin sonucu olarak bozuk veriler döndürürse bunu bildirir.
+
+## Birden Fazla Diskle ZFS Aygıt Havuzu Oluşturmak
 
 `zpool` ile aynı anda birden fazla diski de tek havuzda kullanabileceğimizden bahsetmiştim. Bunu ilk kurulum aşamasında yapabiliriz. Bunun için şu komutu vermemiz yeterlidir.
 
@@ -65,13 +106,13 @@ NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALT
 tank  29.0G   148K  29.0G        -         -     0%     0%  1.00x    ONLINE  -
 ```
 
-Eklediğimiz yeni disk alanını, daha fazla disk alanına sahip olmak için kullanmak zorunda değiliz. Bunu daha öncesinde belirttiğim aynalama yani `mirror` işlemi için de kullanmak isteyebiliriz. Bu durumda bize `RAID` yuvalaması \(nesting\) yardımıza koşuyor. Bunu bir sonraki kısımda özellikle detaylandırarak anlatacağım ama şimdi bahsetmeden geçmemek istedim. Bu özellik sayesinde eklediğimiz diskleri gruplayarak ekleyebiliriz. Kimi diskleri günlükleme kimi diskleri geçici depolama ve önbellekleme için kullanabiliriz. Bu durumda disk alanını oluştururken şunu yapmamız yeterlidir.
+Eklediğimiz yeni disk alanını, daha fazla disk alanına sahip olmak için kullanmak zorunda değiliz. Bunu daha öncesinde belirttiğim aynalama yani `mirror` işlemi için de kullanmak isteyebiliriz. Bu durumda bize `RAID` yuvalaması \(nesting\) yardımıza koşuyor. Bunu bir sonraki kısımda özellikle detaylandırarak anlatacağım ama şimdi bahsetmeden geçmemek istedim. Bu özellik sayesinde eklediğimiz diskleri gruplayarak ekleyebiliriz. Bu grupların her birisi özel kullanım için ayrılmış disk alanlarıdır, Havuz oluştururken gruplamak için grup olarak kullanılacak diskler bu gruba ait parametre belirtilerek aygıt havuzları oluşturulur. Kimi diskleri günlükleme kimi diskleri geçici depolama ve önbellekleme için kullanabiliriz. Her grubun kendi amacı ve parametreleri hakkında detayli bilgiyi ilerleyen sayfalarda vereceğim. Ancak örnek oluşturması için bazı aygıt havuzları oluşturalım. Bunu oluştururken şunu yapmamız yeterlidir.
 
 ```text
 ~# zpool create tank mirror /dev/sdb /dev/sdc
 ```
 
-ZFS havuzumuza ait detayları görüntüleyelim şimdi. Bunun için de bir diğer komuta ihtiyacımız var. `zpool status` ile havuzumuza bağlı bütün diskleri ve durumlarını görebiliriz.
+ZFS havuzumuza ait detayları görüntüleyelim şimdi.
 
 ```text
 ~# zpool status
@@ -112,7 +153,7 @@ Birden fazla aynalama grubu oluşturmak istediğimizde ise
         sdf     ONLINE       0     0     0
 ```
 
-Bunlara ek olarak aygıt havuzunda birden fazla grup da ekleyebiliriz
+Bunlara ek olarak aygıt havuzunda birden fazla grup da ekleyebiliriz. Örneğin `mirror`, `log` ve `cache` diskleri ekleyelim.
 
 ```text
 ~# zpool create tank mirror /dev/sdb  /dev/sdc mirror /dev/sdd /dev/sde log mirror /dev/sdf /dev/sdg  cache /dev/sdh /dev/sdi
