@@ -53,7 +53,6 @@ Bu komutun çıktısında gördüğümüz gibi aygıt havuzunun toplam boyutu, k
 ## Aygıt Havuzunun Durumunu Görüntülemek
 
 Basit bir disk havuzu oluşturalım
-
 ```text
 ~# zpool create tank /dev/sdb
 ```
@@ -75,22 +74,22 @@ errors: No known data errors
 
 "Zpool status" komutundaki satırlar, havuz hakkında size çoğu kendinden açıklamalı hayati bilgiler verir. Çıktıyı anlaması ve regex ile işlemesi oldukça basittir. Üstten aşağı olarak bazı tag'lar altında bazı bilgiler bize aktarılmakta. Hepsi burada görünmese bile ben bütün tanımları aktarmak istiyorum:
 
-* **pool:** Havuzun adı.
-* **state:** Havuzun mevcut sağlığı. 
-* **status:** Havuzda neyin yanlış olduğuna dair bir açıklama. Sorun bulunmazsa bu alan yazılmayacaktır. Ancak hatalar yaşanması durumunda detaylı bilgiler bu anahtar başlık altına basılacaktır.
-* **action:** Hata bulunması durumunda onarmak için önerilen eylem. Bu alan, kullanıcıyı dokumantasyon bölümlerinden veya daha öncesinde açılmış hata bildilerinden birine yönlendiren kısaltılmış bir formdur. Sorun bulunmazsa bu alan yazılmayacaktır.
-* **see:** Ayrıntılı onarım bilgilerini içeren bir bilgi makalesine referans verir. Sorun bulunmazsa bu alan yazılmayacaktır.
-* **scrub:** Son disk düzenlemesinin tamamlandığı tarih ve saati, devam eden bir düzenleme işleminin durumunu veya herhangi bir düzenleme talebi istenmemişse dahil olabilen bir düzenleme işleminin mevcut durumunu tanımlar.
-* **errors:** Bilinen veri hatalarını veya bilinen veri bloğu hatalarının yokluğunu tanımlar.
-* **config:** Havuzu oluşturan cihazların konfigürasyon düzeninin yanı sıra durumlarını ve cihazlardan üretilen hataları açıklar. Durum belirteçleri şunlardan biri olabilir: **ONLINE**, **FAULTED**, **DEGRADED**, **UNAVAILABLE**, veya **OFFLINE**. Durum **ONLINE** dışında bir şeyse, havuzun hata toleransı havuzu tehlikeye atılmıştır.
+  * **pool:** Havuzun adı.
+  * **state:** Havuzun mevcut sağlığı. 
+  * **status:** Havuzda neyin yanlış olduğuna dair bir açıklama. Sorun bulunmazsa bu alan yazılmayacaktır. Ancak hatalar yaşanması durumunda detaylı bilgiler bu anahtar başlık altına basılacaktır.
+  * **action:** Hata bulunması durumunda onarmak için önerilen eylem. Bu alan, kullanıcıyı dokumantasyon bölümlerinden veya daha öncesinde açılmış hata bildilerinden birine yönlendiren kısaltılmış bir formdur. Sorun bulunmazsa bu alan yazılmayacaktır.
+  * **see:** Ayrıntılı onarım bilgilerini içeren bir bilgi makalesine referans verir. Sorun bulunmazsa bu alan yazılmayacaktır.
+  * **scrub:** Son disk düzenlemesinin tamamlandığı tarih ve saati, devam eden bir düzenleme işleminin durumunu veya herhangi bir düzenleme talebi istenmemişse dahil olabilen bir düzenleme işleminin mevcut durumunu tanımlar.
+  * **errors:** Bilinen veri hatalarını veya bilinen veri bloğu hatalarının yokluğunu tanımlar.
+  * **config:** Havuzu oluşturan cihazların konfigürasyon düzeninin yanı sıra durumlarını ve cihazlardan üretilen hataları açıklar. Durum belirteçleri şunlardan biri olabilir: **ONLINE**, **FAULTED**, **DEGRADED**, **UNAVAILABLE**, veya **OFFLINE**. Durum **ONLINE** dışında bir şeyse, havuzun hata toleransı havuzu tehlikeye atılmıştır.
 
   Durum çıktısındaki sütunlar ise şu şekilde tanımlanır:
 
-  * **NAME:** Havuzdaki her bir **VDEV**'in iç içe sırayla sunulan adı.
-  * **STATUS:** Havuzdaki her **VDEV**'nin durumu. Durum, yukarıdaki "config" de bulunan durumlardan herhangi biri olabilir.
-  * **READ:** Bir okuma talebi yayınlanırken yaşanan I/O hatalarını aktarır.
-  * **WRITE:** Bir yazma talebi sırasında yaşanan I/O hatalarını aktarır.
-  * **CHKSUM:** Sağlama toplamı hataları. Cihaz, bir okuma isteğinin sonucu olarak bozuk veriler döndürürse bunu bildirir.
+    * **NAME:** Havuzdaki her bir **VDEV**'in iç içe sırayla sunulan adı.
+    * **STATUS:** Havuzdaki her **VDEV**'nin durumu. Durum, yukarıdaki "config" de bulunan durumlardan herhangi biri olabilir.
+    * **READ:** Bir okuma talebi yayınlanırken yaşanan I/O hatalarını aktarır.
+    * **WRITE:** Bir yazma talebi sırasında yaşanan I/O hatalarını aktarır.
+    * **CHKSUM:** Sağlama toplamı hataları. Cihaz, bir okuma isteğinin sonucu olarak bozuk veriler döndürürse bunu bildirir.
 
 ## Birden Fazla Diskle ZFS Aygıt Havuzu Oluşturmak
 
