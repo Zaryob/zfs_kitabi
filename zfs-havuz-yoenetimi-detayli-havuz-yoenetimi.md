@@ -560,7 +560,79 @@ Bağlama yapılacağı zaman yedekleri kullanarak asıl havuzu inşaa edebilir, 
 
 Bu durumda import işlemi için izin verilmeyecektir. `FAULTED` olarak işaretlenmiş olan aygıt havuzu bağlanamayacaktır.
 
-### ZFS Disk Havuzunu Yükseltmek
+## ZFS Disk Havuzunu Yükseltmek
+
+OpenZFS yakında zfs-2.0.0 ismindeki bir sürüme geçmeyi planlıyor. Her yeni ana sürümün getirdiği bazı özellikler var. Eğer eski sürümlerden kalma ZFS depolama havuzlarınız varsa, mevcut sürümdeki havuz özelliklerinden yararlanmak için havuzlarınızı `zpool upgrade` komutuyla yükseltebilirsiniz. Ek olarak, `zpool status ` komutu, havuzlarınız eski sürümleri çalıştırdığında sizi bilgilendirmek için **action** çıktısı verecektir. Örneğin:
+
+```
+~# zpool status
+   pool: tank
+   state: ONLINE
+   status: The pool is formatted using an older on-disk format.  The pool can
+           still be used, but some features are unavailable.
+   action: Upgrade the pool using 'zpool upgrade'.  Once this is done, the
+           pool will no longer be accessible on older software versions.
+   scrub: none requested
+   
+   config:
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+errors: No known data errors
+```
+
+Belirli bir sürüm ve desteklenen sürümler hakkında ek bilgileri tanımlamak için aşağıdaki sözdizimini kullanabilirsiniz:
+
+```
+~# zpool upgrade -v
+This system supports ZFS pool feature flags.
+
+The following legacy versions are also supported:
+
+VER  DESCRIPTION
+---  --------------------------------------------------------
+ 1   Initial ZFS version
+ 2   Ditto blocks (replicated metadata)
+ 3   Hot spares and double parity RAID-Z
+ 4   zpool history
+ 5   Compression using the gzip algorithm
+ 6   bootfs pool property
+ 7   Separate intent log devices
+ 8   Delegated administration
+ 9   refquota and refreservation properties
+ 10  Cache devices
+ 11  Improved scrub performance
+ 12  Snapshot properties
+ 13  snapused property
+ 14  passthrough-x aclinherit
+ 15  user/group space accounting
+ 16  stmf property support
+ 17  Triple-parity RAID-Z
+ 18  Snapshot user holds
+ 19  Log device removal
+ 20  Compression using zle (zero-length encoding)
+ 21  Deduplication
+ 22  Received properties
+ 23  Slim ZIL
+ 24  System attributes
+ 25  Improved scrub stats
+ 26  Improved snapshot deletion performance
+ 27  Improved snapshot creation performance
+ 28  Multiple vdev replacements
+
+For more information on a particular version, including supported releases,
+see the ZFS Administration Guide.
+```
+
+Ardından, tüm havuzlarınızı yükseltmek için zpool yükseltme komutunu çalıştırabilirsiniz. Örneğin:
+
+```
+~# zpool upgrade -a
+```
+
+**Not**: Havuzunuzu daha sonraki bir ZFS sürümüne yükseltirseniz, havuza daha eski bir ZFS sürümünü çalıştıran bir sistemde erişilemez.
 
 ## ZFS Havuzunda Disk Kontrolleri
 
