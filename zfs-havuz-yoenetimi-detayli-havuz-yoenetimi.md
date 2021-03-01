@@ -439,6 +439,19 @@ tank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
 
 Gördüğümüz gibi `mirror` blogu tek bir ana disk alanı ihtiva ederken `cache` buna ek olarak bir aygıt alanı getirmemektedir. Yani bu alan fiziksel depolama için kullanılamamaktadır.
 
+
+## ZFS Havuzunda Aygıt Yönetim İşlemleri
+
+### ZFS Havuzundan Aygıt Eklemek
+
+### ZFS Havuzundaki Aygıtları Değiştirmek
+
+### ZFS Havuzundan Aygıtı Çevrimiçi Hale Getirmek
+
+### ZFS Havuzundan Aygıt Çevrimdışı Hale Getirmek
+
+
+
 ## ZFS'de Havuz Aktarım İşlemleri
 
 ZFS'de aygıt havuzları sadece sıfırdan oluşturma yolu ile değil aktarım yolu ile de elde edilebilir. Geleneksel disk yönetim sistemlerinde diskler takıldığı anda diski bağlamak için tek yapmamız gereken diskin bağlama komutunu vermek olacaktır. Çoğunlukla diski bağlamak için kullandığımız komutlar işletim sistemleri tarafından karşılanmaktadır. Ancak, ZFS'de bu diskleri uygun şekilde bulup bağlamamız gerekmektedir.
@@ -547,7 +560,9 @@ Bağlama yapılacağı zaman yedekleri kullanarak asıl havuzu inşaa edebilir, 
 
 Bu durumda import işlemi için izin verilmeyecektir. `FAULTED` olarak işaretlenmiş olan aygıt havuzu bağlanamayacaktır.
 
-## ZFS Havuzunda Veri Kontrolleri
+### ZFS Disk Havuzunu Yükseltmek
+
+## ZFS Havuzunda Disk Kontrolleri
 
 Geleneksel disk yönetim sistemlerinde veri kontrolleri yardımcı programlar aracılığı ile yapılır. Windows'ta otomatik bazı araçlar yardımı ile yapılırken; GNU/Linux'ta, diskteki veri bütünlüğünü doğrulamak, bir dizi dosya sistemi kontrol pogramları aracılığı ile yapılmaktadır. Bu işlem, `fsck` araç kiti aracılığıyla yapılır.
 
