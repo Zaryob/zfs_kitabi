@@ -1,0 +1,639 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="ZFS Havuz Yönetimine dair bazı ek komutları ve ZFS'nin benzersiz bazı özellikleri açıklanmaktadır.">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html" />
+    
+    
+    <link rel="prev" href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Başlangıç</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../baslangic/zfsnin-oezellikleri.html">
+            
+                <a href="../baslangic/zfsnin-oezellikleri.html">
+            
+                    
+                    ZFS'nin Özellikleri
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../baslangic/zfsyi-anlamak.html">
+            
+                <a href="../baslangic/zfsyi-anlamak.html">
+            
+                    
+                    ZFS'yi Anlamak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                <a href="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                    
+                    ZFS'yi Çalışma Ortamına Kurmak
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'ye Giriş</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../zfsye-giris/zfs-ye-giris.html">
+            
+                <a href="../zfsye-giris/zfs-ye-giris.html">
+            
+                    
+                    ZFS'ye Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Havuzu</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Basit Havuz Operasyonları
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Dosya Hiyerarşisi</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                    
+                    ZFS Disk Hiyerarşisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                    
+                    ZFS Üst Düzey Disk Hiyerarşi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'de Ek Özellikler</li>
+        
+        
+    
+        <li class="chapter active" data-level="6.1" data-path="zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                <a href="zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Gerçek Hayatta ZFS'nin Kullanımı</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                    
+                    ZFS Veri Kurtarma Senaryoları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">SON KISIM</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../son-kisim/ekler/">
+            
+                <a href="../son-kisim/ekler/">
+            
+                    
+                    Ekler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                <a href="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                    
+                    Sıkça Sorulan Sorular
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../son-kisim/kaynakca.html">
+            
+                <a href="../son-kisim/kaynakca.html">
+            
+                    
+                    Kaynakça
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../son-kisim/lisans.html">
+            
+                <a href="../son-kisim/lisans.html">
+            
+                    
+                    GNU Özgür Belgelendirme Lisansı
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="zfs-havuz-y&#xF6;netimi---baz&#x131;-ek-havuz-y&#xF6;netimi-komutlar&#x131;">ZFS Havuz Y&#xF6;netimi - Baz&#x131; Ek Havuz Y&#xF6;netimi Komutlar&#x131;</h1>
+<p>Bu k&#x131;s&#x131;mda &#xF6;nceki &#xF6;&#x11F;rendi&#x11F;imiz komutlar&#x131;n haricinde baz&#x131; ek ZFS komutlar&#x131;na &#xF6;rnekler verecek ve bunlara ait &#xF6;rnek komutlar verece&#x11F;im. Burada &#xE7;o&#x11F;unlukla son kullan&#x131;c&#x131; olarak kullanmayaca&#x11F;&#x131;n&#x131;z ama yine de sistem y&#xF6;neticileri i&#xE7;in &#xE7;ok &#xF6;nemli olan baz&#x131; ZFS &#xF6;zelliklerinden bahsedece&#x11F;im.</p>
+<h2 id="yans&#x131;t&#x131;lm&#x131;&#x15F;-bir-zfs-depolama-havuzunu-b&#xF6;lerek-yeni-bir-havuz-olu&#x15F;turma">Yans&#x131;t&#x131;lm&#x131;&#x15F; bir ZFS Depolama Havuzunu B&#xF6;lerek Yeni Bir Havuz Olu&#x15F;turma</h2>
+<p>Yans&#x131;t&#x131;lm&#x131;&#x15F; bir ZFS depolama havuzu, zpool split komutu kullan&#x131;larak h&#x131;zl&#x131; bir &#x15F;ekilde yedekleme havuzu olarak klonlanabilir.</p>
+<p>&#x15E;u anda bu &#xF6;zellik, yans&#x131;t&#x131;lm&#x131;&#x15F; bir k&#xF6;k havuzunu b&#xF6;lmek i&#xE7;in kullan&#x131;lamaz.</p>
+<p>Ayr&#x131;lm&#x131;&#x15F; disklerden biriyle yeni bir havuz olu&#x15F;turmak i&#xE7;in yans&#x131;t&#x131;lm&#x131;&#x15F; bir ZFS depolama havuzundan diskleri ay&#x131;rmak i&#xE7;in <code>zpool split</code> komutunu kullanabilirsiniz. Yeni havuz, orijinal yans&#x131;t&#x131;lm&#x131;&#x15F; ZFS depolama havuzuyla ayn&#x131; i&#xE7;eri&#x11F;e sahip olacakt&#x131;r.</p>
+<p>Varsay&#x131;lan olarak, yans&#x131;t&#x131;lm&#x131;&#x15F; bir havuzdaki bir zpool b&#xF6;lme i&#x15F;lemi, yeni olu&#x15F;turulan havuz i&#xE7;in son diski ay&#x131;r&#x131;r. B&#xF6;lme i&#x15F;leminden sonra yeni havuzu i&#xE7;e aktarmam&#x131;z gerekmekte.</p>
+<p>&#xD6;rne&#x11F;in 4 adet dosyadan olu&#x15F;an bir havuz olu&#x15F;tural&#x131;m. Bu havuzda ilk iki sanal disk ile son iki sanal disk iki <code>mirror</code>umuzu ihtiva etsin ve her bir dosya da ayr&#x131;lm&#x131;&#x15F; 4 GiB alan&#x131; bulunsun diyelim:</p>
+<pre><code class="lang-text">~# zpool create tank mirror /tmp/file{1,2} mirror /tmp/file{3,4}
+~# zpool status
+  pool: tank
+ state: ONLINE
+config:
+
+    NAME            STATE     READ WRITE CKSUM
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        /tmp/file1  ONLINE       0     0     0
+        /tmp/file2  ONLINE       0     0     0
+      mirror-1      ONLINE       0     0     0
+        /tmp/file3  ONLINE       0     0     0
+        /tmp/file4  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>&#x15E;imdi bu iki diski <code>zpool split</code> ile ikiye ay&#x131;ral&#x131;m.</p>
+<pre><code class="lang-text">~# zpool split tank tank2
+</code></pre>
+<p>Bu bizim <code>tank</code>&apos;&#x131;m&#x131;z&#x131; ayna diskleri esas alarak ikiye b&#xF6;lmemizi sa&#x11F;lar. &#x15E;imdi <code>tank2</code>yi import edelim ve neler olmu&#x15F; oldu&#x11F;unu g&#xF6;relim.</p>
+<pre><code class="lang-text">~# zpool import -d $(pwd)/file2 tank2
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME          STATE     READ WRITE CKSUM
+    tank          ONLINE       0     0     0
+      /tmp/file1  ONLINE       0     0     0
+      /tmp/file3  ONLINE       0     0     0
+
+errors: No known data errors
+
+  pool: tank2
+  state: ONLINE
+  config:
+
+    NAME          STATE     READ WRITE CKSUM
+    tank2         ONLINE       0     0     0
+      /tmp/file2  ONLINE       0     0     0
+      /tmp/file4  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>&#x15E;imdi de havuzlar&#x131;n boyutlar&#x131;n&#x131; kontrol edelim.</p>
+<pre><code class="lang-text">~# zpool list
+NAME    SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank   7.50G   130K  7.50G        -         -     0%     0%  1.00x    ONLINE  -
+tank2  7.50G   184K  7.50G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>Biraz kafam&#x131;z kar&#x131;&#x15F;t&#x131; de&#x11F;il mi. Teknik a&#xE7;&#x131;dan bizim &#x15F;u anda havuzlar&#x131;m&#x131;z&#x131;n boyutlar&#x131; 4&apos;de birine inmeli idi. Yani sonu&#xE7;ta 2 adet havuzda, 2 adet mirror var ve her bir mirrorda da 2 disk var. Toplamda 16 GiB boyutunda sanal disk olsa da her bir mirror i&#xE7;in yaln&#x131;zca bir sanal diskin boyutunu kullanabiliyorduk. Sonu&#xE7; olarak bizim her bir havuzda sadece ~ 4 Gib boyutumuz olmal&#x131; idi. Ancak burda farkl&#x131; bir durum var ve bu durum da &#x15F;u. Yeni havuz, orijinal yans&#x131;t&#x131;lm&#x131;&#x15F; ZFS depolama havuzuyla ayn&#x131; i&#xE7;eri&#x11F;e sahiptir. Varsay&#x131;lan olarak, yans&#x131;t&#x131;lm&#x131;&#x15F; bir havuzdaki yap&#x131;lan b&#xF6;lme i&#x15F;lemi, yeni olu&#x15F;turulan havuz i&#xE7;in son diski ay&#x131;r&#x131;r. Asl&#x131;nda teknik olarak biz bunu yaparken elimizdeki havuzu ikiye b&#xF6;lm&#xFC;&#x15F; oluruz ve iki adet ayn&#x131; dosyam&#x131;z olur. Yani bir &#xE7;e&#x15F;it yedek gibi d&#xFC;&#x15F;&#xFC;nebiliriz. &#x130;sterseniz ba&#x15F;a sard&#x131;r&#x131;p bir &#xF6;rnek vereyim.</p>
+<pre><code class="lang-text">~# zpool create tank mirror /tmp/file{1,2} mirror /tmp/file{3,4}
+~# zpool status
+  pool: tank
+ state: ONLINE
+config:
+
+    NAME            STATE     READ WRITE CKSUM
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        /tmp/file1  ONLINE       0     0     0
+        /tmp/file2  ONLINE       0     0     0
+      mirror-1      ONLINE       0     0     0
+        /tmp/file3  ONLINE       0     0     0
+        /tmp/file4  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>&#x15E;imdi k&#xF6;k dizine ba&#x11F;lanm&#x131;&#x15F; olan bu havuzun i&#xE7;erisine bir dosya yazd&#x131;ral&#x131;m.</p>
+<pre><code class="lang-text">~# dd if=/dev/zero of=/tank/denemedosyasi bs=1G  count=1
+~# ls -ali /tank
+2 -rw-r--r--.  1 root root 2147483648 &#x15E;ub 25 16:49 denemedosyasi
+~# zpool list
+NAME    SIZE  ALLOC   FREE   CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank   7.50G  2.26G   5.24G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>&#x15E;imdi ikiye ay&#x131;ral&#x131;m ve dosyalar&#x131;n boyutlar&#x131;n&#x131; bir daha kontrol edelim</p>
+<pre><code class="lang-text">~# zpool import -d $(pwd)/file2 tank2
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME          STATE     READ WRITE CKSUM
+    tank          ONLINE       0     0     0
+      /tmp/file1  ONLINE       0     0     0
+      /tmp/file3  ONLINE       0     0     0
+
+errors: No known data errors
+
+  pool: tank2
+  state: ONLINE
+  config:
+
+    NAME          STATE     READ WRITE CKSUM
+    tank2         ONLINE       0     0     0
+      /tmp/file2  ONLINE       0     0     0
+      /tmp/file4  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>&#x15E;imdi de havuzlar&#x131;n boyutlar&#x131;n&#x131; kontrol edelim.</p>
+<pre><code class="lang-text">~# zpool list
+NAME    SIZE  ALLOC   FREE   CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank   7.50G  2.26G   5.24G        -         -     0%     0%  1.00x    ONLINE  -
+tank2  7.50G  2.26G   5.24G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>Bingoo. &#x15E;imdi de import yap&#x131;lan dizini kontrol edelim.</p>
+<pre><code class="lang-text">~# ls -ali /tank2
+2 -rw-r--r--.  1 root root 2147483648 &#x15E;ub 25 16:49 denemedosyas&#x131;
+</code></pre>
+<p>Sonu&#xE7; olarak 2 farkl&#x131; disk havuzunda birbirinin kopyas&#x131; iki dosya var. Peki bunlar aynalanm&#x131;&#x15F; disklerde oldu&#x11F;u gibi ba&#x11F;l&#x131; m&#x131;? Hadi test edelim.</p>
+<pre><code class="lang-text">~# dd if=/dev/zero of=/tank/denemedosyasi2 bs=1G  count=1
+~# ls -ali /tank
+2 -rw-r--r--.  1 root root 2147483648 &#x15E;ub 25 16:49 denemedosyasi2
+2 -rw-r--r--.  1 root root 2147483648 &#x15E;ub 25 16:49 denemedosyasi2
+~# zpool list
+tank   7.50G  3.00G   4.50G        -         -     0%    40%  1.00x    ONLINE  -
+tank2  7.50G  2.26G   5.24G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>Sonu&#xE7; olarak ayr&#x131;lma tamamland&#x131;&#x11F;&#x131; andan itibaren iki farkl&#x131; disk elimizde bulunmakta. Herhangi bir ba&#x11F; da yok.</p>
+<p>Zpool b&#xF6;lme &#xF6;zelli&#x11F;ini kullanmadan &#xF6;nce a&#x15F;a&#x11F;&#x131;daki noktalara dikkat etmemiz gerekmekte:</p>
+<ul>
+<li>Bu &#xF6;zellik bir RAIDZ yap&#x131;land&#x131;rmas&#x131; veya birden &#xE7;ok diskten olu&#x15F;an yedekli olmayan bir havuz b&#xF6;lme i&#x15F;lemi i&#xE7;in kullan&#x131;lamaz.</li>
+<li>Bir havuz b&#xF6;lme i&#x15F;lemi denemeden &#xF6;nce veri ve uygulama i&#x15F;lemlerinin tamamlamn&#x131;&#x15F; olmas&#x131; gerekmekte.</li>
+<li>Diskin, ayr&#x131;lmam&#x131;&#x15F; / kapat&#x131;lm&#x131;&#x15F; disklere sahip olmas&#x131; b&#xF6;lme esnas&#x131;nda sorun &#xE7;&#x131;karabilir bu sebeple, diskin &#xF6;nbelle&#x11F;i temizle komutu yap&#x131;lmal&#x131;d&#x131;r.</li>
+<li>Yeniden serme i&#x15F;lemi <code>(resilvering)</code> devam ediyorsa bir havuz b&#xF6;l&#xFC;nemez.</li>
+<li>B&#xF6;l&#xFC;nm&#xFC;&#x15F; bir havuz yeniden b&#xF6;l&#xFC;nemez. &#xD6;rne&#x11F;in:</li>
+</ul>
+<pre><code class="lang-text">~# zpool split tank2 tank3
+Unable to split tank2: Source pool must be composed only of mirrors
+</code></pre>
+<ul>
+<li><p>Mevcut havuz &#xFC;&#xE7; y&#xF6;nl&#xFC; bir aynaysa, yani 3 farkl&#x131; disk i&#xE7;eren bir ayna ise yeni havuz b&#xF6;l&#xFC;nme i&#x15F;leminden sonra bir disk i&#xE7;erecektir. Var olan havuz iki diskin iki y&#xF6;nl&#xFC; bir aynas&#x131;ysa, olu&#x15F;acak havuz iki diskten olu&#x15F;an yedeksiz iki havuzdur. Yedekli olmayan havuzlar&#x131; aynal&#x131; havuzlara d&#xF6;n&#xFC;&#x15F;t&#xFC;rmek i&#xE7;in iki ek disk eklemeniz gerekecektir. &#xD6;rne&#x11F;in a&#x15F;a&#x11F;&#x131;daki disk i&#xE7;in:</p>
+<p>``` ~# zpool status pool: tank state: ONLINE config:</p>
+<p>NAME STATE READ WRITE CKSUM tank ONLINE 0 0 0 mirror-0 ONLINE 0 0 0 /tmp/file1 ONLINE 0 0 0 /tmp/file2 ONLINE 0 0 0 mirror-1 ONLINE 0 0 0 /tmp/file3 ONLINE 0 0 0</p>
+</li>
+</ul>
+<p>errors: No known data errors</p>
+<pre><code class="lang-text">ikiye ay&#x131;rma i&#x15F;lemi yap&#x131;ld&#x131;&#x11F;&#x131;nda &#x15F;&#xF6;yle bir tablo olu&#x15F;acakt&#x131;r.
+</code></pre>
+<p>pool: tank state: ONLINE config:</p>
+<pre><code class="lang-text">NAME            STATE     READ WRITE CKSUM
+tank            ONLINE       0     0     0
+  mirror-0      ONLINE       0     0     0
+    /tmp/file1  ONLINE       0     0     0
+    /tmp/file3  ONLINE       0     0     0
+</code></pre>
+<p>errors: No known data errors</p>
+<p>pool: tank2 state: ONLINE config:</p>
+<pre><code class="lang-text">NAME          STATE     READ WRITE CKSUM
+tank2         ONLINE       0     0     0
+  /tmp/file2  ONLINE       0     0     0
+</code></pre>
+<p>errors: No known data errors</p>
+<p>```</p>
+<ul>
+<li>B&#xF6;lme i&#x15F;lemi s&#x131;ras&#x131;nda verilerinizi yedekli tutman&#x131;n iyi bir yolu, &#xFC;&#xE7; diskten olu&#x15F;an yans&#x131;t&#x131;lm&#x131;&#x15F; bir depolama havuzunu b&#xF6;lmemiz durumunda, b&#xF6;l&#xFC;nme i&#x15F;leminden sonra orijinal havuzun iki yans&#x131;t&#x131;lm&#x131;&#x15F; diskten olu&#x15F;mas&#x131; sa&#x11F;lanm&#x131;&#x15F; olur b&#xF6;ylece veri kayb&#x131; ya&#x15F;anmaz.</li>
+<li>Bu i&#x15F;lemi yapt&#x131;ktan sonra geri alamazs&#x131;n&#x131;z. Bu ZFS&apos;nin bir dezavantaj&#x131; olarak say&#x131;labilir.</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html" class="navigation navigation-prev " aria-label="Previous page: ZFS Üst Düzey Disk Hiyerarşi Komutları">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html" class="navigation navigation-next " aria-label="Next page: ZFS Veri Kurtarma Senaryoları">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"ZFS Havuz Yönetimine dair bazı ek komutları ve ZFS'nin benzersiz bazı özellikleri açıklanmaktadır.","title":"ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları","level":"6.1","depth":1,"next":{"title":"ZFS Veri Kurtarma Senaryoları","level":"7.1","depth":1,"path":"gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.md","ref":"gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.md","articles":[]},"previous":{"title":"ZFS Üst Düzey Disk Hiyerarşi Komutları","level":"5.2","depth":1,"path":"zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.md","ref":"zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.md","mtime":"2021-03-01T10:20:38.373Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

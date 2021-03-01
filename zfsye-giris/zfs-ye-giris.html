@@ -1,0 +1,487 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ZFS'ye Giriş · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html" />
+    
+    
+    <link rel="prev" href="../baslangic/zfsyi-gercek-ortamda-kullanmak.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Başlangıç</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../baslangic/zfsnin-oezellikleri.html">
+            
+                <a href="../baslangic/zfsnin-oezellikleri.html">
+            
+                    
+                    ZFS'nin Özellikleri
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../baslangic/zfsyi-anlamak.html">
+            
+                <a href="../baslangic/zfsyi-anlamak.html">
+            
+                    
+                    ZFS'yi Anlamak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                <a href="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                    
+                    ZFS'yi Çalışma Ortamına Kurmak
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'ye Giriş</li>
+        
+        
+    
+        <li class="chapter active" data-level="3.1" data-path="zfs-ye-giris.html">
+            
+                <a href="zfs-ye-giris.html">
+            
+                    
+                    ZFS'ye Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Havuzu</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Basit Havuz Operasyonları
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Dosya Hiyerarşisi</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                    
+                    ZFS Disk Hiyerarşisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                    
+                    ZFS Üst Düzey Disk Hiyerarşi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'de Ek Özellikler</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                <a href="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Gerçek Hayatta ZFS'nin Kullanımı</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                    
+                    ZFS Veri Kurtarma Senaryoları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">SON KISIM</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../son-kisim/ekler/">
+            
+                <a href="../son-kisim/ekler/">
+            
+                    
+                    Ekler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                <a href="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                    
+                    Sıkça Sorulan Sorular
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../son-kisim/kaynakca.html">
+            
+                <a href="../son-kisim/kaynakca.html">
+            
+                    
+                    Kaynakça
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../son-kisim/lisans.html">
+            
+                <a href="../son-kisim/lisans.html">
+            
+                    
+                    GNU Özgür Belgelendirme Lisansı
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ZFS'ye Giriş</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="zfsye-giri&#x15F;">ZFS&apos;ye Giri&#x15F;</h1>
+<p>ZFS&apos;de disk y&#xF6;netimi iki temel &#xFC;zerinde ele al&#x131;n&#x131;r. &#xDC;stte sanal disk havuzu <strong>(zpool)</strong> bulunmaktad&#x131;r. Bu sanal disk boyutu alt&#x131;nda farkl&#x131; disk alanlar&#x131; ve dosya hiyerar&#x15F;ilerinden olu&#x15F;an bir grup dosya sistemi bulunmaktad&#x131;r <strong>(Z File System)</strong>.</p>
+<p>ZFS&apos;de disk alanlar&#x131; ve dosya sistemleri, sanal disk havuzunun alt&#x131;nda olu&#x15F;turulan katmand&#x131;r. Farkl&#x131; ZFS diskler ve farkl&#x131; b&#xF6;l&#xFC;mleri ayn&#x131; havuz i&#xE7;erisine kaydedilerek bu havuza ekleme ve &#xE7;&#x131;karma i&#x15F;lemi yap&#x131;labilir. ZFS dosya sistemleri, herhangi bir temel disk alan&#x131; ay&#x131;rman&#x131;za veya bi&#xE7;imlendirmenize gerek kalmadan dinamik olarak olu&#x15F;turulabilir ve yok edilebilir. Dosya sistemleri &#xE7;ok hafif oldu&#x11F;undan ve ZFS&apos;de merkezi y&#xF6;netim noktas&#x131; olduklar&#x131;ndan, bunlar hem olduk&#xE7;a esnek hem de man&#xFC;plasyonu tehlikeli yap&#x131;lard&#x131;r. Yani yapt&#x131;&#x11F;&#x131;m&#x131;z d&#xFC;zenlemeler kesinlikle &#xE7;ok dikkatlice yap&#x131;lmal&#x131;d&#x131;r. &#xC7;&#xFC;nk&#xFC; dosya sistemleri &#xFC;zerinde meydana gelen bir hasar kesinlikle b&#xFC;t&#xFC;n havuzu etkileyecektir ve hatta havuzun yok olmas&#x131;na bile sebep olabilecek bir veri sorununa sebep olacakt&#x131;r.</p>
+<p>Ba&#x15F;lamak i&#xE7;in, ZFS bunlar&#x131; dahili olarak kapsaml&#x131; bir &#x15F;ekilde kulland&#x131;&#x11F;&#x131;ndan, sanal cihazlar&#x131; veya <strong>VDEV</strong>&apos;leri anlamam&#x131;z gerekir. Basit&#xE7;e a&#xE7;&#x131;klamak, bir veya daha fazla fiziksel cihaz&#x131; temsil eden bir meta cihaz&#x131;m&#x131;z var. Linux yaz&#x131;l&#x131;m RAID&apos;inde, 4 diskten olu&#x15F;an RAID-5 dizisini temsil eden bir &quot;/dev/md0&quot; ayg&#x131;t&#x131;n&#x131;z olabilir. Bu durumda, &quot;/dev/md0&quot; sizin &quot;<strong>VDEV</strong>&quot; ayg&#x131;t&#x131;n&#x131;z olacakt&#x131;r. Ayn&#x131; &#x15F;ekilde bir dosya &#xFC;zerine olu&#x15F;turudu&#x11F;unuz sanal disk &quot;/tmp/disk1&quot; yolunda olsun. Bu disk de bir dosya cihaz&#x131;m&#x131;zd&#x131;r ve bu da bizim i&#xE7;in bir <strong>VDEV</strong> olacakt&#x131;r.</p>
+<p>ZFS&apos;de yedi t&#xFC;r VDEV cihaz&#x131; t&#xFC;r&#xFC; vard&#x131;r:</p>
+<ul>
+<li><strong>disk (varsay&#x131;lan):</strong> Sisteminizdeki fiziksel sabit s&#xFC;r&#xFC;c&#xFC;ler. </li>
+<li><strong>dosya (file):</strong> &#xD6;nceden ayr&#x131;lm&#x131;&#x15F; dosyalardan/g&#xF6;r&#xFC;nt&#xFC;lerden olu&#x15F;an sanal s&#xFC;r&#xFC;c&#xFC;ler. </li>
+<li><strong>ayna (mirror):</strong> Standart yaz&#x131;l&#x131;m RAID-1 aynas&#x131;</li>
+<li><strong>raidz1/2/3:</strong> Standart olmayan da&#x11F;&#x131;t&#x131;lm&#x131;&#x15F; e&#x15F;lik tabanl&#x131; yaz&#x131;l&#x131;m RAID seviyeleri. </li>
+<li><strong>yedek (spare):</strong> ZFS RAID i&#xE7;in &quot;etkin yedek&quot; olarak i&#x15F;aretlenmi&#x15F; sabit s&#xFC;r&#xFC;c&#xFC;ler. </li>
+<li><strong>&#xF6;nbellek (cache):</strong> Seviye 2 uyarlanabilir okuma &#xF6;nbelle&#x11F;i (L2ARC) i&#xE7;in kullan&#x131;lan cihaz. </li>
+<li><strong>g&#xFC;nl&#xFC;k (log):</strong> &quot;ZFS Ama&#xE7; G&#xFC;nl&#xFC;&#x11F;&#xFC;&quot; veya ZIL ad&#x131; verilen ayr&#x131; bir g&#xFC;nl&#xFC;k (SLOG).</li>
+</ul>
+<p>ZFS dosya sistemleri, <code>zfs</code> komutu kullan&#x131;larak y&#xF6;netilir. ZFS komutu, dosya sistemlerinde belirli i&#x15F;lemleri ger&#xE7;ekle&#x15F;tiren bir dizi alt komut sa&#x11F;lar. Bu alt komutlar basit disk i&#x15F;lemleri (disk alan&#x131; ekleme, &#xE7;&#x131;karma, kontrol etme) haricinde daha &#xF6;ncesinde bahsetti&#x11F;im aynalama (<code>mirror</code>) ve yedekleme (<code>spare</code>) i&#x15F;lerini de sa&#x11F;lar.</p>
+<p>ZFS dosya sistemlerini olu&#x15F;turmak ve y&#xF6;netmek i&#xE7;in ilk yapmam&#x131;z gereken i&#x15F;lem bir ZFS disk havuzu olu&#x15F;turmak. &#x130;lk ad&#x131;mda bu havuzlar&#x131; nas&#x131;l olu&#x15F;turup nas&#x131;l man&#xFC;ple edece&#x11F;imizi g&#xF6;rece&#x11F;iz.</p>
+<p>Bu a&#x15F;amada temel i&#x15F;lemleri ikiye ay&#x131;raca&#x11F;&#x131;m. ZFS Disk y&#xF6;netim sistemi i&#xE7;in bir disk havuzu olu&#x15F;turmak zorunday&#x131;z. Bu bizim birinci k&#x131;sm&#x131;m&#x131;z&#x131; olu&#x15F;turacak. &#x130;kincisi ise bu havuzlar i&#xE7;erisinde ZFS disk b&#xF6;l&#xFC;mleri olu&#x15F;turabilmeyi ve &#xFC;zerinde i&#x15F;lemler yapmay&#x131; &#xF6;&#x11F;renece&#x11F;iz.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../baslangic/zfsyi-gercek-ortamda-kullanmak.html" class="navigation navigation-prev " aria-label="Previous page: ZFS'yi Çalışma Ortamına Kurmak">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html" class="navigation navigation-next " aria-label="Next page: ZFS Havuz Yönetimi - Basit Havuz Operasyonları">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"ZFS'ye Giriş","level":"3.1","depth":1,"next":{"title":"ZFS Havuz Yönetimi - Basit Havuz Operasyonları","level":"4.1","depth":1,"path":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","ref":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","articles":[]},"previous":{"title":"ZFS'yi Çalışma Ortamına Kurmak","level":"2.3","depth":1,"path":"baslangic/zfsyi-gercek-ortamda-kullanmak.md","ref":"baslangic/zfsyi-gercek-ortamda-kullanmak.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfsye-giris/zfs-ye-giris.md","mtime":"2021-03-01T10:20:38.373Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

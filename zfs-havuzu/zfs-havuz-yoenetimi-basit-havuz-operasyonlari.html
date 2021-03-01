@@ -1,0 +1,720 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ZFS Havuz Yönetimi - Basit Havuz Operasyonları · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="ZFS'nin havuz işlemleri ve vdev işlemleri ile başlayan ufak bir ısınma turu">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html" />
+    
+    
+    <link rel="prev" href="../zfsye-giris/zfs-ye-giris.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Başlangıç</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../baslangic/zfsnin-oezellikleri.html">
+            
+                <a href="../baslangic/zfsnin-oezellikleri.html">
+            
+                    
+                    ZFS'nin Özellikleri
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../baslangic/zfsyi-anlamak.html">
+            
+                <a href="../baslangic/zfsyi-anlamak.html">
+            
+                    
+                    ZFS'yi Anlamak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                <a href="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                    
+                    ZFS'yi Çalışma Ortamına Kurmak
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'ye Giriş</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../zfsye-giris/zfs-ye-giris.html">
+            
+                <a href="../zfsye-giris/zfs-ye-giris.html">
+            
+                    
+                    ZFS'ye Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Havuzu</li>
+        
+        
+    
+        <li class="chapter active" data-level="4.1" data-path="zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                <a href="zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Basit Havuz Operasyonları
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                <a href="zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Dosya Hiyerarşisi</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                    
+                    ZFS Disk Hiyerarşisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                    
+                    ZFS Üst Düzey Disk Hiyerarşi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'de Ek Özellikler</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                <a href="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Gerçek Hayatta ZFS'nin Kullanımı</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                    
+                    ZFS Veri Kurtarma Senaryoları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">SON KISIM</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../son-kisim/ekler/">
+            
+                <a href="../son-kisim/ekler/">
+            
+                    
+                    Ekler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                <a href="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                    
+                    Sıkça Sorulan Sorular
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../son-kisim/kaynakca.html">
+            
+                <a href="../son-kisim/kaynakca.html">
+            
+                    
+                    Kaynakça
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../son-kisim/lisans.html">
+            
+                <a href="../son-kisim/lisans.html">
+            
+                    
+                    GNU Özgür Belgelendirme Lisansı
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ZFS Havuz Yönetimi - Basit Havuz Operasyonları</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="zfs-havuz-y&#xF6;netimi---basit-havuz-operasyonlar&#x131;">ZFS Havuz Y&#xF6;netimi - Basit Havuz Operasyonlar&#x131;</h1>
+<p>ZFS y&#xF6;netimi, basitlik g&#xF6;z &#xF6;n&#xFC;nde bulundurularak tasarlanm&#x131;&#x15F;t&#x131;r. Tasar&#x131;m hedefleri aras&#x131;nda, kullan&#x131;labilir bir dosya sistemi olu&#x15F;turmak i&#xE7;in gereken komutlar&#x131;n say&#x131;s&#x131;n&#x131; azaltmakt&#x131;r. &#xD6;rne&#x11F;in, yeni bir havuz olu&#x15F;turdu&#x11F;unuzda, otomatik olarak yeni bir ZFS dosya sistemi olu&#x15F;turulur ve ba&#x11F;lan&#x131;r. Ba&#x11F;lama konumu (siz aksini belirtmedik&#xE7;e) sisteminizin k&#xF6;k dizinidir.</p>
+<p>ZFS&apos;de ayg&#x131;t havuzu i&#x15F;lemleri <code>zpool</code> komutu ile y&#xF6;netilir.</p>
+<h2 id="zfs-ayg&#x131;t-havuzu-olu&#x15F;turmak">ZFS Ayg&#x131;t Havuzu Olu&#x15F;turmak</h2>
+<p>&#x130;lk olarak <code>zpool</code> komutu ile elimizdeki ayg&#x131;t havuzu listesini g&#xF6;relim.</p>
+<pre><code class="lang-text">~# zpool list
+no pools available
+</code></pre>
+<p>Bu komutun &#xE7;&#x131;kt&#x131;s&#x131; herhangi bir ayg&#x131;t havuzu olu&#x15F;turulmad&#x131;&#x11F;&#x131;n&#x131; bize bildiriyor. ZFS&apos;de &#xE7;e&#x15F;itli dosya sistemleri olu&#x15F;turabilme se&#xE7;eneklerimiz var. Bunlardan ilki ger&#xE7;ek donan&#x131;ma bir ZFS dosya sistemi olu&#x15F;turmak.</p>
+<p>Bu a&#x15F;ama i&#xE7;in <code>/dev/sdb</code> yoluna ba&#x11F;l&#x131; diski kullanaca&#x11F;&#x131;m.</p>
+<pre><code class="lang-text">~# zpool create tank /dev/sdb1
+</code></pre>
+<p>Bu komut hengi bir &#xE7;&#x131;kt&#x131; vermeyecek. <code>zpool create</code> komutu bizim bir ayg&#x131;t havuzu olu&#x15F;turmam&#x131;z&#x131; sa&#x11F;lar. <code>tank</code> bizim ZFS havuzumunuzun ad&#x131;d&#x131;r (di&#x11F;er ZFS d&#xF6;k&#xFC;manlar&#x131;nda hep tank olarak koymu&#x15F;lar, san&#x131;r&#x131;m bu bir gelenek ve bozmak istemedim). <code>/dev/sdb1</code> ise <code>/dev/sdb</code>&apos;ye ba&#x11F;l&#x131; olan diskin ilk b&#xF6;l&#xFC;m&#xFC;n&#xFC; i&#x15F;aret ediyor. Bu komutun tamamlanmas&#x131; ile daha &#xF6;ncesinde belirtti&#x11F;im gibi disk alan&#x131;m&#x131;z k&#xF6;k dizine ba&#x11F;lanacakt&#x131;r.</p>
+<pre><code class="lang-text">~# ls -ali / |grep tank
+     34 drwxr-xr-x.   2 root root     2 &#x15E;ub 24 18:44 tank
+</code></pre>
+<p><code>/dev/sdb1</code> &#xFC;zerine bu ayg&#x131;t havuzunu olu&#x15F;turmam&#x131;n sebebi ZFS&apos;yi tek bir disk alan&#x131;nda kullanmak. E&#x11F;er ki diskinizin i&#xE7;erisinde birden fazla b&#xF6;l&#xFC;m varsa ve bu b&#xF6;l&#xFC;mleri kaybemek istemiyorsan&#x131;z kesinlikle bu &#x15F;ekilde b&#xF6;l&#xFC;m belirtmenizi tavsiye ederim. &#xD6;rne&#x11F;in ZFS on Linux kurulumu yapacaksan&#x131;z bu &#x15F;ekilde bir havuz olu&#x15F;turmak daha mant&#x131;kl&#x131; olacakt&#x131;r &#xE7;&#xFC;nk&#xFC; ayn&#x131; diskte, <code>boot</code> ve <code>EFI</code> i&#xE7;in ayr&#x131; disk alanlar&#x131;na ihtiya&#xE7; duyabilirsiniz.</p>
+<p>Ancak t&#xFC;m bir diski ZFS olarak kullanmak istiyorsan&#x131;z &#x15F;unu yapman&#x131;z gerekmekte.</p>
+<pre><code class="lang-text">~# zpool create tank /dev/sdb
+</code></pre>
+<p>&#x15E;imdi bu i&#x15F;lemlerin sonucunda bir ayg&#x131;t havuzu olu&#x15F;turdu&#x11F;umuzu varsayal&#x131;m. En ba&#x15F;ta yap&#x131;t&#x131;&#x11F;&#x131;m&#x131;z gibi zpool listemizi kontrol edelim. Bunu da <code>zpool list</code> komutu ile yapabiliyoruz.</p>
+<pre><code class="lang-text">~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  14.5G   100K  14.5G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>Bu komutun &#xE7;&#x131;kt&#x131;s&#x131;nda g&#xF6;rd&#xFC;&#x11F;&#xFC;m&#xFC;z gibi ayg&#x131;t havuzunun toplam boyutu, kullan&#x131;lan ve bo&#x15F; alan, ayg&#x131;t havuzundaki disklerin sa&#x11F;l&#x131;&#x11F;&#x131; durumu ve ek baz&#x131; detaylar var. Bu komut sayesinde sisteminizde yer alan b&#xFC;t&#xFC;n ZFS havuzlar&#x131;n&#x131;n listesini kolayl&#x131;kla g&#xF6;rebilirsiniz.</p>
+<h2 id="ayg&#x131;t-havuzunun-durumunu-g&#xF6;r&#xFC;nt&#xFC;lemek">Ayg&#x131;t Havuzunun Durumunu G&#xF6;r&#xFC;nt&#xFC;lemek</h2>
+<p>Basit bir disk havuzu olu&#x15F;tural&#x131;m</p>
+<pre><code class="lang-text">~# zpool create tank /dev/sdb
+</code></pre>
+<p>ZFS havuzumuza ait detaylar&#x131; g&#xF6;r&#xFC;nt&#xFC;leyelim &#x15F;imdi. Bunun i&#xE7;in de bir di&#x11F;er komuta ihtiyac&#x131;m&#x131;z var. <code>zpool status</code> ile havuzumuza ba&#x11F;l&#x131; b&#xFC;t&#xFC;n diskleri ve durumlar&#x131;n&#x131; g&#xF6;rebiliriz.</p>
+<pre><code class="lang-text">~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME        STATE     READ WRITE CKSUM
+    tank        ONLINE       0     0     0
+        sdb     ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>&quot;Zpool status&quot; komutundaki sat&#x131;rlar, havuz hakk&#x131;nda size &#xE7;o&#x11F;u kendinden a&#xE7;&#x131;klamal&#x131; hayati bilgiler verir. &#xC7;&#x131;kt&#x131;y&#x131; anlamas&#x131; ve regex ile i&#x15F;lemesi olduk&#xE7;a basittir. &#xDC;stten a&#x15F;a&#x11F;&#x131; olarak baz&#x131; tag&apos;lar alt&#x131;nda baz&#x131; bilgiler bize aktar&#x131;lmakta. Hepsi burada g&#xF6;r&#xFC;nmese bile ben b&#xFC;t&#xFC;n tan&#x131;mlar&#x131; aktarmak istiyorum:</p>
+<ul>
+<li><strong>pool:</strong> Havuzun ad&#x131;.</li>
+<li><strong>state:</strong> Havuzun mevcut sa&#x11F;l&#x131;&#x11F;&#x131;. </li>
+<li><strong>status:</strong> Havuzda neyin yanl&#x131;&#x15F; oldu&#x11F;una dair bir a&#xE7;&#x131;klama. Sorun bulunmazsa bu alan yaz&#x131;lmayacakt&#x131;r. Ancak hatalar ya&#x15F;anmas&#x131; durumunda detayl&#x131; bilgiler bu anahtar ba&#x15F;l&#x131;k alt&#x131;na bas&#x131;lacakt&#x131;r.</li>
+<li><strong>action:</strong> Hata bulunmas&#x131; durumunda onarmak i&#xE7;in &#xF6;nerilen eylem. Bu alan, kullan&#x131;c&#x131;y&#x131; dokumantasyon b&#xF6;l&#xFC;mlerinden veya daha &#xF6;ncesinde a&#xE7;&#x131;lm&#x131;&#x15F; hata bildilerinden birine y&#xF6;nlendiren k&#x131;salt&#x131;lm&#x131;&#x15F; bir formdur. Sorun bulunmazsa bu alan yaz&#x131;lmayacakt&#x131;r.</li>
+<li><strong>see:</strong> Ayr&#x131;nt&#x131;l&#x131; onar&#x131;m bilgilerini i&#xE7;eren bir bilgi makalesine referans verir. Sorun bulunmazsa bu alan yaz&#x131;lmayacakt&#x131;r.</li>
+<li><strong>scrub:</strong> Son disk d&#xFC;zenlemesinin tamamland&#x131;&#x11F;&#x131; tarih ve saati, devam eden bir d&#xFC;zenleme i&#x15F;leminin durumunu veya herhangi bir d&#xFC;zenleme talebi istenmemi&#x15F;se dahil olabilen bir d&#xFC;zenleme i&#x15F;leminin mevcut durumunu tan&#x131;mlar.</li>
+<li><strong>errors:</strong> Bilinen veri hatalar&#x131;n&#x131; veya bilinen veri blo&#x11F;u hatalar&#x131;n&#x131;n yoklu&#x11F;unu tan&#x131;mlar.</li>
+<li><p><strong>config:</strong> Havuzu olu&#x15F;turan cihazlar&#x131;n konfig&#xFC;rasyon d&#xFC;zeninin yan&#x131; s&#x131;ra durumlar&#x131;n&#x131; ve cihazlardan &#xFC;retilen hatalar&#x131; a&#xE7;&#x131;klar. Durum belirte&#xE7;leri &#x15F;unlardan biri olabilir: <strong>ONLINE</strong>, <strong>FAULTED</strong>, <strong>DEGRADED</strong>, <strong>UNAVAILABLE</strong>, veya <strong>OFFLINE</strong>. Durum <strong>ONLINE</strong> d&#x131;&#x15F;&#x131;nda bir &#x15F;eyse, havuzun hata tolerans&#x131; havuzu tehlikeye at&#x131;lm&#x131;&#x15F;t&#x131;r.</p>
+<p>Durum &#xE7;&#x131;kt&#x131;s&#x131;ndaki s&#xFC;tunlar ise &#x15F;u &#x15F;ekilde tan&#x131;mlan&#x131;r:</p>
+<ul>
+<li><strong>NAME:</strong> Havuzdaki her bir <strong>VDEV</strong>&apos;in i&#xE7; i&#xE7;e s&#x131;rayla sunulan ad&#x131;.</li>
+<li><strong>STATUS:</strong> Havuzdaki her <strong>VDEV</strong>&apos;nin durumu. Durum, yukar&#x131;daki &quot;config&quot; de bulunan durumlardan herhangi biri olabilir.</li>
+<li><strong>READ:</strong> Bir okuma talebi yay&#x131;nlan&#x131;rken ya&#x15F;anan I/O hatalar&#x131;n&#x131; aktar&#x131;r.</li>
+<li><strong>WRITE:</strong> Bir yazma talebi s&#x131;ras&#x131;nda ya&#x15F;anan I/O hatalar&#x131;n&#x131; aktar&#x131;r.</li>
+<li><strong>CHKSUM:</strong> Sa&#x11F;lama toplam&#x131; hatalar&#x131;. Cihaz, bir okuma iste&#x11F;inin sonucu olarak bozuk veriler d&#xF6;nd&#xFC;r&#xFC;rse bunu bildirir.</li>
+</ul>
+</li>
+</ul>
+<h2 id="birden-fazla-diskle-zfs-ayg&#x131;t-havuzu-olu&#x15F;turmak">Birden Fazla Diskle ZFS Ayg&#x131;t Havuzu Olu&#x15F;turmak</h2>
+<p><code>zpool</code> ile ayn&#x131; anda birden fazla diski de tek havuzda kullanabilece&#x11F;imizden bahsetmi&#x15F;tim. Bunu ilk kurulum a&#x15F;amas&#x131;nda yapabiliriz. Bunun i&#xE7;in &#x15F;u komutu vermemiz yeterlidir.</p>
+<pre><code class="lang-text">~# zpool create tank /dev/sdb /dev/sdc
+</code></pre>
+<p>Bu komutla iki tane 16 GB&apos;l&#x131;k diski bir zpool i&#xE7;erisine eklemi&#x15F; olduk. Bu i&#x15F;lem sonucunda havuz alan&#x131;m&#x131;z &#x15F;u &#x15F;ekilde g&#xF6;r&#xFC;necektir.</p>
+<pre><code class="lang-text">NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  29.0G   148K  29.0G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>Ekledi&#x11F;imiz yeni disk alan&#x131;n&#x131;, daha fazla disk alan&#x131;na sahip olmak i&#xE7;in kullanmak zorunda de&#x11F;iliz. Bunu daha &#xF6;ncesinde belirtti&#x11F;im aynalama yani <code>mirror</code> i&#x15F;lemi i&#xE7;in de kullanmak isteyebiliriz. Bu durumda bize <code>RAID</code> yuvalamas&#x131; (nesting) yard&#x131;m&#x131;za ko&#x15F;uyor. Bunu bir sonraki k&#x131;s&#x131;mda &#xF6;zellikle detayland&#x131;rarak anlataca&#x11F;&#x131;m ama &#x15F;imdi bahsetmeden ge&#xE7;memek istedim. Bu &#xF6;zellik sayesinde ekledi&#x11F;imiz diskleri gruplayarak ekleyebiliriz. Bu gruplar&#x131;n her birisi &#xF6;zel kullan&#x131;m i&#xE7;in ayr&#x131;lm&#x131;&#x15F; disk alanlar&#x131;d&#x131;r, Havuz olu&#x15F;tururken gruplamak i&#xE7;in grup olarak kullan&#x131;lacak diskler bu gruba ait parametre belirtilerek ayg&#x131;t havuzlar&#x131; olu&#x15F;turulur. Kimi diskleri g&#xFC;nl&#xFC;kleme kimi diskleri ge&#xE7;ici depolama ve &#xF6;nbellekleme i&#xE7;in kullanabiliriz. Her grubun kendi amac&#x131; ve parametreleri hakk&#x131;nda detayli bilgiyi ilerleyen sayfalarda verece&#x11F;im. Ancak &#xF6;rnek olu&#x15F;turmas&#x131; i&#xE7;in baz&#x131; ayg&#x131;t havuzlar&#x131; olu&#x15F;tural&#x131;m. Bunu olu&#x15F;tururken &#x15F;unu yapmam&#x131;z yeterlidir.</p>
+<pre><code class="lang-text">~# zpool create tank mirror /dev/sdb /dev/sdc
+</code></pre>
+<p>ZFS havuzumuza ait detaylar&#x131; g&#xF6;r&#xFC;nt&#xFC;leyelim &#x15F;imdi.</p>
+<pre><code class="lang-text">~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME        STATE     READ WRITE CKSUM
+    tank        ONLINE       0     0     0
+      mirror-0  ONLINE       0     0     0
+        sdb     ONLINE       0     0     0
+        sdc     ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>Bu durumda <code>/dev/sdb</code> ve <code>/dev/sdc</code> disklerini aynalama i&#xE7;in kullanm&#x131;&#x15F; olaca&#x11F;&#x131;z.</p>
+<p>Birden fazla aynalama grubu olu&#x15F;turmak istedi&#x11F;imizde ise</p>
+<pre><code class="lang-text">~# zpool create tank mirror /dev/sdb /dev/sdc mirror /dev/sdd /dev/sdf
+</code></pre>
+<pre><code class="lang-text">  pool: tank
+  state: ONLINE
+  scan: none requested
+  config:
+
+    NAME        STATE     READ WRITE CKSUM
+    tank        ONLINE       0     0     0
+      mirror-0  ONLINE       0     0     0
+        sdb     ONLINE       0     0     0
+        sdc     ONLINE       0     0     0
+      mirror-1  ONLINE       0     0     0
+        sdd     ONLINE       0     0     0
+        sdf     ONLINE       0     0     0
+</code></pre>
+<p>Bunlara ek olarak ayg&#x131;t havuzunda birden fazla grup da ekleyebiliriz. &#xD6;rne&#x11F;in <code>mirror</code>, <code>log</code> ve <code>cache</code> diskleri ekleyelim.</p>
+<pre><code class="lang-text">~# zpool create tank mirror /dev/sdb  /dev/sdc mirror /dev/sdd /dev/sde log mirror /dev/sdf /dev/sdg  cache /dev/sdh /dev/sdi
+</code></pre>
+<pre><code class="lang-text">  pool: tank
+  state: ONLINE
+  scan: none requested
+  config:
+
+    NAME            STATE     READ WRITE CKSUM
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        sdb         ONLINE       0     0     0
+        sdc         ONLINE       0     0     0
+      mirror-1      ONLINE       0     0     0
+        sdd         ONLINE       0     0     0
+        sde         ONLINE       0     0     0
+    logs
+      mirror-2      ONLINE       0     0     0
+        sdf         ONLINE       0     0     0
+        sdg         ONLINE       0     0     0
+    cache
+      sdh           ONLINE       0     0     0
+      sdi           ONLINE       0     0     0
+</code></pre>
+<p>G&#xF6;rd&#xFC;&#x11F;&#xFC;n&#xFC;z gibi tek bir zpool havuzu sayesinde birden fazla diske ait b&#xFC;t&#xFC;n alan&#x131; e&#x15F;zamanl&#x131; olarak kullanabiliyoruz. Ayr&#x131;ca farkl&#x131; disk alanlar&#x131;n&#x131; ayn&#x131; havuz i&#xE7;erisinde farkl&#x131; ama&#xE7;larla da kullanabiliyoruz. Bu sayede birden fazla diske sahip olan sunucularda ayr&#x131; ayr&#x131; diskleri b&#xF6;l&#xFC;mlendirmek ve ba&#x11F;lamakla u&#x11F;ra&#x15F;mak yerine bir seferde bunlar&#x131; tek bir disk alan&#x131; gibi kullanabiliyoruz ve bir tek konuma ba&#x11F;layabiliyoruz.</p>
+<h2 id="zfs-disk-havuzuna-yeni-diskler-eklemek">ZFS Disk Havuzuna Yeni Diskler Eklemek</h2>
+<p>&#x15E;imdi bir senaryo ile geleyim. Halihaz&#x131;rda <code>/dev/sdb</code> ve <code>/dev/sdc</code> disklerini ekledi&#x11F;imiz bir havuz var ve t&#xFC;m depolama alan&#x131;n&#x131;n dolmu&#x15F; oldu&#x11F;unu varsayal&#x131;m. E&#x11F;er yeterli bo&#x15F; disk slotumuz varsa ek diskler ekleyerek yeni bo&#x15F; alanlar olu&#x15F;turabiliriz. Ama dur bir saniye. B&#xFC;t&#xFC;n bu disk havuzunu s&#x131;f&#x131;rlamam&#x131;z m&#x131; laz&#x131;m. Tabi ki hay&#x131;r. Geleneksel disk y&#xF6;netim sistemlerinin aksine ZFS&apos;de bunu havuza eklemek i&#xE7;in basit bir komut yeterlidir.</p>
+<pre><code class="lang-text">~# zpool add tank /dev/sdd
+</code></pre>
+<p>Bu i&#x15F;lemle <code>/dev/sdd</code> diskini havuz i&#xE7;erisine kolayca ba&#x11F;lam&#x131;&#x15F; oluruz.</p>
+<pre><code class="lang-text">NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank    43G   182K  43.0G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<pre><code class="lang-text">pool: tank
+state: ONLINE
+config:
+
+NAME        STATE     READ WRITE CKSUM
+tank        ONLINE       0     0     0
+    sdb       ONLINE       0     0     0
+    sdc       ONLINE       0     0     0
+    sdd       ONLINE       0     0     0
+</code></pre>
+<p>Ayn&#x131; &#x15F;ekilde farkl&#x131; bir t&#xFC;rle ekleme de yapabiliriz. A&#x15F;a&#x11F;&#x131;daki gibi g&#xF6;r&#xFC;nen bir havuzumuz oldu&#x11F;unu varsayal&#x131;m.</p>
+<pre><code class="lang-text">pool: tank
+state: ONLINE
+config:
+
+NAME              STATE     READ WRITE CKSUM
+tank              ONLINE       0     0     0
+    mirror-0      ONLINE       0     0     0
+        sdb       ONLINE       0     0     0
+        sdc       ONLINE       0     0     0
+</code></pre>
+<p>&#x15E;imdi de yeni bir mirror seti ekleyelim.</p>
+<pre><code class="lang-text">~# zpool add tank mirror /dev/sdd /dev/sdf
+</code></pre>
+<pre><code class="lang-text">  pool: tank
+  state: ONLINE
+  scan: none requested
+  config:
+
+    NAME        STATE     READ WRITE CKSUM
+    tank        ONLINE       0     0     0
+      mirror-0  ONLINE       0     0     0
+        sdb     ONLINE       0     0     0
+        sdc     ONLINE       0     0     0
+      mirror-1  ONLINE       0     0     0
+        sdd     ONLINE       0     0     0
+        sdf     ONLINE       0     0     0
+</code></pre>
+<h2 id="zfs-ayg&#x131;t-havuzlar&#x131;n&#x131;n-i&#x307;&#xE7;e-aktar&#x131;lmas&#x131;">ZFS Ayg&#x131;t Havuzlar&#x131;n&#x131;n &#x130;&#xE7;e Aktar&#x131;lmas&#x131;</h2>
+<p>Diyelim ki bir ba&#x15F;ka bilgisayarda u&#x11F;ra&#x15F;t&#x131;&#x11F;&#x131;m&#x131;z bir ZFS havuzu var. Bu havuzu ba&#x15F;ka bir bilgisayara ba&#x11F;lamak i&#xE7;in <code>zpool import</code> komutu kullan&#x131;l&#x131;r.</p>
+<pre><code class="lang-text">~# zpool import tank
+</code></pre>
+<p>Bu i&#x15F;lem b&#xFC;t&#xFC;n disklerin ve temel ayg&#x131;tlar&#x131;n yap&#x131;land&#x131;rmas&#x131;, bellek &#x15F;eritlerinin okunmas&#x131; ve uygun &#x15F;ekilde ba&#x11F;lanmas&#x131; i&#xE7;in biraz s&#xFC;re gerekecektir. Bu s&#xFC;renin ard&#x131;ndan uygun &#x15F;ekilde ba&#x11F;lanacak ve k&#xF6;k sisteme bu havuz ba&#x11F;lanacakt&#x131;r.</p>
+<h2 id="zfs-ayg&#x131;t-havuzundan-disk-&#xE7;&#x131;karmak">ZFS Ayg&#x131;t Havuzundan Disk &#xC7;&#x131;karmak</h2>
+<p>&#x15E;imdi yapt&#x131;&#x11F;&#x131;m&#x131;z i&#x15F;leri birazc&#x131;k da geri sard&#x131;ral&#x131;m.</p>
+<p>Diyelim ki bu disklerden bir tanesini &#xE7;&#x131;kar&#x131;p yerine bir ba&#x15F;ka disk takmam&#x131;z laz&#x131;m. Veya art&#x131;k bu kadar &#xE7;ok bir depolama alan&#x131;na ihtiyac&#x131;m&#x131;z yok. Bu durumda b&#xFC;t&#xFC;n bir ayg&#x131;t havuzuna zarar vermeden havuzdan diskleri &#xE7;&#x131;kartabiliriz.</p>
+<pre><code class="lang-text">~# zpool remove tank /dev/sdc
+</code></pre>
+<p>Bu komut diskin i&#xE7;erisindeki veriye ba&#x11F;l&#x131; olarak uzun s&#xFC;recektir. &#x15E;&#xF6;yle ki ZFS bu diski kald&#x131;rmadan &#xF6;nce bu diske ait olan veriyi elinden geldi&#x11F;ince kaybetmemeye &#xE7;al&#x131;&#x15F;&#x131;r. Bu sebeple veriyi di&#x11F;er disklere kayd&#x131;racakt&#x131;r. &#x130;&#x15F;lem bitti&#x11F;inde de <code>zpool status</code> komutumuzun &#xE7;&#x131;kt&#x131;s&#x131;nda <code>sdc</code> yer almayacakt&#x131;r.</p>
+<pre><code class="lang-text">~# zpool status tank
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME        STATE     READ WRITE CKSUM
+    tank        ONLINE       0     0     0
+      sdb       ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>Direk diskleri tek tek &#xE7;&#x131;karabildi&#x11F;imiz gibi &#xF6;nceki ad&#x131;mlarda olu&#x15F;turdu&#x11F;umuz alt &#xF6;zelliklere sahip alt k&#x131;s&#x131;mlar&#x131; da birlikte &#xE7;&#x131;karabiliriz. &#xD6;rne&#x11F;in a&#x15F;a&#x11F;&#x131;daki disk alan&#x131; i&#xE7;in</p>
+<pre><code class="lang-text">pool: tank 
+state: ONLINE 
+scan: none requested 
+config:
+  NAME        STATE     READ WRITE CKSUM
+  tank        ONLINE       0     0     0
+    mirror-0  ONLINE       0     0     0
+      sdb     ONLINE       0     0     0
+      sdc     ONLINE       0     0     0
+    mirror-1  ONLINE       0     0     0
+      sdd     ONLINE       0     0     0
+      sdf     ONLINE       0     0     0
+</code></pre>
+<p>Bu havuzdan <code>mirror-1</code> &apos;i &#xE7;&#x131;karabiliriz.</p>
+<pre><code class="lang-text">~# zpool remove tank mirror-1
+</code></pre>
+<p>Bu durumda havuzumuz &#x15F;&#xF6;yle g&#xF6;r&#xFC;necektir.</p>
+<pre><code class="lang-text">pool: tank 
+state: ONLINE 
+scan: none requested 
+config:
+  NAME        STATE     READ WRITE CKSUM
+  tank        ONLINE       0     0     0
+    mirror-0  ONLINE       0     0     0
+      sdb     ONLINE       0     0     0
+      sdc     ONLINE       0     0     0
+</code></pre>
+<h2 id="zfs-ayg&#x131;t-havuzunu-yok-etmek">ZFS Ayg&#x131;t Havuzunu Yok Etmek</h2>
+<p>B&#xFC;t&#xFC;n bir ayg&#x131;t havuzunu silmek i&#xE7;in ise <code>zpool destroy</code> komutunu kullanabiliriz.</p>
+<pre><code class="lang-text">~# zpool destroy tank
+</code></pre>
+<pre><code class="lang-text">~# zpool status
+no pools available
+</code></pre>
+<h2 id="zfs-ayg&#x131;t-havuzlar&#x131;n&#x131;n-d&#x131;&#x15F;a-aktar&#x131;lmas&#x131;">ZFS Ayg&#x131;t Havuzlar&#x131;n&#x131;n D&#x131;&#x15F;a Aktar&#x131;lmas&#x131;</h2>
+<p>Diyelim ki &#xFC;zerinde &#xE7;al&#x131;&#x15F;t&#x131;&#x11F;&#x131;m&#x131;z ZFS havuzunu ba&#x15F;ka bir bilgisayara aktarmak istiyoruz. Halihaz&#x131;rda ekleme yapmay&#x131; yukar&#x131;da anlatt&#x131;m ama ba&#x15F;ka bir bilgisayara ba&#x11F;lamadan &#xF6;nce g&#xFC;venli bir &#x15F;ekilde &#xE7;al&#x131;&#x15F;t&#x131;&#x11F;&#x131;m&#x131;z bilgisayardan kald&#x131;rmam&#x131;z laz&#x131;m. Bu i&#x15F;lem i&#xE7;in <code>zpool export</code> komutu kullan&#x131;l&#x131;r.</p>
+<pre><code class="lang-text">~# zpool export tank
+</code></pre>
+<p>Bu i&#x15F;lem b&#xFC;t&#xFC;n disklerin yap&#x131;land&#x131;rmas&#x131; ve verilerin senkronize edilerek ayr&#x131;lmas&#x131; biraz uzun s&#xFC;recektir. Bu s&#xFC;renin ard&#x131;ndan uygun &#x15F;ekilde ba&#x11F;lanacak ve k&#xF6;k sisteme bu havuz ba&#x11F;lanacakt&#x131;r.</p>
+<h2 id="zfs-havuz-ge&#xE7;mi&#x15F;">ZFS Havuz Ge&#xE7;mi&#x15F;</h2>
+<p>ZFS ayg&#x131;t havuzu sistemi, bu yapt&#x131;&#x11F;&#x131;m&#x131;z i&#x15F;lemleri ad&#x131;m ad&#x131;m g&#xF6;rmemize imkan sa&#x11F;layan bir ge&#xE7;mi&#x15F; g&#xFC;nl&#xFC;&#x11F;&#xFC; yap&#x131;s&#x131;na sahiptir. B&#xFC;t&#xFC;n bu de&#x11F;i&#x15F;imleri <code>zpool history</code> ile g&#xF6;rebiliriz. Bu komuta ek olarak havuzumuzun ad&#x131;n&#x131; verirsek, &#xF6;zel olarak o havuza ait ge&#xE7;mi&#x15F;i verecektir. E&#x11F;er herhangi bir parametre vermezsek b&#xFC;t&#xFC;n havuzlara ait ge&#xE7;mi&#x15F;leri verecektir. Bu ge&#xE7;mi&#x15F; bilgisi disklerin ayg&#x131;t havuzunu belirten hearder k&#x131;s&#x131;mlar&#x131; i&#xE7;erisine toplan&#x131;r, yani ba&#x15F;ka bir bilgisayara bu diskleri aktard&#x131;&#x11F;&#x131;m&#x131;z zaman silinemez. Ancak <code>zpool destroy</code> komutu ile bu ayg&#x131;t havuzunu yoketti&#x11F;imizde bu ge&#xE7;mi&#x15F;i de kaybederiz.</p>
+<pre><code class="lang-text">~# zpool history tank
+
+History for &apos;tank&apos;:
+2021-02-25.13:16:26 zpool create tank /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdb4 /dev/sdb5 /dev/sdb6
+2021-02-25.13:19:38 zpool remove tank sdb5
+2021-02-25.13:23:28 zpool remove tank sdb6
+2021-02-25.13:25:42 zpool add tank mirror sdb4 sdb5 sdb6
+2021-02-25.13:31:12 zpool export tank
+2021-02-25.13:36:23 zpool import tank
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../zfsye-giris/zfs-ye-giris.html" class="navigation navigation-prev " aria-label="Previous page: ZFS'ye Giriş">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html" class="navigation navigation-next " aria-label="Next page: ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"ZFS'nin havuz işlemleri ve vdev işlemleri ile başlayan ufak bir ısınma turu","title":"ZFS Havuz Yönetimi - Basit Havuz Operasyonları","level":"4.1","depth":1,"next":{"title":"ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi","level":"4.2","depth":1,"path":"zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.md","ref":"zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.md","articles":[]},"previous":{"title":"ZFS'ye Giriş","level":"3.1","depth":1,"path":"zfsye-giris/zfs-ye-giris.md","ref":"zfsye-giris/zfs-ye-giris.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","mtime":"2021-03-01T10:20:38.372Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

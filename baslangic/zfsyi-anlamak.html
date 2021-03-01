@@ -1,0 +1,497 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ZFS'yi Anlamak · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="ZFS'nin Terminolojisinin teknik detaylar ile harmanlandığı nokta.">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="zfsyi-gercek-ortamda-kullanmak.html" />
+    
+    
+    <link rel="prev" href="zfsnin-oezellikleri.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Başlangıç</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="zfsnin-oezellikleri.html">
+            
+                <a href="zfsnin-oezellikleri.html">
+            
+                    
+                    ZFS'nin Özellikleri
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="zfsyi-anlamak.html">
+            
+                <a href="zfsyi-anlamak.html">
+            
+                    
+                    ZFS'yi Anlamak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="zfsyi-gercek-ortamda-kullanmak.html">
+            
+                <a href="zfsyi-gercek-ortamda-kullanmak.html">
+            
+                    
+                    ZFS'yi Çalışma Ortamına Kurmak
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'ye Giriş</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../zfsye-giris/zfs-ye-giris.html">
+            
+                <a href="../zfsye-giris/zfs-ye-giris.html">
+            
+                    
+                    ZFS'ye Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Havuzu</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Basit Havuz Operasyonları
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Dosya Hiyerarşisi</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                    
+                    ZFS Disk Hiyerarşisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                    
+                    ZFS Üst Düzey Disk Hiyerarşi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'de Ek Özellikler</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                <a href="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Gerçek Hayatta ZFS'nin Kullanımı</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                    
+                    ZFS Veri Kurtarma Senaryoları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">SON KISIM</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../son-kisim/ekler/">
+            
+                <a href="../son-kisim/ekler/">
+            
+                    
+                    Ekler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                <a href="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                    
+                    Sıkça Sorulan Sorular
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../son-kisim/kaynakca.html">
+            
+                <a href="../son-kisim/kaynakca.html">
+            
+                    
+                    Kaynakça
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../son-kisim/lisans.html">
+            
+                <a href="../son-kisim/lisans.html">
+            
+                    
+                    GNU Özgür Belgelendirme Lisansı
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ZFS'yi Anlamak</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="zfsyi-anlamak">ZFS&apos;yi Anlamak</h1>
+<h2 id="zfs-terminolojisi-ve-teknik-detaylar&#x131;">ZFS Terminolojisi ve Teknik detaylar&#x131;</h2>
+<h3 id="zfs-disk-havuzu-zpool">ZFS Disk Havuzu: zpool</h3>
+<p><strong>zpool</strong>, ZFS i&#xE7;in disk ve sanal disk havuzu olu&#x15F;turan katmand&#x131;r. <strong>ZFS hiyerar&#x15F;isinde</strong> en &#xFC;st&#xFC;ndeki yap&#x131; <strong>zpool&#x2019;</strong>lard&#x131;r.</p>
+<p><strong>zpool</strong>&apos;lar alt&#x131;nda sanal diskler olarak bilinen <strong>vdev</strong> ayg&#x131;tlar&#x131;n&#x131; i&#xE7;erir. <strong>vdev</strong>lerin e&#x15F;zamanlamas&#x131;, d&#xFC;zenlenmesi ve bilimum y&#xF6;netiminden <strong>zpool</strong> sorumludur. Fiziksel olarak bir cihazda birden fazla <strong>zpool</strong> bulunabilir. <strong>zpool</strong> bir disk &#xFC;zerinde kurulu olaca&#x11F;&#x131; gibi birden fazla diski birle&#x15F;tirmek i&#xE7;in de kullan&#x131;labilir. Alt sistem olan <strong>vdev</strong>ler i&#xE7;in ise durum biraz farkl&#x131;d&#x131;r. Bir <strong>zpool</strong>&apos;a dahil olan <strong>vdev</strong> bir ba&#x15F;ka <strong>zpool</strong> taraf&#x131;ndan kullan&#x131;lamaz, yani birden fazla havuz tek <strong>vdev</strong>&apos;i payla&#x15F;amaz.</p>
+<p>Modern <strong>vdev</strong>&apos;ler sistem kesintilerine kar&#x15F;&#x131; koruma sa&#x11F;lamaktad&#x131;r. Ancak disk g&#xFC;nl&#xFC;klemesi yapan <strong>vdev</strong>&apos;ler veya &#xF6;zel ama&#xE7;l&#x131; baz&#x131; <strong>vdev</strong>&apos;lerin yok olmas&#x131; durumunda <strong>zpool</strong>&apos;da tan&#x131;l&#x131; verilerde bozulma ya&#x15F;anabilir ve hatta t&#xFC;m <strong>zpool</strong> yok olabilir.</p>
+<p>Bir di&#x11F;er yandan <strong>zpool</strong> yap&#x131;s&#x131;na dahil olan yazma ve da&#x11F;&#x131;t&#x131;m mekanizmas&#x131; sayesinde normalin &#xFC;zerinde disk y&#xFC;k&#xFC; binmesi durumunda ya&#x15F;anan gecikmeler daha azd&#x131;r.</p>
+<p>Ayr&#x131;ca ZFS&#x2019;de disk yazma-okuma i&#x15F;lemleri sadece <strong>zpool</strong>&apos;lardan ibaret de&#x11F;ildir. ZFS dosya sisteminde <strong>zpool</strong> klasik bir <strong>RAID</strong> mant&#x131;&#x11F;&#x131; ile &#xE7;al&#x131;&#x15F;maz. <strong>zpool</strong>, <strong>JBOD</strong> isminde bir mekanizmay&#x131; i&#xE7;ermektedir. Bu kompleks bir da&#x11F;&#x131;t&#x131;m mekanizmas&#x131;d&#x131;r. ZFS&apos;de yaz&#x131;lan veriler bo&#x15F; alana g&#xF6;re uygun <strong>vdev</strong>&apos;ler aras&#x131;nda da&#x11F;&#x131;t&#x131;larak uygun <strong>vdev</strong>&apos;ler dolu hale getirilir. Ayr&#x131;ca <strong>vdev</strong>&apos;leri uygun &#x15F;ekilde ayarlamak <strong>JBOD</strong> sistemi ile m&#xFC;mk&#xFC;nd&#xFC;r. &#xD6;ncelik ayarlarmas&#x131; yap&#x131;lmas&#x131; sayesinde e&#x11F;er bir <strong>vdev</strong> di&#x11F;erlerine g&#xF6;re daha yo&#x11F;un veya kritik &#xF6;neme sahipse <strong>vdev</strong>&apos;in atlanarak ge&#xE7;e&#xE7;i s&#xFC;reli&#x11F;ine ba&#x15F;ka <strong>vdev</strong>&apos;lere yaz&#x131;l&#x131;r. Yo&#x11F;unlu&#x11F;un d&#xFC;zelmesi durumunda da <strong>vdev</strong>&apos;ler yeniden d&#xFC;zenleneyerek veri daha s&#x131;ral&#x131; bir &#x15F;ekilde da&#x11F;&#x131;t&#x131;lmas&#x131; sa&#x11F;lanabilir.</p>
+<h3 id="zfs-sanal-diskleri-vdev">ZFS Sanal Diskleri: vdev</h3>
+<p><strong>vdev</strong> (<strong>virtual devices</strong>) <strong>**disk havuzunu olu&#x15F;turan sanal ayg&#x131;tlara verilen add&#x131;r. Her bir</strong> zpool<strong>&apos;un i&#xE7;erisinde bulunan</strong> vdev**&apos;ler, bir veya birden fazla diskten meydana gelebildi&#x11F;i gibi birden fazla disk alan&#x131;ndan da meydana gelebilir.</p>
+<p><strong>vdev</strong>&apos;ler veri depolaman&#x131;n yan&#x131;s&#x131;ra &#xF6;nbellekleme (<strong>CACHE</strong>), g&#xFC;nl&#xFC;kleme (<strong>LOG</strong>) ve &#xF6;zel kullan&#x131;mlar i&#xE7;in yap&#x131;land&#x131;r&#x131;labilir. <strong>ZFS</strong> <strong>vdev</strong>&apos;leri <strong>RAIDz</strong> yap&#x131;s&#x131;n&#x131; kullan&#x131;r.</p>
+<p>Daha &#xF6;nce de belirdi&#x11F;im gibi <strong>RAIDz ZFS&apos;</strong>sinin donan&#x131;m katman RAID yap&#x131;s&#x131;na olu&#x15F;turdu&#x11F;u bir &#xE7;&#xF6;z&#xFC;md&#xFC;r. <strong>RAIDz</strong> yap&#x131;s&#x131; <strong>vdev</strong>&apos;in temelini olu&#x15F;turur.</p>
+<p>Be&#x15F; farkl&#x131; <strong>RAIDz</strong> modu vard&#x131;r ve bu modlar <strong>vdev</strong> taraf&#x131;ndan davran&#x131;&#x15F;sal oalrak y&#xF6;netilir. <strong>RAIDz</strong> modlar&#x131;: <strong>&#x15F;eritleme</strong> (<a href="https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_0" target="_blank">RAID 0</a>&apos;a benzer, art&#x131;kl&#x131;k sunmaz), <strong>RAIDz1</strong> (<a href="https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_5" target="_blank">RAID 5</a>&apos;e benzer, bir diskin ar&#x131;zalanmas&#x131;na izin verir), <strong>RAIDz2</strong> (<a href="https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_6" target="_blank">RAID 6</a>&apos;ya benzer, iki diskin ba&#x15F;ar&#x131;s&#x131;z olmas&#x131;na izin verir), <strong>RAIDz3</strong> (RAID 7 yap&#x131;land&#x131;rmas&#x131;na benzer, &#xFC;&#xE7; diskin ba&#x15F;ar&#x131;s&#x131;z olmas&#x131;na izin verir) ve <strong>ikizleme</strong> (<a href="https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1" target="_blank">RAID 1</a>&apos;e benzer, disklerden biri d&#x131;&#x15F;&#x131;nda t&#xFC;m&#xFC;n&#xFC;n ba&#x15F;ar&#x131;s&#x131;z olmas&#x131;na izin verir).</p>
+<p>Bu yap&#x131;lardan &#xFC;&#xE7;&#xFC;; <strong>RAIDz1</strong>, <strong>RAIDz2</strong>, <strong>RAIDz3</strong>, &#x201C;<strong>diagonal parity RAID</strong>&#x201D; olarak isimlendirilen &#xF6;zel yap&#x131;lard&#x131;r. Bu &#xF6;zel yap&#x131;lar veri yollar&#x131;n&#x131; ve her bir veri yoluna ayr&#x131;lan e&#x15F;lik bloklar&#x131;n&#x131; ifade etmek i&#xE7;in kullan&#x131;l&#x131;r. Bu &#x15F;ekilde, &#xE7;e&#x15F;itli e&#x15F;liklere b&#xF6;l&#xFC;nm&#xFC;&#x15F; diskler yerine <strong>RAIDz</strong>&apos;ler kullanarak da&#x11F;&#x131;t&#x131;labilir ve bu y&#xF6;ntem farkl&#x131; e&#x15F;liklere ayr&#x131;lm&#x131;&#x15F; disklerden daha optimal bir &#x15F;ekilde &#xE7;al&#x131;&#x15F;&#x131;r. Ancak e&#x15F;lik bloklar&#x131;n&#x131;n kaybedilmesi durumunda t&#xFC;m disk kaybedilebilir. &#xD6;zel <strong>RAIDz</strong>&apos;lerin kaybedilmesi ise zpool&apos;un tamam&#x131;n&#x131;n yokolmas&#x131;na neden olabilir.</p>
+<p><strong>Aynalama</strong> yap&#x131;s&#x131;nda kullan&#x131;lan <strong>vdev&apos;</strong>lerde ise her bir yans&#x131; bir <strong>vdev</strong> &#xFC;zerine, her bir blok ise bir <strong>vdev</strong> cihaz&#x131;nda bar&#x131;nd&#x131;r&#x131;l&#x131;r. Yayg&#x131;n olarak tek <strong>vdev</strong> i&#xE7;eren yans&#x131;lama kullan&#x131;lmas&#x131;nda ra&#x11F;men birden fazla cihaz i&#xE7;eren aynalama da yap&#x131;labilir. Ancak daha az hata ile kar&#x15F;&#x131;lamak ve sistem &#xFC;zerine olan y&#xFC;k&#xFC; azaltmak i&#xE7;in genellikle b&#xFC;y&#xFC;k ayg&#x131;t yap&#x131;lar&#x131;nda RAIDz3 yap&#x131;s&#x131; kullan&#x131;l&#x131;r. Bu sayede yans&#x131; <strong>vdev</strong>&#x2019;i i&#xE7;indeki herhangi bir ayg&#x131;t sa&#x11F;l&#x131;kl&#x131; devam etti&#x11F;i s&#xFC;rece ya&#x15F;anacak olas&#x131; problemlerden kurtulabilir.</p>
+<p>Tek ayg&#x131;ta ba&#x11F;l&#x131; <strong>vdev</strong>&apos;ler veri kay&#x131;plar&#x131;na olduk&#xE7;a a&#xE7;&#x131;k bir yap&#x131;ya sahiptir. Bu tip <strong>vdev</strong>&apos;lerde herhangi bir problem &#xE7;&#x131;kmas&#x131; durumunda <strong>zpool</strong>&apos;un tamam&#x131; kaybolur. <strong>CACHE</strong>, <strong>LOG</strong> veya <strong>SPECIAL</strong> vdev yap&#x131;lar&#x131; bahsi ge&#xE7;en <strong>RAIDz</strong> y&#xF6;ntemlerindenden biri kullan&#x131;larak olu&#x15F;turulabilmekte lakin herhangi bir &#xF6;zel bir vdev&#x2019;in kaybolmas&#x131; <strong>zpool</strong>&apos;un tamamen yokolmas&#x131;nda sebep verir. Bu nedenle kritik diskler i&#xE7;in aynalama yap&#x131;lmas&#x131; ya da ekstra bir yap&#x131; kurulmas&#x131; tavsiye edilir.</p>
+<h3 id="zfs-cihazlar&#x131;-z-devices">ZFS Cihazlar&#x131;: Z Devices</h3>
+<p>Bildi&#x11F;iniz gibi <strong>zpool</strong>&apos;lar <strong>vdev</strong>&apos;lerden, <strong>vdev</strong>&apos;ler de &#xE7;e&#x15F;itli blok ayg&#x131;tlardan olu&#x15F;maktad&#x131;r. Bu blok cihazlar&#x131;na biz ZFS cihazlar&#x131; diyebiliriz. Baz&#x131; kaynaklar bu cihazlar&#x131; Z Devices olarak adland&#x131;rmaktad&#x131;r.</p>
+<p>Sabit diskler (<strong>HDD</strong>), kat&#x131; hal diskleri (<strong>SSD</strong>), hibrit diskler (<strong>HHD</strong>) veya di&#x11F;er tipte diskler bu &#xE7;e&#x15F;itte cihazlar olabilir. Ayr&#x131;ca ham veri (<strong>RAW</strong>)&apos;de direk ZFS i&#xE7;in cihaz olarak kullan&#x131;labilir.</p>
+<p>Ayr&#x131;ca cihazlar&#x131;n &#xE7;e&#x15F;itli kullan&#x131;m alanlar&#x131; mevcuttur. Bunlardan en yayg&#x131;n olan&#x131; <strong>vdev</strong>&apos;ler i&#xE7;erisinde veri depolama g&#xF6;revini &#xFC;stlenmesidir, bir di&#x11F;er yandan bu cihazlar &#xF6;zelle&#x15F;tirilebilir. &#xD6;rne&#x11F;in bir cihaz &#xF6;zelli&#x11F;ini Hotspare i&#xE7;in kullanarak <strong>vdev</strong>&apos;lerden ba&#x11F;&#x131;ms&#x131;z olarak veri depolayabilirsiniz. Bu cihaz normal cihazlardan farkl&#x131; olarak tek <strong>vdev</strong>&#x2019;e ait de&#x11F;il, t&#xFC;m <strong>zpool</strong>&apos;a aittir.</p>
+<p><strong>zpool</strong> bile&#x15F;imi, benzer cihazlarla s&#x131;n&#x131;rl&#x131; de&#x11F;ildir, <strong>ZFS</strong>&apos;nin sorunsuz bir &#x15F;ekilde bir araya toplad&#x131;&#x11F;&#x131; ve daha sonra farkl&#x131; dosya sistemlerine gereken alan&#x131; b&#x131;rakt&#x131;&#x11F;&#x131; <strong>ge&#xE7;ici cihazlar (Temporary devices)</strong>, <strong>heterojen cihaz koleksiyonlar&#x131;ndan (HDC)</strong> ve &#xF6;zelle&#x15F;tirilmi&#x15F; ba&#x15F;ka cihazlardan olu&#x15F;an b&#xFC;y&#xFC;k bir yap&#x131;d&#x131;r.</p>
+<p>Ayr&#x131;ca cihazlar <strong>zpool</strong>&apos;un boyutunu art&#x131;rmak i&#xE7;in de kullan&#x131;labilir. &#xD6;zelle&#x15F;tirilerek <strong>zpool</strong> i&#xE7;erisine eklenen cihazlar havuz boyutunun art&#x131;r&#x131;lmas&#x131;na ve depolama kapasitesinin d&#xFC;zenlenmesine yard&#x131;mc&#x131; olur.</p>
+<p>Bu a&#xE7;&#x131;dan bak&#x131;ld&#x131;&#x11F;&#x131;nda cihazlar asl&#x131;nda <strong>ZFS</strong>&apos;nin bir di&#x11F;er &#xF6;nemli yap&#x131; ta&#x15F;&#x131;n&#x131; ihtiva etmektedir. &#x15E;imdi baz&#x131; s&#x131;k kullan&#x131;lan cihazlara g&#xF6;z atal&#x131;m.</p>
+<h4 id="yans&#x131;-cihazlar&#x131;">Yans&#x131; Cihazlar&#x131;</h4>
+<p>Yans&#x131; cihazlar&#x131; daha &#xF6;nceki sayfalardan a&#x15F;ina oldu&#x11F;umuz bir terim. Yans&#x131;lama ile anl&#x131;k verileri birden fazla cihazda tutabilir, verileri koruyabilirsiniz. Ayr&#x131;ca bu cihazlar bir ba&#x15F;ka ama&#xE7;la daha kullan&#x131;l&#x131;r. <strong>ZFS</strong> dosya sistemleri di&#x11F;er havuzlara, ayr&#x131;ca a&#x11F; &#xFC;zerindeki uzak ana bilgisayarlara ta&#x15F;&#x131;nabilmesi bu yans&#x131; cihazlar&#x131; ile m&#xFC;mk&#xFC;nd&#xFC;r. Bu ak&#x131;&#x15F; cihaz&#x131; ile, belirli bir anl&#x131;k g&#xF6;r&#xFC;nt&#xFC;de dosya sisteminin t&#xFC;m i&#xE7;eri&#x11F;ini veya anl&#x131;k g&#xF6;r&#xFC;nt&#xFC;ler aras&#x131;nda bir delta i&#xE7;eri&#x11F;ini yerel veya a&#x11F; &#xFC;zerinden yans&#x131;layabiliriz. Bu cihaz, &#xF6;rne&#x11F;in site d&#x131;&#x15F;&#x131; yedeklemeleri veya bir havuzun y&#xFC;ksek kullan&#x131;labilirlik aynalar&#x131;n&#x131; senkronize etmek i&#xE7;in verimli bir strateji sa&#x11F;lar.</p>
+<h4 id="&#xF6;zel-vdev-cihazlar&#x131;">&#xD6;zel vdev Cihazlar&#x131;</h4>
+<p><strong>ZFS</strong> 0.8 ve sonras&#x131;nda, dosya sistemi meta verilerini tercihli olarak depolamak i&#xE7;in &#xD6;zel bir <strong>vdev</strong> s&#x131;n&#x131;f&#x131; ve iste&#x11F;e ba&#x11F;l&#x131; olarak Veri Tekille&#x15F;tirme Tablosu (DDT) kullanarak k&#xFC;&#xE7;&#xFC;k dosya sistemi bloklar&#x131; yap&#x131;land&#x131;rmak m&#xFC;mk&#xFC;nd&#xFC;r. Bu, &#xF6;rne&#x11F;in, meta verileri depolamak i&#xE7;in h&#x131;zl&#x131; kat&#x131; hal depolamada &#xF6;zel bir vdev olu&#x15F;turup, normal dosya verilerin daha yava&#x15F; olan disklerde depolanmas&#x131; i&#xE7;in kullan&#x131;labilir. Asl&#x131;nda bu &#xF6;zellik &#xF6;nceki sayfalardan a&#x15F;ina oldu&#x11F;umuz <strong>ARC</strong> ve <strong>L2ARC</strong> yap&#x131;s&#x131;ndan t&#xFC;retilmi&#x15F;tir<strong>.</strong> Bu cihazlar&#x131; kullanarak, t&#xFC;m dosya sistemini kat&#x131; hal depolamadan bir ba&#x15F;ka disk &#xFC;zerine depolama masraf&#x131; olmadan ge&#xE7;i&#x15F;i, d&#xFC;zeltme ve yeniden yap&#x131;land&#x131;rma gibi yo&#x11F;un meta veri i&#x15F;lemlerini h&#x131;zland&#x131;rabiliriz.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="zfsnin-oezellikleri.html" class="navigation navigation-prev " aria-label="Previous page: ZFS'nin Özellikleri">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="zfsyi-gercek-ortamda-kullanmak.html" class="navigation navigation-next " aria-label="Next page: ZFS'yi Çalışma Ortamına Kurmak">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"ZFS'nin Terminolojisinin teknik detaylar ile harmanlandığı nokta.","title":"ZFS'yi Anlamak","level":"2.2","depth":1,"next":{"title":"ZFS'yi Çalışma Ortamına Kurmak","level":"2.3","depth":1,"path":"baslangic/zfsyi-gercek-ortamda-kullanmak.md","ref":"baslangic/zfsyi-gercek-ortamda-kullanmak.md","articles":[]},"previous":{"title":"ZFS'nin Özellikleri","level":"2.1","depth":1,"path":"baslangic/zfsnin-oezellikleri.md","ref":"baslangic/zfsnin-oezellikleri.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"baslangic/zfsyi-anlamak.md","mtime":"2021-03-01T10:20:38.370Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

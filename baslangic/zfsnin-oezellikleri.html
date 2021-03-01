@@ -1,0 +1,542 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ZFS'nin Özellikleri · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="ZFS'nin temel özellikleri ve terminolojisi üzerine birkaç sayfa.">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="zfsyi-anlamak.html" />
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Başlangıç</li>
+        
+        
+    
+        <li class="chapter active" data-level="2.1" data-path="zfsnin-oezellikleri.html">
+            
+                <a href="zfsnin-oezellikleri.html">
+            
+                    
+                    ZFS'nin Özellikleri
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="zfsyi-anlamak.html">
+            
+                <a href="zfsyi-anlamak.html">
+            
+                    
+                    ZFS'yi Anlamak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="zfsyi-gercek-ortamda-kullanmak.html">
+            
+                <a href="zfsyi-gercek-ortamda-kullanmak.html">
+            
+                    
+                    ZFS'yi Çalışma Ortamına Kurmak
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'ye Giriş</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../zfsye-giris/zfs-ye-giris.html">
+            
+                <a href="../zfsye-giris/zfs-ye-giris.html">
+            
+                    
+                    ZFS'ye Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Havuzu</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Basit Havuz Operasyonları
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Dosya Hiyerarşisi</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                    
+                    ZFS Disk Hiyerarşisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                    
+                    ZFS Üst Düzey Disk Hiyerarşi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'de Ek Özellikler</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                <a href="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Gerçek Hayatta ZFS'nin Kullanımı</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                    
+                    ZFS Veri Kurtarma Senaryoları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">SON KISIM</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../son-kisim/ekler/">
+            
+                <a href="../son-kisim/ekler/">
+            
+                    
+                    Ekler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                <a href="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                    
+                    Sıkça Sorulan Sorular
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../son-kisim/kaynakca.html">
+            
+                <a href="../son-kisim/kaynakca.html">
+            
+                    
+                    Kaynakça
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../son-kisim/lisans.html">
+            
+                <a href="../son-kisim/lisans.html">
+            
+                    
+                    GNU Özgür Belgelendirme Lisansı
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ZFS'nin Özellikleri</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="zfsnin-&#xF6;zellikleri">ZFS&apos;nin &#xD6;zellikleri</h1>
+<h2 id="zfsnin-&#xF6;zellikleri">ZFS&apos;nin &#xD6;zellikleri</h2>
+<p>2001 y&#x131;l&#x131;nda ZFS sadece bir disk y&#xF6;netim sistemi ihtiyac&#x131;ndan dolay&#x131; de&#x11F;il mevcut mimarinin dezavantajlar&#x131;n&#x131; kapatacak yeni bir format geli&#x15F;tirmek idi. &#x130;lerleyen zamanda verilerin tutulmas&#x131;, y&#xF6;netilmesi ve korunmas&#x131; i&#xE7;in en uygun sistemlerden birisi oldu. Peki nedir ZFS&apos;yi bu denli &#xF6;nemli yapan &#xF6;zellikler?</p>
+<h3 id="ana-hatlar&#x131;-ile-zfs">Ana hatlar&#x131; ile ZFS</h3>
+<p>ZFS disk yap&#x131;s&#x131;n&#x131;n getirdi&#x11F;i sistem mevcut disk yap&#x131;lar&#x131; ve RAID dizilerinden farkl&#x131;l&#x131;k g&#xF6;sterir. Birden fazla diski ve sanal ayg&#x131;tlar&#x131; (<strong>virtual devices - vdev</strong>) ayn&#x131; anda bir disk havuzu <strong>(zpool)</strong> &#xFC;zerinden birle&#x15F;tirir.</p>
+<p><strong>Dosyalama sistemi ve Kapasite</strong></p>
+<p><strong>ZFS</strong>, <strong>&quot;128bit&quot;</strong> bir dosya sistemidir. Yani <strong>128bit</strong>, i&#xE7;indeki herhangi bir birim i&#xE7;in en b&#xFC;y&#xFC;k boyutlu adrestir. Bu boyut, &#xF6;ng&#xF6;r&#xFC;lebilir gelecekte herhangi bir zamanda s&#x131;n&#x131;rland&#x131;r&#x131;lmas&#x131; muhtemel olmayan kapasitelere ve boyutlara izin verir. &#xD6;rne&#x11F;in, uygulad&#x131;&#x11F;&#x131; teorik s&#x131;n&#x131;rlar dizin ba&#x15F;&#x131;na 2^48 giri&#x15F;, maksimum dosya boyutu <strong>16 EB</strong> (2^64 veya ~ 16*2^18 bayt) ve &quot;<strong>zpool</strong>&quot; ba&#x15F;&#x131;na maksimum 2^64 sanal ayg&#x131;t&#x131; i&#xE7;erebilir.</p>
+<p>ZFS 128-bit adresleme &#x15F;emas&#x131; sayesinde 256 katrilyon zettabayt depolayabilir, bu da <strong>1000 PB (petabayt)</strong> depolama kapasitesini a&#x15F;an &#xF6;l&#xE7;eklenebilir bir dosya sistemine d&#xF6;n&#xFC;&#x15F;&#xFC;rken, tekli veya &#xE7;oklu <strong>RAIDz</strong> dizilerinde y&#xF6;netilmesine izin verir.</p>
+<h3 id="zfsde-veri-y&#xF6;netimi">ZFS&apos;de Veri Y&#xF6;netimi</h3>
+<p>ZFS geleneksel y&#xF6;ntemleri, dosya sistemi katmanlar&#x131;na adapte eden y&#xF6;ntemlerle beraber kullan&#x131;r. Bunu yaparken &#xE7;e&#x15F;itli mekanizmalar geli&#x15F;tirmi&#x15F;tir. ZFS&apos;nin en b&#xFC;y&#xFC;k ba&#x15F;ar&#x131;s&#x131;ndan birisi <a href="https://en.wikipedia.org/wiki/Copy-on-write" target="_blank">copy-on-write</a> mekanizmas&#x131;d&#x131;r ki bu mekanizma dosya y&#xF6;netim sisteminde meydana gelebilecek her t&#xFC;rl&#xFC; bozulma ve kesintiye kar&#x15F;&#x131; dosyalar&#x131;n g&#xFC;venli bir &#x15F;ekilde tutulabilmesini sa&#x11F;lar.</p>
+<p>Ayn&#x131; zamanda verilerin yerel olarak s&#x131;k&#x131;&#x15F;t&#x131;rma ve tekille&#x15F;tirme i&#x15F;ini de veri iletimi s&#x131;ras&#x131;nda yaparak diski daha optimize kullanmaktad&#x131;r.</p>
+<p><strong>Copy-on-Write</strong></p>
+<p>ZFS, yazma i&#x15F;lemini nesne kopyalamas&#x131;n&#x131; esas alarak yapar. Aktif veri i&#xE7;eren bloklar asla yerinde yaz&#x131;lmaz; bunun yerine, yeni bir blok tahsis edilir, de&#x11F;i&#x15F;tirilen veriler &#xFC;zerine yaz&#x131;l&#x131;r, daha sonra buna referans veren herhangi bir meta veri blo&#x11F;u benzer &#x15F;ekilde okunur, yeniden tahsis edilir ve yaz&#x131;l&#x131;r.</p>
+<p>Bu i&#x15F;lemin ek y&#xFC;k&#xFC;n&#xFC; azaltmak i&#xE7;in, birden &#xE7;ok g&#xFC;ncelleme i&#x15F;lem gruplar&#x131; halinde grupland&#x131;r&#x131;l&#x131;r ve e&#x15F;zamanl&#x131; yazma semanti&#x11F;i gerekti&#x11F;inde ZIL (ama&#xE7; g&#xFC;nl&#xFC;&#x11F;&#xFC;) yazma &#xF6;nbelle&#x11F;i kullan&#x131;l&#x131;r.</p>
+<p><strong>Veri Tahsisi</strong></p>
+<p>ZFS, bir veri havuzundaki t&#xFC;m sanal disklerde havuzun performans&#x131;n&#x131; en &#xFC;st d&#xFC;zeye &#xE7;&#x131;karacak &#x15F;ekilde veri depolamay&#x131; otomatik olarak tahsis eder. Ayr&#x131;ca eklenen her bir sanal disk, havuzun veri depolama stratejisini en optimal hale getirmek i&#xE7;in en optimal yolu se&#xE7;erek kendini g&#xFC;ncelleyecektir.</p>
+<p>Genel bir kural olarak, <strong>ZFS</strong>, her sanal diskteki bo&#x15F; alan&#x131; temel alarak sanal diskler aras&#x131;nda yazma i&#x15F;lemlerini hesaplar. Bu, orant&#x131;l&#x131; olarak daha az veriye sahip olan sanal disklere, yeni veri depolanaca&#x11F;&#x131; zaman daha fazla yazma yap&#x131;lmas&#x131;n&#x131; sa&#x11F;lar. Bunun tek dezavantaj&#x131; veri havuzuna veri biriktik&#xE7;e havuzun veri yaz&#x131;lmas&#x131; i&#xE7;in daha vasat bir hale gelmesine sebep olur. Bunu da yeni sanal diskler ekleyerek a&#x15F;mak m&#xFC;mk&#xFC;nd&#xFC;r.</p>
+<p><strong>Veri Korunumu ve Tutulmas&#x131;</strong></p>
+<p>ZFS i&#xE7;inde veri b&#xFC;t&#xFC;nl&#xFC;&#x11F;&#xFC;, <a href="https://en.wikipedia.org/wiki/Fletcher%27s_checksum" target="_blank">Fletcher</a> sa&#x11F;lama toplam&#x131; algoritmas&#x131;n&#x131; taban alan bir sa&#x11F;lama toplam&#x131; veya dosya sistemi a&#x11F;ac&#x131; boyunca bir <a href="https://en.wikipedia.org/wiki/SHA-2" target="_blank">SHA-256</a> hash kullan&#x131;larak elde edilir.</p>
+<p>Verilere ait sa&#x11F;lama toplam&#x131;, dosya sisteminin veri hiyerar&#x15F;isinden k&#xF6;k d&#xFC;&#x11F;&#xFC;me kadar devam eder ve bu da sa&#x11F;lama toplam&#x131; al&#x131;n&#x131;r ve b&#xF6;ylece bir <a href="https://en.wikipedia.org/wiki/Merkle_tree" target="_blank">Merkle</a> a&#x11F;ac&#x131; olu&#x15F;turur</p>
+<p>T&#xFC;m verilerin ve meta verilerin hiyerar&#x15F;isini, hiyerar&#x15F;ik sa&#x11F;lama toplamlar&#x131;n&#x131; (checksum) blo&#x11F;un kendisinin &#xFC;zerinde de&#x11F;il bir ana blo&#x11F;un &#xFC;zerinde tutarak, ana blo&#x11F;u kullanarak alt bloklardaki verilerin kontrol edilmesini, kurtar&#x131;lmas&#x131;n&#x131; ve geriye &#xE7;evrilmesini sa&#x11F;lar.</p>
+<p>B&#xFC;t&#xFC;n bu &#xF6;zellikleri sayesinde verileri hiyerar&#x15F;ik olarak korumay&#x131; sa&#x11F;lar. Disk kullan&#x131;m&#x131; s&#x131;ras&#x131;nda veri bozulmas&#x131; veya hayali okumalar/yazmalar, sa&#x11F;lama toplam&#x131;n&#x131; verilerle birlikte saklad&#x131;&#x11F;&#x131; &#xE7;o&#x11F;u dosya sistemi taraf&#x131;ndan tespit edilemez. Hatta baz&#x131; dosa sistemlerinde sa&#x11F;lama toplam&#x131; verileri hi&#xE7; bulunmad&#x131;&#x11F;&#x131; i&#xE7;in b&#xFC;t&#xFC;n veri &#xE7;&#xF6;pe bile &#xE7;&#x131;kabilir. Ancak <strong>ZFS</strong>, her blo&#x11F;un sa&#x11F;lama toplam&#x131;n&#x131; ana blok i&#x15F;aret&#xE7;isinde saklar, b&#xF6;ylece t&#xFC;m havuz kendi kendini do&#x11F;rular.</p>
+<p>Ayr&#x131;ca <strong>hata ay&#x131;klama bayraklar&#x131;</strong> olarak adland&#x131;r&#x131;lan mekanizmas&#x131; sayesinde bozunmu&#x15F; verilerin duruma ba&#x11F;l&#x131; olarak kurtar&#x131;lmas&#x131; ya da bozuk verilerin tespit ve temizlenmesi de otomatik sa&#x11F;lan&#x131;r.</p>
+<p><strong>Veri korumas&#x131; ve Aynalama</strong></p>
+<p>Baz&#x131; durumlarda, bir hata veya tutars&#x131;zl&#x131;k durumunda dosya sisteminde ve verilerde yap&#x131;lan son de&#x11F;i&#x15F;ikliklerin otomatik olarak geri al&#x131;nmas&#x131;n&#x131; sa&#x11F;layan <strong>anl&#x131;k g&#xF6;r&#xFC;nt&#xFC; (snapshot)</strong> &#xF6;zelli&#x11F;i bulunmaktad&#x131;r. Kullan&#x131;c&#x131; elle veya i&#x15F;letim sistemlerine yaz&#x131;lan servisler yolu ile disk nloklar&#x131;n&#x131; yedekleyebilir, istedi&#x11F;i bir andaki yede&#x11F;e geri d&#xF6;nebilir ya da geri y&#xFC;kleme yapabilir.</p>
+<p>Yaz&#x131;labilir anl&#x131;k g&#xF6;r&#xFC;nt&#xFC;ler <strong>(clone)</strong> da olu&#x15F;turulabilir, bu da bir dizi blo&#x11F;u payla&#x15F;an iki ba&#x11F;&#x131;ms&#x131;z dosya sistemi sa&#x11F;lar. Klon dosya sistemlerinden herhangi birinde de&#x11F;i&#x15F;iklik yap&#x131;ld&#x131;k&#xE7;a, bu de&#x11F;i&#x15F;iklikleri yans&#x131;tmak i&#xE7;in yeni veri bloklar&#x131; olu&#x15F;turulur, ancak de&#x11F;i&#x15F;tirilmemi&#x15F; bloklar, ka&#xE7; klon var olursa olsun payla&#x15F;&#x131;lmaya devam eder. Bu, <strong>copy-on-write</strong> ilkesinin bir di&#x11F;er uygulamas&#x131;d&#x131;r.</p>
+<p>Ayr&#x131;ca <strong>ZFS</strong>, verilerin birden &#xE7;ok kopyas&#x131;n&#x131; inode kopyalar&#x131; halinde depolar. &#xD6;zellikle meta veriler 4 veya 6&apos;dan fazla kopyaya sahip olabilir. Bu sayede verilerin korunmas&#x131; ve diskte bir veri kayb&#x131; olu&#x15F;mas&#x131; bu kopyalar&#x131;n en az birisi kullan&#x131;larak onarma sa&#x11F;lan&#x131;labilir</p>
+<p><strong>ZFS</strong>&apos;nin bir di&#x11F;er &#xF6;nemli &#xF6;zelli&#x11F;i de <strong>vdev</strong>&apos;leri ayna sistem olarak kullanma &#xF6;zelli&#x11F;idir. Aynalama yap&#x131;lan disklerdeki verileri birbiri aras&#x131;nda e&#x15F;zamanl&#x131; olarak korumaya yard&#x131;mc&#x131; olur. Veriler istenilen yans&#x131;dan geri getirilebilir ve ek bir s&#xFC;re&#xE7; kullanmadan yazma an&#x131;nda t&#xFC;m diskin yede&#x11F;i ba&#x15F;ka lokal kaynaklarda da korunabilir</p>
+<h3 id="raidz">RAIDz</h3>
+<p><strong>ZFS</strong>&apos;nin veri b&#xFC;t&#xFC;nl&#xFC;&#x11F;&#xFC;n&#xFC; garanti edebilmesi i&#xE7;in kulland&#x131;&#x11F;&#x131; farkl&#x131; yollardan s&#xFC;rekli bahsediyorum ancak bir di&#x11F;er &#xF6;nemli &#xF6;zelli&#x11F;i yine veri korunumunu esas alan <strong>RAIDz</strong>&apos;dir.</p>
+<p>Genellikle birden &#xE7;ok diske yay&#x131;lm&#x131;&#x15F; verilerde birden &#xE7;ok veri kopyas&#x131;na ihtiya&#xE7; duyulur. Donan&#x131;msal olarak bu &#xF6;zellik, bir <strong>RAID</strong> denetleyicisi kullan&#x131;larak elde edilebilir.</p>
+<p><strong>ZFS</strong>, t&#xFC;m depolama cihazlar&#x131;na ham eri&#x15F;ime sahipse ve diskler bir donan&#x131;m, bellenim veya ba&#x15F;ka bir &quot;yaz&#x131;l&#x131;m&quot; kullan&#x131;larak sisteme ba&#x11F;l&#x131; de&#x11F;ilse, genellikle cihaz&#x131;n daha verimli &#xE7;al&#x131;&#x15F;mas&#x131;n&#x131; ve veriyi en optimal olarak kullan&#x131;p veriyi korumas&#x131; i&#xE7;in donan&#x131;m bazl&#x131; <strong>RAID&apos;den</strong> ka&#xE7;&#x131;n&#x131;r. Bunun sebebi ise ZFS&apos;nin veri yolunu esas alarak &#xE7;al&#x131;&#x15F;mas&#x131;d&#x131;r. Baz&#x131; durumlarda <strong>RAID</strong> cihaz&#x131;n&#x131;n esas al&#x131;nmas&#x131; verilerde kayba sebep verebilir. <strong>RAID</strong> denetleyicileri ayr&#x131;ca, yaz&#x131;l&#x131;m <strong>RAID</strong>&apos;inin kullan&#x131;c&#x131; verilerine eri&#x15F;mesini &#xF6;nleyen s&#xFC;r&#xFC;c&#xFC;lere denetleyiciye ba&#x11F;l&#x131; veriler ekler. Bu durumda devam eden i&#x15F;lerde kay&#x131;plar ya&#x15F;anabilece&#x11F;i gibi donan&#x131;msal hasarlar bile olu&#x15F;abilir.</p>
+<p>Bu nedenle, <strong>RAID</strong> kartlar&#x131;n&#x131;n veya benzerlerinin kaynaklar&#x131; bo&#x15F;altmak, i&#x15F;leme ve performans&#x131; ve g&#xFC;venilirli&#x11F;i art&#x131;rmak i&#xE7;in kullan&#x131;ld&#x131;&#x11F;&#x131; di&#x11F;er bir&#xE7;ok sistemden farkl&#x131; olarak, <strong>ZFS</strong> ile bu y&#xF6;ntemlerin genellikle sistemin performans&#x131;n&#x131; ve g&#xFC;venilirli&#x11F;ini d&#xFC;&#x15F;&#xFC;rd&#xFC;kleri i&#xE7;in kullan&#x131;lmaz.</p>
+<p>Donan&#x131;msal <strong>RAID</strong> yerine <strong>ZFS</strong>, kendi geli&#x15F;tirdi&#x11F;i <strong>RAIDz</strong> sistemini kullan&#x131;r. RAIDz <a href="https://en.wikipedia.org/wiki/RAID_5" target="_blank">RAID5</a> benzeri e&#x15F;lik tabanl&#x131; yap&#x131; kullan&#x131;rken ayr&#x131;ca <a href="https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1" target="_blank">RAID1</a>&apos;e benzer disk aynalama sunan <strong>&quot;yumu&#x15F;ak&quot; RAID</strong> kullan&#x131;r.</p>
+<p><strong>RAIDz</strong> dinamik &#x15F;erit geni&#x15F;li&#x11F;i kullan&#x131;r. Her blok, blok boyutuna bak&#x131;lmaks&#x131;z&#x131;n kendi <strong>RAID</strong> &#x15F;eridini ihtiva eder. ZFS, bunu mevcut veri semanti&#x11F;i ile birle&#x15F;tirerek, veri yazmas&#x131; esnas&#x131;nda yazma deli&#x11F;i hatas&#x131;n&#x131; ortadan kald&#x131;r&#x131;r.</p>
+<p><strong>RAIDz</strong>&apos;nin detaylar&#x131;na ilerleyen sayfalarda tekrar de&#x11F;inece&#x11F;im.</p>
+<h3 id="zfsde-disk-kalaylama-ve-f&#x131;r&#xE7;alama">ZFS&apos;de Disk Kalaylama ve F&#x131;r&#xE7;alama</h3>
+<p><strong>ZFS</strong>, <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwiSrN3HgK3tAhXEjqQKHS6MDkwQFjACegQIARAC&amp;url=https%3A%2F%2Flinux.die.net%2Fman%2F8%2Ffsck&amp;usg=AOvVaw3PPzxybPATn2EwFj-w5PBr" target="_blank">fsck</a> olarak bilinen Unix disk yap&#x131;land&#x131;rma arac&#x131;na sahip de&#x11F;ildir. Bunun yerine <strong>resilvering (kalaylama)</strong>, ve <strong>scrub (f&#x131;r&#xE7;alama)</strong> isminde iki ara&#xE7; getirir. Bu ara&#xE7;lar ile <strong>ZFS</strong>, t&#xFC;m verileri d&#xFC;zenli olarak inceleyen; sessiz bozulma ve di&#x11F;er sorunlar&#x131; onaran yerle&#x15F;ik bir temizleme i&#x15F;levine sahiptir.</p>
+<p><strong>ZFS</strong>&apos;nin bu ara&#xE7;lar&#x131;n&#x131;n <strong>fsck</strong>&apos;e g&#xF6;re pek &#xE7;ok art&#x131;s&#x131; bulunmaktad&#x131;r:</p>
+<ul>
+<li><strong>fsck</strong>, &#xE7;evrimd&#x131;&#x15F;&#x131; bir dosya sisteminde &#xE7;al&#x131;&#x15F;t&#x131;r&#x131;lmal&#x131;d&#x131;r. Ba&#x11F;lanm&#x131;&#x15F; diskler ile &#xE7;al&#x131;&#x15F;mak m&#xFC;mk&#xFC;n de&#x11F;ildir, bu da dosya sisteminin &#xE7;&#x131;kar&#x131;lmadan onar&#x131;lamamas&#x131;na ve onar&#x131;l&#x131;rken kullan&#x131;lamamas&#x131;na neden olur. &#xD6;teki yandan <strong>scrub</strong> ba&#x11F;lanm&#x131;&#x15F;, canl&#x131; bir dosya sisteminde kullan&#x131;lmak &#xFC;zere tasarlanm&#x131;&#x15F;t&#x131;r ve <strong>ZFS</strong> dosya sisteminin ba&#x11F;&#x131;n&#x131;n kald&#x131;r&#x131;lmas&#x131;na ya da &#xE7;evrimd&#x131;&#x15F;&#x131; duruma getirilmesine gerek yoktur.</li>
+<li><strong>fsck</strong> genellikle yaln&#x131;zca meta verileri (disk g&#xFC;nl&#xFC;&#x11F;&#xFC; gibi verileri) kontrol eder, ancak verilerin kendisini asla kontrol etmez. Bu, bir <strong>fsck</strong>&apos;den sonra verilerin depoland&#x131;&#x11F;&#x131; haliyle orijinal verilerle hala e&#x15F;le&#x15F;meyebilece&#x11F;i anlam&#x131;na gelir. Bunun da sebebi sa&#x11F;lama toplamlar&#x131;n&#x131;n verilerle birlikte depolanmas&#x131;na sebep olur. <strong>fsck</strong> bu verileri her zaman do&#x11F;rulayamaz ve onaramaz. <strong>ZFS</strong> ise sa&#x11F;lama toplamlar&#x131;n&#x131; her zaman verilerden ayr&#x131; olarak saklar, bu da g&#xFC;venilirli&#x11F;i ve birimi onarma becerisini art&#x131;r&#x131;r.</li>
+<li><strong>scrub</strong>, meta veriler ve veriler dahil her &#x15F;eyi kontrol eder bu sebeple yava&#x15F;t&#x131;r. Bazen b&#xFC;y&#xFC;k bir RAID &#xFC;zerindeki <strong>fsck</strong> birka&#xE7; dakika i&#xE7;inde tamamlan&#x131;r, bu da yaln&#x131;zca meta verilerin kontrol edildi&#x11F;i anlam&#x131;na gelir. T&#xFC;m meta verileri ve verileri b&#xFC;y&#xFC;k bir RAID&apos;de incelemek uzun saatler s&#xFC;rer, bu da <strong>scrub</strong>&apos;&#x131;n yapt&#x131;&#x11F;&#x131; tam olarak budur.Yava&#x15F; bile yap&#x131;lsa tam manas&#x131; ile veri d&#xFC;zeltilmesi sa&#x11F;lar.</li>
+</ul>
+<h3 id="zfs-disklerinde-&#x15F;ifreleme">ZFS Disklerinde &#x15E;ifreleme</h3>
+<p><strong>ZFS</strong>&apos;deki disklerin &#x15F;ifrelemesi I/O i&#x15F;lemine g&#xF6;m&#xFC;l&#xFC; olarak yap&#x131;l&#x131;r. Veri i&#x15F;lemleri s&#x131;ras&#x131;nda, bir blok s&#x131;rayla s&#x131;k&#x131;&#x15F;t&#x131;r&#x131;labilir, &#x15F;ifrelenebilir, sa&#x11F;lama toplam&#x131; al&#x131;nabilir ve ard&#x131;ndan tekille&#x15F;tirilebilir.Bu sayede &#x15F;ifreleme &#xFC;zerindeki y&#xFC;k anl&#x131;k olarak bellek ve i&#x15F;lemci &#xFC;zerine da&#x11F;&#x131;t&#x131;l&#x131;r.</p>
+<p>&#x15E;ifreleme politikas&#x131;, veri k&#xFC;meleri olu&#x15F;turuldu&#x11F;unda veri k&#xFC;mesi d&#xFC;zeyinde belirlenir. Kullan&#x131;c&#x131;lar taraf&#x131;ndan belirlenen &#x15F;ifreler, dosya sistemini &#xE7;evrimd&#x131;&#x15F;&#x131; duruma getirmeden herhangi bir zamanda de&#x11F;i&#x15F;tirilebilir, ayn&#x131; zamanda &#x15F;ifre anahtarlar&#x131;n&#x131;n de&#x11F;i&#x15F;tirilmesi durumunda k&#x131;sa s&#xFC;rede t&#xFC;m i&#x15F;lemin tamamlanmas&#x131; kolayla&#x15F;t&#x131;ran sarmal &#x15F;ifreleme kullan&#x131;lmaktad&#x131;r.</p>
+<h3 id="yedek-par&#xE7;alar-ve-kotalar">Yedek Par&#xE7;alar ve Kotalar</h3>
+<p>ZFS veri kayb&#x131;n&#x131; &#x15F;ansa b&#x131;rakmamak i&#xE7;in onlarca &#xF6;zelli&#x11F;i i&#xE7;erisinde bar&#x131;nd&#x131;r&#x131;r ve bunu yaparken bir yandan da h&#x131;z fakt&#xF6;r&#xFC;ne az&#x131;msanmayacak kadar &#xE7;ok dikkat eder.</p>
+<p>Depolama havuzlar&#x131;nda mevcut dik hatalr&#x131;n&#x131; tamir etmek i&#xE7;in <strong>yedek par&#xE7;a (spares)</strong> ad&#x131; verilen k&#x131;s&#x131;mlar bulunur. Aynalama ile birlikte kullan&#x131;llan&#x131;lan bu yedek par&#xE7;alar fiziksel olarak gruplan&#x131;r ve b&#xF6;ylece t&#xFC;m havuzun ar&#x131;zalanmas&#x131; durumunda yedek par&#xE7;alar ile yola devam edilebilir.</p>
+<p>Depolama havuzlar&#x131;nda, ar&#x131;zal&#x131; diskleri telafi etmek i&#xE7;in &#xE7;al&#x131;&#x15F;&#x131;rken yedek par&#xE7;alar bulunabilir. Aynalama s&#x131;ras&#x131;nda, blok ayg&#x131;tlar fiziksel kasaya g&#xF6;re grupland&#x131;r&#x131;labilir, b&#xF6;ylece t&#xFC;m kasan&#x131;n ar&#x131;zalanmas&#x131; durumunda dosya sistemi devam edebilir.</p>
+<p>T&#xFC;m <strong>vdev</strong>&apos;lerin depolama kapasitesi, <strong>zpool</strong>&apos;daki t&#xFC;m dosya sistemi &#xF6;rneklerinde mevcuttur. Bu &#xF6;rnekler ile <strong>ZFS</strong> diskin dolumunu &#xF6;ng&#xF6;rebilir. Ayr&#x131;ca dosya sistemi &#xF6;rne&#x11F;inin kaplayabilece&#x11F;i alan miktar&#x131;n&#x131; s&#x131;n&#x131;rlamak i&#xE7;in bir kota belirlenebilir ve bir dosya sistemi &#xF6;rne&#x11F;inde yer olmas&#x131;n&#x131; garanti etmek i&#xE7;in bir ay&#x131;rma ayarlanabilir. Bunun sayesinde disk &#xFC;zerinde karma&#x15F;&#x131;k bir b&#xF6;l&#xFC;mlendirme tablosuna ihtiya&#xE7; duymadan mevcut cihaz veya <strong>vdev</strong>&apos;leri kullanarak diskler s&#x131;n&#x131;rland&#x131;r&#x131;labilir.</p>
+<h3 id="zfsnin-&#xF6;nbellekleme-mekanizmas&#x131;">ZFS&apos;nin &#xD6;nbellekleme Mekanizmas&#x131;</h3>
+<p>ZFS veri aktar&#x131;m&#x131;n&#x131;n kesintisiz ve d&#xFC;zg&#xFC;n yap&#x131;labilmesi i&#xE7;in &#xF6;nbellekleme y&#xF6;ntemlerinin baz&#x131;lar&#x131;n&#x131; kullanmaktad&#x131;r. B&#xFC;t&#xFC;n disk tiplerinin kulland&#x131;&#x11F;&#x131; RAM &#xFC;zerinden &#xF6;nbellekleme i&#x15F;lemi donan&#x131;m i&#xE7;in hayli masrafl&#x131; bir i&#x15F;lemdir. Bu kayba kar&#x15F;&#x131;n, performans&#x131; optimize etmek i&#xE7;in veriler bir hiyerar&#x15F;ide otomatik olarak &#xF6;nbelle&#x11F;e al&#x131;n&#x131;r; bu tip &#xF6;nbelle&#x11F;e &quot;karma depolama havuzlar&#x131;&quot; denir. Bu y&#xF6;ntemle s&#x131;k olarak kullan&#x131;lan veriler RAM belle&#x11F;e at&#x131;larak performans art&#x131;&#x15F;&#x131; sa&#x11F;lan&#x131;rken, maliyetten ka&#xE7;&#x131;nmak i&#xE7;in orta s&#x131;kl&#x131;kla kullan&#x131;lan veriler h&#x131;zl&#x131; olan diske bas&#x131;l&#x131;r (bu bir kat&#x131; hal diski olabilir, h&#x131;z&#x131;n &#xF6;nceli&#x11F;i vard&#x131;r).S&#x131;k eri&#x15F;ilmeyen veriler &#xF6;nbelle&#x11F;e al&#x131;nmaz ve yava&#x15F; sabit disklerde (&#xF6;rne&#x11F;in HDD&apos;lerde) b&#x131;rak&#x131;l&#x131;r. Eski veriler aniden &#xE7;ok okunursa, ZFS onu otomatik olarak h&#x131;zl&#x131; olan disklere veya duruma g&#xF6;re RAM&apos;e ta&#x15F;&#x131;r. Sonu&#xE7; olarak performans ile kaynak kullan&#x131;m&#x131; optimal seviyede tutulur.</p>
+<p>Bu &#xF6;nbellekleme mekanizmas&#x131; 4&apos;e ayr&#x131;l&#x131;r:</p>
+<ol>
+<li><strong>ARC (adaptive replacement cache):</strong> Uyarlanabilir de&#x11F;i&#x15F;tirme &#xF6;nbelle&#x11F;i olarak bilinir. <strong>ARC</strong> boyutunun yeterince b&#xFC;y&#xFC;k olmas&#x131; ko&#x15F;uluyla, genellikle disklere eri&#x15F;ilmesine gerek olmadyan verilerin depoland&#x131;mas&#x131;n&#x131; sa&#x11F;lar. RAM &#xE7;ok k&#xFC;&#xE7;&#xFC;kse, hemen hemen hi&#xE7; <strong>ARC</strong> a&#xE7;&#x131;lmayacakt&#x131;r; bu durumda, ZFS&apos;nin her zaman performans&#x131; ikinci plana atarak RAM belle&#x11F;i &#xFC;zerinden &#xF6;nbellekleme yapmay&#x131; engelleyecektir. <strong>ARC</strong> &#xF6;nbelle&#x11F;i &quot;i&#x15F;lem gruplar&#x131;&quot; (<strong>transactional groups</strong>) arac&#x131;l&#x131;&#x11F;&#x131;yla i&#x15F;lenir, duruma ba&#x11F;l&#x131; olarak her bir i&#x15F;lem grubu 5 saniye ile 30 saniye aras&#x131;nda i&#x15F;leme tabi tutularak diske bas&#x131;l&#x131;r. Bir grup diske bas&#x131;l&#x131;rken ba&#x15F;ka bir grup i&#x15F;lem grubu i&#xE7;erisine dahil edilerek e&#x15F;zamanl&#x131; olarak i&#x15F;leme ve basma i&#x15F;lemleri ger&#xE7;ekle&#x15F;tirilir. Bu &#xF6;zellik, g&#xFC;&#xE7; kesintisi veya donan&#x131;m ar&#x131;zas&#x131; durumunda en son i&#x15F;lemlerde k&#xFC;&#xE7;&#xFC;k veri kayb&#x131; riski i&#xE7;erirken, temeldeki diskler i&#xE7;in yazma i&#x15F;lemlerinin daha verimli bir &#x15F;ekilde organize edilmesini sa&#x11F;lar. G&#xFC;&#xE7; kayb&#x131; riski, <strong>ZFS</strong> yazma g&#xFC;nl&#xFC;k kayd&#x131; ve <strong>SLOG</strong>/<strong>ZIL</strong> ikinci kademe yazma &#xF6;nbellek havuzu  ile &#xF6;nlenir, </li>
+<li><p><strong>SLOG(Second Log)</strong>: ZFS Ama&#xE7; G&#xFC;nl&#xFC;kleri olarak bilinir. Bir <strong>SLOG</strong> (ikincil g&#xFC;nl&#xFC;k cihaz&#x131;), bir sistem sorunu durumunda yazmalar&#x131; kaydetmek i&#xE7;in ayr&#x131; bir cihazda bulunan iste&#x11F;e ba&#x11F;l&#x131; &#xF6;zel bir &#xF6;nbellektir. Bir <strong>SLOG</strong> cihaz&#x131; mevcutsa, ikinci seviye g&#xFC;nl&#xFC;k olarak <strong>ZIL (a&#x15F;a&#x11F;&#x131;da de&#x11F;inilecek)</strong> i&#xE7;in kullan&#x131;lacak ve ayr&#x131; bir &#xF6;nbellek cihaz&#x131; sa&#x11F;lanmad&#x131;ysa, bunun yerine ana depolama cihazlar&#x131;nda <strong>ZIL</strong> olu&#x15F;turulacakt&#x131;r. Yani <strong>SLOG</strong>, teknik olarak havuzu h&#x131;zland&#x131;rmak i&#xE7;in <strong>ZIL</strong>&apos;in y&#xFC;klendi&#x11F;i ayr&#x131;lm&#x131;&#x15F; bir ikinci diski ifade eder. A&#xE7;&#x131;k&#xE7;as&#x131;, <strong>ZFS</strong>, birincil olarak yaz&#x131;lan verileri &#xF6;nbelle&#x11F;e almak i&#xE7;in <strong>SLOG</strong> ayg&#x131;t&#x131;n&#x131; kullanmaz.Yazmalar&#x131;n kal&#x131;c&#x131; bir depolama ortam&#x131;na olabildi&#x11F;ince h&#x131;zl&#x131; bir &#x15F;ekilde yakalanmas&#x131;n&#x131; sa&#x11F;lamak i&#xE7;in <strong>SLOG</strong>&apos;u kullan&#x131;r, b&#xF6;ylece g&#xFC;&#xE7; kayb&#x131; veya yazma hatas&#x131; durumunda, yaz&#x131;ld&#x131;&#x11F;&#x131; kabul edilen hi&#xE7;bir veri kaybolmaz.<br><strong>SLOG</strong> cihaz&#x131;, <strong>ZFS</strong>&apos;nin, yerel depolama ayg&#x131;tlar&#x131; i&#xE7;in bile yazma i&#x15F;lemlerini h&#x131;zl&#x131; bir &#x15F;ekilde depolamas&#x131;na ve sorunlar&#x131; h&#x131;zl&#x131; bir &#x15F;ekilde rapor etmesine olanak tan&#x131;r. Normal faaliyet s&#xFC;recinde, <strong>SLOG</strong>&apos;a hi&#xE7;bir zaman g&#xF6;revlendirmede bulunulmaz veya okunmaz ve &#xF6;nbellekleme yapmaz. Amac&#x131;, harmanlama ve yazman&#x131;n ba&#x15F;ar&#x131;s&#x131;z olmas&#x131; durumunda &quot;yazma&quot; i&#xE7;in ge&#xE7;en birka&#xE7; saniye boyunca verileri aktar&#x131;m esnas&#x131;nda korumakt&#x131;r. Her &#x15F;ey yolunda giderse, depolama havuzu, mevcut i&#x15F;lem grubu diske yaz&#x131;ld&#x131;&#x11F;&#x131;nda 5 ila 60 saniye i&#xE7;inde bir noktada g&#xFC;ncellenecek ve bu noktada <strong>SLOG</strong>&apos;a kaydedilen veriler orada kalacakt&#x131;r ve yeniden benzer bir durum ya&#x15F;an&#x131;rsa bu &#xF6;nbellek &#xFC;zerine yeni veriler eklenerek eski veriler yoksay&#x131;lacakt&#x131;r. <strong>SLOG</strong> ancak ve ancak yazma sonunda ba&#x15F;ar&#x131;s&#x131;z olursa veya sistem, yaz&#x131;lmas&#x131;n&#x131; engelleyen bir &#xE7;&#xF6;kme veya hatayla kar&#x15F;&#x131;la&#x15F;&#x131;rsa, <strong>ZFS</strong> taraf&#x131;ndan _**_tekrar okunarak yaz&#x131;n verilerin do&#x11F;rulu&#x11F;unu kontrol i&#xE7;in kullan&#x131;lacakt&#x131;r.</p>
+<p>Bu,e&#x15F;zamanl&#x131; yazma &#xF6;zelli&#x11F;i bulunan (ESXi, NFS ve baz&#x131; veri tabanlar&#x131;nda oldu&#x11F;u gibi) yaz&#x131;l&#x131;mlardaki gibi ger&#xE7;ekle&#x15F;irse &#xE7;ok &#xF6;nemli hale gelir, &#xE7;&#xFC;nk&#xFC;, istemcinin faaliyetine devam etmeden &#xF6;nce ba&#x15F;ar&#x131;l&#x131; bir yazma onay&#x131;na ihtiyac&#x131; vard&#x131;r; <strong>SLOG</strong>, <strong>ZFS</strong>&apos;nin yazman&#x131;n ba&#x15F;ar&#x131;l&#x131; oldu&#x11F;unu, istemciyi veri depolama durumu konusunda yan&#x131;ltma riski olmaks&#x131;z&#x131;n, her seferinde ana depoya yazmak zorunda kald&#x131;&#x11F;&#x131;ndan &#xE7;ok daha h&#x131;zl&#x131; do&#x11F;rulamas&#x131;na olanak tan&#x131;r. <strong>SLOG</strong> cihaz&#x131; yoksa, ana veri havuzunun bir k&#x131;sm&#x131; ayn&#x131; ama&#xE7; i&#xE7;in kullan&#x131;lacakt&#x131;r, ancak bu veri aktar&#x131;m h&#x131;z&#x131;n&#x131; yava&#x15F;latacakt&#x131;r.</p>
+<p>****</p>
+</li>
+<li><p><strong>ZIL(ZFS Intent Log): ZIL</strong> cihaz&#x131; <strong>SLOG</strong>&apos;dan farkl&#x131; olarak bir ara katman g&#xF6;revi g&#xF6;r&#xFC;r ve kendisi kaybolursa, en son yaz&#x131;lanlar&#x131; kaybetmek m&#xFC;mk&#xFC;nd&#xFC;r, bu nedenle g&#xFC;nl&#xFC;k cihaz&#x131; ba&#x15F;ka <strong>vdev</strong>&apos;lere aynalanmal&#x131;d&#x131;r. <strong>Ayr&#x131;ca &#xE7;ok s&#x131;k rastlanmasa dahi, b&#xFC;y&#xFC;k &#xE7;apl&#x131; bir kay&#x131;pta ZIL cihaz&#x131; sebebi ile veri havuzu tamamen yok olabilir.</strong> Bu sebeple ZIL kullanan kullan&#x131;c&#x131;lara aynalama yapmas&#x131; &#xF6;nerilir.</p>
+</li>
+<li><strong>L2ARC (Level 2 ARC):</strong> &#x130;ste&#x11F;e ba&#x11F;l&#x131; olu&#x15F;turulur. <strong>ZFS</strong>, bir&#xE7;ok durumda onlarca veya y&#xFC;zlerce gigabayt olabilen <strong>L2ARC</strong>&apos;de olabildi&#x11F;ince &#xE7;ok veriyi &#xF6;nbelle&#x11F;e al&#x131;r. T&#xFC;m tekille&#x15F;tirme tablosu <strong>L2ARC</strong>&apos;de &#xF6;nbelle&#x11F;e al&#x131;nabiliyorsa, <strong>L2ARC</strong> ayn&#x131; zamanda tekille&#x15F;tirmeyi &#xF6;nemli &#xF6;l&#xE7;&#xFC;de h&#x131;zland&#x131;racakt&#x131;r. <strong>L2ARC</strong> cihaz&#x131; kaybolursa, t&#xFC;m okumalar &#xF6;nbelleklenmeden disklere gidecek ve performans etkilenecektir, ancak ba&#x15F;ka hi&#xE7;bir veri kayb&#x131; ya&#x15F;anmayacakt&#x131;r.</li>
+</ol>
+<h3 id="uyarlanabilir-dayan&#x131;kl&#x131;l&#x131;k-adaptive-endianess">Uyarlanabilir dayan&#x131;kl&#x131;l&#x131;k (Adaptive endianess)</h3>
+<p>Havuzlar ve bunlarla ili&#x15F;kili alt dosya sistemleri ve cihazlar; farkl&#x131; bayt s&#x131;ralar&#x131; uygulayan sistemler dahil olmak &#xFC;zere pek &#xE7;ok farkl&#x131; platform mimarileri aras&#x131;nda ta&#x15F;&#x131;nabilir. <strong>ZFS</strong> blok i&#x15F;aret&#xE7;i bi&#xE7;imi, dosya sistemi meta verilerini endian uyarlamal&#x131; bir &#x15F;ekilde depolar; bireysel meta veri bloklar&#x131;, blo&#x11F;u yazan sistemin yerel bayt s&#x131;ras&#x131; ile yaz&#x131;l&#x131;r. Okurken, saklanan sonluk sistemin sonlulu&#x11F;uyla e&#x15F;le&#x15F;miyorsa, meta veriler bellekte bayt de&#x11F;i&#x15F;tirilir. Bu da <strong>ZFS</strong>&apos;ye uyarlanabilir bir dayan&#x131;kl&#x131;l&#x131;k sa&#x11F;lar.</p>
+<p><strong>POSIX</strong> sistemlerinde ola&#x11F;an oldu&#x11F;u gibi, dosyalar uygulamalara basit bayt dizileri olarak g&#xF6;r&#xFC;n&#xFC;r, bu nedenle veri olu&#x15F;turan ve okuyan uygulamalar, temeldeki sistemin dayan&#x131;kl&#x131;l&#x131;&#x11F;&#x131;ndan ba&#x11F;&#x131;ms&#x131;z bir &#x15F;ekilde bunu yapmaktan sorumlu kal&#x131;r.</p>
+<h3 id="veri-tekille&#x15F;tirme">Veri tekille&#x15F;tirme</h3>
+<p>S&#xFC;rekli bu durumu yaz&#x131;p durdum. Veri tekelle&#x15F;tirme de veri tekelle&#x15F;tirme &#x15F;eklinde. Pek &#xE7;o&#x11F;unuz az &#xE7;ok bir &#xE7;&#x131;kar&#x131;mda bulunmu&#x15F; bile olsa bunu a&#xE7;mak isterim.</p>
+<p>Veri tekelle&#x15F;tirme kavram&#x131; asl&#x131;nda s&#x131;ras&#x131;z olarak gelen verilerin temizlenerek d&#xFC;zenli bir &#x15F;ekilde, depolamaya haz&#x131;r hale getirilmesini sa&#x11F;layan bir y&#xF6;ntemdir. <strong>ZFS</strong> kendi i&#xE7;erisinde bir veri tekelle&#x15F;tirme yap&#x131;s&#x131; i&#xE7;erir. Bu yap&#x131; tekrarlanan veri ve fuzzy verilerin ay&#x131;klanmas&#x131;n&#x131;, &#x15F;ifreleme kullan&#x131;m&#x131; i&#xE7;in &#x15F;ifrelenmesini, s&#x131;k&#x131;&#x15F;t&#x131;rma kullanan <strong>ZFS</strong> yap&#x131;lar&#x131; i&#xE7;in ise s&#x131;k&#x131;&#x15F;t&#x131;rman&#x131;n yap&#x131;lmas&#x131;n&#x131; sa&#x11F;lar. Tekelle&#x15F;tirme daha &#xF6;nbellekleme esnas&#x131;nda yap&#x131;l&#x131;r. Bu sayede h&#x131;zl&#x131; ve daha temiz bir veri, disk kullan&#x131;lmadan elde edilebilir.</p>
+<p>Veri tekille&#x15F;tirmenin ZFS&apos;de etkili kullan&#x131;m&#x131;n&#x131;n dezavantajlar&#x131;n&#x131;n bir tanesi ZFS&apos;nin baz&#x131; i&#x15F;lemler i&#xE7;in b&#xFC;y&#xFC;k RAM kapasitesi gerektirmesidir ki &#xF6;neriler, her 1 TB depolama i&#xE7;in 1 ile 5 GB RAM aras&#x131;nda RAM kullan&#x131;m&#x131;n&#x131;n esas al&#x131;narak sistem kurulumu yap&#x131;lmas&#x131;n&#x131; tavsiye etmekte. Yetersiz fiziksel bellek veya ZFS &#xF6;nbelle&#x11F;inin olmamas&#x131;, veri tekille&#x15F;tirme kullan&#x131;l&#x131;rken sanal belle&#x11F;in &#xE7;&#xF6;kmesine neden olabilir, bu da performans&#x131;n d&#xFC;&#x15F;mesine veya tam bellek a&#xE7;l&#x131;&#x11F;&#x131;na neden olabilir ve sistem &#xF6;nemli &#xF6;l&#xE7;&#xFC;de yava&#x15F;layabilir.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Giriş">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="zfsyi-anlamak.html" class="navigation navigation-next " aria-label="Next page: ZFS'yi Anlamak">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"ZFS'nin temel özellikleri ve terminolojisi üzerine birkaç sayfa.","title":"ZFS'nin Özellikleri","level":"2.1","depth":1,"next":{"title":"ZFS'yi Anlamak","level":"2.2","depth":1,"path":"baslangic/zfsyi-anlamak.md","ref":"baslangic/zfsyi-anlamak.md","articles":[]},"previous":{"title":"Giriş","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"baslangic/zfsnin-oezellikleri.md","mtime":"2021-03-01T10:20:38.369Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

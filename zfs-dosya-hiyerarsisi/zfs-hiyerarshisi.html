@@ -1,0 +1,533 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ZFS Disk Hiyerarşisi · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="ZFS Disk Hiyerarşisini ve temel işlemleri açıklamaktadır.">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="zfs-uest-duezey-disk-hiyerarsi-komutlari.html" />
+    
+    
+    <link rel="prev" href="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Başlangıç</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../baslangic/zfsnin-oezellikleri.html">
+            
+                <a href="../baslangic/zfsnin-oezellikleri.html">
+            
+                    
+                    ZFS'nin Özellikleri
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../baslangic/zfsyi-anlamak.html">
+            
+                <a href="../baslangic/zfsyi-anlamak.html">
+            
+                    
+                    ZFS'yi Anlamak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                <a href="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                    
+                    ZFS'yi Çalışma Ortamına Kurmak
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'ye Giriş</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../zfsye-giris/zfs-ye-giris.html">
+            
+                <a href="../zfsye-giris/zfs-ye-giris.html">
+            
+                    
+                    ZFS'ye Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Havuzu</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Basit Havuz Operasyonları
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Dosya Hiyerarşisi</li>
+        
+        
+    
+        <li class="chapter active" data-level="5.1" data-path="zfs-hiyerarshisi.html">
+            
+                <a href="zfs-hiyerarshisi.html">
+            
+                    
+                    ZFS Disk Hiyerarşisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                <a href="zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                    
+                    ZFS Üst Düzey Disk Hiyerarşi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'de Ek Özellikler</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                <a href="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Gerçek Hayatta ZFS'nin Kullanımı</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                    
+                    ZFS Veri Kurtarma Senaryoları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">SON KISIM</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../son-kisim/ekler/">
+            
+                <a href="../son-kisim/ekler/">
+            
+                    
+                    Ekler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                <a href="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                    
+                    Sıkça Sorulan Sorular
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../son-kisim/kaynakca.html">
+            
+                <a href="../son-kisim/kaynakca.html">
+            
+                    
+                    Kaynakça
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../son-kisim/lisans.html">
+            
+                <a href="../son-kisim/lisans.html">
+            
+                    
+                    GNU Özgür Belgelendirme Lisansı
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ZFS Disk Hiyerarşisi</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="zfs-disk-hiyerar&#x15F;isi">ZFS Disk Hiyerar&#x15F;isi</h1>
+<h2 id="zfs-disk-hiyerar&#x15F;isinde-temel-i&#x307;&#x15F;lemler">ZFS Disk Hiyerar&#x15F;isinde Temel &#x130;&#x15F;lemler</h2>
+<p>Verilerinizi depolamak i&#xE7;in bir depolama havuzu olu&#x15F;turduktan sonra, dosya sistemi hiyerar&#x15F;inizi olu&#x15F;turabilirsiniz. Hiyerar&#x15F;iler, bilgiyi organize etmek i&#xE7;in basit ama g&#xFC;&#xE7;l&#xFC; mekanizmalard&#x131;r. Bir dosya sistemi kullanm&#x131;&#x15F; olanlara da &#xE7;ok a&#x15F;inad&#x131;rlar.</p>
+<p>Asl&#x131;nda ZFS geleneksel disk y&#xF6;netim sistemi kullananlar i&#xE7;in biraz karma&#x15F;&#x131;k bir yap&#x131;ya sahip. Ancak basitle&#x15F;tirmek gerekirse ZFS, dosya sistemlerinin, her dosya sisteminin yaln&#x131;zca tek bir ana &#xF6;&#x11F;eye sahip oldu&#x11F;u hiyerar&#x15F;iler halinde d&#xFC;zenlenmesine izin verir. Hiyerar&#x15F;i asl&#x131;nda UNIX k&#xF6;k dosya yap&#x131;s&#x131;na benzemektedir. Hiyerar&#x15F;inin k&#xF6;k&#xFC; her zaman havuz ad&#x131;d&#x131;r. ZFS, &#xF6;zellik miras&#x131;n&#x131; destekleyerek bu hiyerar&#x15F;iden yararlan&#x131;r, b&#xF6;ylece ortak &#xF6;zellikler, t&#xFC;m dosya sistemleri a&#x11F;a&#xE7;lar&#x131;nda h&#x131;zl&#x131; ve kolay bir &#x15F;ekilde ayarlanabilir.</p>
+<h3 id="zfs-dosya-sistemi-hiyerar&#x15F;ini-belirleme">ZFS Dosya Sistemi Hiyerar&#x15F;ini Belirleme</h3>
+<p>ZFS dosya sistemleri, merkezi y&#xF6;netim noktas&#x131;d&#x131;r. Hafiftirler ve kolayca olu&#x15F;turulabilirler. Kullan&#x131;lacak iyi bir model, kullan&#x131;c&#x131; veya proje ba&#x15F;&#x131;na bir dosya sistemi olu&#x15F;turmakt&#x131;r, &#xE7;&#xFC;nk&#xFC; bu model &#xF6;zelliklerin, anl&#x131;k g&#xF6;r&#xFC;nt&#xFC;lerin ve yedeklemelerin kullan&#x131;c&#x131; ba&#x15F;&#x131;na veya proje baz&#x131;nda kontrol edilmesine izin verir.</p>
+<p>ZFS, dosya sistemlerinin hiyerar&#x15F;iler halinde d&#xFC;zenlenmesine izin verir, b&#xF6;ylece benzer dosya sistemleri gruplanabilir. Bu model, &#xF6;zellikleri kontrol etmek ve dosya sistemlerini y&#xF6;netmek i&#xE7;in merkezi bir y&#xF6;netim noktas&#x131; sa&#x11F;lar. Benzer dosya sistemleri ortak bir isim alt&#x131;nda olu&#x15F;turulmal&#x131;d&#x131;r.</p>
+<p>&#xC7;o&#x11F;u dosya sistemi &#xF6;zelli&#x11F;i, &#xF6;zellikler taraf&#x131;ndan kontrol edilir. Bu &#xF6;zellikler, dosya sistemlerinin nereye monte edilece&#x11F;i, nas&#x131;l payla&#x15F;&#x131;laca&#x11F;&#x131;, s&#x131;k&#x131;&#x15F;t&#x131;rma kullan&#x131;p kullanmad&#x131;klar&#x131; ve herhangi bir kotan&#x131;n ge&#xE7;erli olup olmad&#x131;&#x11F;&#x131; gibi &#xE7;e&#x15F;itli davran&#x131;&#x15F;lar&#x131; kontrol eder.</p>
+<p>ZFS Dosya Sistemleri, NFS kullan&#x131;larak payla&#x15F;&#x131;labilir ve s&#x131;k&#x131;&#x15F;t&#x131;rma etkinle&#x15F;tirilebilir. Ek olarak, kullan&#x131;c&#x131; veya projeler i&#xE7;in i&#xE7;in kotalar uygulanabilir.</p>
+<p>ZFS dosya sistemi komutlar&#x131;, <code>zfs</code> komutu ile y&#xF6;netilir.</p>
+<h3 id="zfs-dosya-sistemi-hiyerar&#x15F;i-olu&#x15F;turma">ZFS Dosya Sistemi Hiyerar&#x15F;i Olu&#x15F;turma</h3>
+<p>ZFS&apos;de dosya sistemi <code>zfs create</code> komutu ile olu&#x15F;turulur. Parametre olarak da ZFS disk havuzunu ve disk yolunu belirtmeniz yeterlidir.</p>
+<pre><code class="lang-text">~# zfs create tank/home
+</code></pre>
+<p>Olu&#x15F;turulan dosya sistemi otomatik olarak k&#xF6;k dizinde yer alan havuzumuzun ba&#x11F;land&#x131;&#x11F;&#x131; klas&#xF6;r alt&#x131;na ba&#x11F;lan&#x131;r (yine siz aksini belirtmedik&#xE7;e).</p>
+<p>Ayr&#x131;ca ZFS&apos;de recursive olarak dosya hiyerar&#x15F;isi olu&#x15F;turabiliriz.</p>
+<pre><code class="lang-text">~# zfs create tank/home/zaryob
+~# zfs create tank/home/sulo
+</code></pre>
+<h3 id="zfs-dosya-sistemi-hiyerar&#x15F;ilerini-g&#xF6;r&#xFC;nt&#xFC;lemek">ZFS Dosya Sistemi Hiyerar&#x15F;ilerini G&#xF6;r&#xFC;nt&#xFC;lemek</h3>
+<p>ZFS&apos;de <code>zfs list</code> komutu ile dosya sisteminin detaylar&#x131;n&#x131; g&#xF6;r&#xFC;nt&#xFC;lemek i&#xE7;in kullan&#x131;l&#x131;r.</p>
+<pre><code class="lang-text">~# zfs list
+NAME                   USED  AVAIL  REFER  MOUNTPOINT
+tank                  100.0K  67.0G   19K   /tank
+tank/home             18.0K   67.0G     6K  /tank/zfs
+</code></pre>
+<h3 id="zfs-dosya-sistemi-hiyerar&#x15F;inin-&#xF6;zelliklerini-belirtmek">ZFS Dosya Sistemi Hiyerar&#x15F;inin &#xD6;zelliklerini Belirtmek</h3>
+<p>ZFS&apos;de <code>zfs set</code> komutu ile dosya sisteminin &#xF6;zelliklerini belirlemek i&#xE7;in kullan&#x131;l&#x131;r. Asl&#x131;nda &#xF6;zellikleri tek tek a&#xE7;&#x131;klamak &#xE7;ok uzun s&#xFC;recektir &#xE7;&#xFC;nk&#xFC; pek &#xE7;ok &#xF6;zellik var ve hepsini <code>zfs set --help</code> komutu ile g&#xF6;rebilirsiniz.</p>
+<p>Bir di&#x11F;er yandan temel baz&#x131; &#xF6;zellikleri de&#x11F;i&#x15F;tirelim.</p>
+<pre><code class="lang-text">~# zfs set mountpoint=/mnt/zfs/home tank/home
+</code></pre>
+<p><code>mountpoint</code> parametresi belirtti&#x11F;imiz dosya sisteminin belirtti&#x11F;imiz klas&#xF6;re ba&#x11F;lanmas&#x131;n&#x131; sa&#x11F;lar. Bu &#xF6;rnek i&#xE7;in <code>tank/home</code> dosya sistemi <code>/mnt/zfs</code> yoluna ba&#x11F;lanacakt&#x131;r.</p>
+<pre><code class="lang-text">~# zfs set sharenfs=on tank/home
+</code></pre>
+<p><code>sharenfs</code> parametresi belirtilen dosya sistemini NFS &#xFC;zerinden payla&#x15F;&#x131;lmas&#x131;n&#x131; sa&#x11F;lar.</p>
+<pre><code class="lang-text">~# zfs set compression=on tank/home
+</code></pre>
+<p><code>compression</code> parametresi ise dosya sistemini s&#x131;k&#x131;&#x15F;t&#x131;rarak kaydetmeyi sa&#x11F;lar.</p>
+<pre><code class="lang-text">~# zfs set quota=10G tank/home
+</code></pre>
+<p><code>quota</code> parametresi ise dosya sistemine bir sanal bir kota verir. Bu sayede dosya sistemini limitleyebiliriz.</p>
+<p>B&#xFC;t&#xFC;n bu &#xF6;zellikleri ise <code>zfs get</code> komutu ile &#xF6;&#x11F;renebiliriz.</p>
+<pre><code class="lang-text">~# zfs get compression tank/home
+NAME             PROPERTY       VALUE                      SOURCE
+tank/home        compression    on                         local
+</code></pre>
+<h3 id="zfs-dosya-sistemi-hiyerar&#x15F;i-yeniden-adland&#x131;rma">ZFS Dosya Sistemi Hiyerar&#x15F;i Yeniden Adland&#x131;rma</h3>
+<p>Bir ZFS dosya sistemini yeniden adland&#x131;rmak i&#xE7;in <code>zfs rename</code> komutu kullan&#x131;l&#x131;r.</p>
+<pre><code class="lang-text">~# zfs rename tank/home/zaryob tank/home/zaryob_old
+</code></pre>
+<p>Bu bir hiyerar&#x15F;iyi ba&#x15F;ka bir dizine ta&#x15F;&#x131;may&#x131; da sa&#x11F;lar.</p>
+<pre><code class="lang-text">~# zfs rename tank/home/zaryob tank/zaryob/
+</code></pre>
+<h3 id="zfs-dosya-sistemi-hiyerar&#x15F;i-yok-etme">ZFS Dosya Sistemi Hiyerar&#x15F;i Yok Etme</h3>
+<p>Bir ZFS dosya sistemini yok etmek i&#xE7;in <code>zfs destroy</code> komutu kullan&#x131;l&#x131;r. &#x130;mha edilen dosya sistemi otomatik olarak ayr&#x131;l&#x131;r ve payla&#x15F;t&#x131;r&#x131;lmaz.</p>
+<pre><code class="lang-text">~# zfs destroy tank/home
+</code></pre>
+<p>&#x130;mha edilecek dosya sistemi me&#x15F;gulse ve ba&#x11F;lant&#x131;s&#x131; kesilemezse, <code>zfs destroy</code> komutu ba&#x15F;ar&#x131;s&#x131;z olur. Aktif bir dosya sistemini yok etmek i&#xE7;in <code>-f</code> se&#xE7;ene&#x11F;ini kullan&#x131;n. Etkin dosya sistemlerini kald&#x131;rabilece&#x11F;i, payla&#x15F;&#x131;m&#x131;n&#x131; kald&#x131;rabilece&#x11F;i ve yok ederek beklenmedik uygulama davran&#x131;&#x15F;&#x131;na neden olabilece&#x11F;i i&#xE7;in bu se&#xE7;ene&#x11F;i dikkatli kullan&#x131;n.</p>
+<pre><code class="lang-text">~# zfs destroy -f tank/home
+</code></pre>
+<p>E&#x11F;er ki <code>tank/home</code> dosya sistemi alt ba&#x15F;ka sistemlere de sahipse bu durumda <code>-R</code> parametresi gerekmektedir.</p>
+<pre><code class="lang-text">~# zfs destroy -R tank/home
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html" class="navigation navigation-prev " aria-label="Previous page: ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="zfs-uest-duezey-disk-hiyerarsi-komutlari.html" class="navigation navigation-next " aria-label="Next page: ZFS Üst Düzey Disk Hiyerarşi Komutları">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"ZFS Disk Hiyerarşisini ve temel işlemleri açıklamaktadır.","title":"ZFS Disk Hiyerarşisi","level":"5.1","depth":1,"next":{"title":"ZFS Üst Düzey Disk Hiyerarşi Komutları","level":"5.2","depth":1,"path":"zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.md","ref":"zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.md","articles":[]},"previous":{"title":"ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi","level":"4.2","depth":1,"path":"zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.md","ref":"zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","mtime":"2021-03-01T10:20:38.371Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

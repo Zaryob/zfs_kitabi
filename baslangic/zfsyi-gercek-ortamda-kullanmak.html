@@ -1,0 +1,512 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ZFS'yi Çalışma Ortamına Kurmak · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="ZFS dosya sistemini işletim sistemi üzerinde kullanmak için OpenZFS'yi edinmeyi anlatmaktadır. Esasen FreeBSD, Linux detaylı anlatılmışken, OSX ve Windows desteğine dair yüzeysel bilgi verilmiştir.">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../zfsye-giris/zfs-ye-giris.html" />
+    
+    
+    <link rel="prev" href="zfsyi-anlamak.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Başlangıç</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="zfsnin-oezellikleri.html">
+            
+                <a href="zfsnin-oezellikleri.html">
+            
+                    
+                    ZFS'nin Özellikleri
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="zfsyi-anlamak.html">
+            
+                <a href="zfsyi-anlamak.html">
+            
+                    
+                    ZFS'yi Anlamak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.3" data-path="zfsyi-gercek-ortamda-kullanmak.html">
+            
+                <a href="zfsyi-gercek-ortamda-kullanmak.html">
+            
+                    
+                    ZFS'yi Çalışma Ortamına Kurmak
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'ye Giriş</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../zfsye-giris/zfs-ye-giris.html">
+            
+                <a href="../zfsye-giris/zfs-ye-giris.html">
+            
+                    
+                    ZFS'ye Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Havuzu</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Basit Havuz Operasyonları
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                <a href="../zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Dosya Hiyerarşisi</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                    
+                    ZFS Disk Hiyerarşisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                    
+                    ZFS Üst Düzey Disk Hiyerarşi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'de Ek Özellikler</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                <a href="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Gerçek Hayatta ZFS'nin Kullanımı</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                    
+                    ZFS Veri Kurtarma Senaryoları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">SON KISIM</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../son-kisim/ekler/">
+            
+                <a href="../son-kisim/ekler/">
+            
+                    
+                    Ekler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                <a href="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                    
+                    Sıkça Sorulan Sorular
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../son-kisim/kaynakca.html">
+            
+                <a href="../son-kisim/kaynakca.html">
+            
+                    
+                    Kaynakça
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../son-kisim/lisans.html">
+            
+                <a href="../son-kisim/lisans.html">
+            
+                    
+                    GNU Özgür Belgelendirme Lisansı
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ZFS'yi Çalışma Ortamına Kurmak</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="zfsyi-&#xE7;al&#x131;&#x15F;ma-ortam&#x131;na-kurmak">ZFS&apos;yi &#xC7;al&#x131;&#x15F;ma Ortam&#x131;na Kurmak</h1>
+<h2 id="zfsyi-ger&#xE7;ek-ortamda-kullanmak">ZFS&apos;yi Ger&#xE7;ek Ortamda Kullanmak</h2>
+<p>ZFS&apos;nin Kurulumu ZFS daha &#xF6;ncesinde belirtti&#x11F;im gibi Oracle taraf&#x131;n y&#xFC;r&#xFC;t&#xFC;len Solaris ZFS ve a&#xE7;&#x131;k kaynak kodlu olarak devam ettirilen OpenZFS projesi ile devam etmekte. Bu kitapta esas olarak OpenZFS kurulumu anlat&#x131;lm&#x131;&#x15F;t&#x131;r.</p>
+<h3 id="freebsd-&#xFC;zerinde-zfs-kullanmak">FreeBSD &#xDC;zerinde ZFS Kullanmak</h3>
+<p>FreeBSD &#xF6;ntan&#x131;ml&#x131; olarak iki dosya sistemi kullanmaktad&#x131;r. Bunlardan birincisi UFS di&#x11F;eri ise ZFS&apos;dir. ZFS dosya sistemi kurulum a&#x15F;amas&#x131;nda hedef dosya y&#xF6;neticisi olarak kullan&#x131;labilir. Benim ki&#x15F;isel olarak kulland&#x131;&#x11F;&#x131;m FreeBSD s&#xFC;r&#xFC;mlerinden 11 ve sonras&#x131; s&#xFC;r&#xFC;mleri ZFS dosya sistemini direk kernel kodu ile getirmekte. FreeBSD ve t&#xFC;revlerinde tek yapmam&#x131;z gerek <strong><code>/etc/rc.conf</code></strong> dosyas&#x131;n&#x131; d&#xFC;zenlemek. Bu i&#x15F; i&#xE7;in bu dosyan&#x131;n sonuna <strong><code>zfs_enable=\&quot;YES\&quot;&quot;</code></strong> &#x15F;eklinde bir ekleme yapmam&#x131;z yeterlidir. Veya bunun yerine a&#x15F;a&#x11F;&#x131;daki komutu kullanman&#x131;z yeterli:</p>
+<pre><code class="lang-text"># echo &quot;zfs_enable=\&quot;YES\&quot;&quot; &gt;&gt;/etc/rc.conf
+</code></pre>
+<h3 id="linux-distrolar&#x131;nda-zfs-kullanmak">Linux Distrolar&#x131;nda ZFS Kullanmak</h3>
+<p>OpenZFS FreeBSD haricinde Linux &#xE7;ekirde&#x11F;i i&#xE7;in de modul destei getirmekte ancak Linus Torvalds bu modulu a&#xE7;&#x131;k&#xE7;a linux &#xE7;ekirde&#x11F;inin i&#xE7;erisine eklemedi. Bunun da baz&#x131; sebepleri var.</p>
+<p><a href="https://itsfoss.com/linus-torvalds-zfs" target="_blank">ItFoss</a> haber sitesinde de payla&#x15F;&#x131;lan Linus Torvalds&apos;&#x131;n a&#xE7;&#x131;klamas&#x131;nda, ba&#x15F;ta anlatt&#x131;&#x11F;&#x131;m yaz&#x131;l&#x131;m lisans&#x131;n&#x131;n Linux kernelinin lisans&#x131; olan GPL ile uygun olmamas&#x131; sebebiyle bu mod&#xFC;l maalesef resmi olarak eklenmedi ve Torvalds bunu eklemeye de bir miktar imtina ediyor. Bunun da baz&#x131; sebepleri elbette var.</p>
+<p>Bu sebepleri bir yana b&#x131;rak&#x131;rsak ZFS paketi pek &#xE7;ok Linux da&#x11F;&#x131;t&#x131;m&#x131;nda da paketlenmi&#x15F; ve <strong>ZFSonLinux</strong> organizasyonun sa&#x11F;lad&#x131;&#x11F;&#x131; depolarla veya resmi depolarla da&#x11F;&#x131;t&#x131;lmakta.<strong>ZFSonLinux</strong> web sitesinden kendi sisteminiz i&#xE7;in sa&#x11F;lanm&#x131;&#x15F; da&#x11F;&#x131;t&#x131;m paketlerini elde edebilirsiniz. Ancak bu k&#x131;lavuzda Debian/Ubuntu ve Fedora i&#xE7;in nas&#x131;l kurulaca&#x11F;&#x131; aktar&#x131;lm&#x131;&#x15F;t&#x131;r.</p>
+<h4 id="debianubuntu-da&#x11F;&#x131;t&#x131;mlar&#x131;nda-openzfs-kurulumu">Debian/Ubuntu Da&#x11F;&#x131;t&#x131;mlar&#x131;nda OpenZFS Kurulumu</h4>
+<p>Debian ve Ubuntu da&#x11F;&#x131;t&#x131;mlar&#x131; i&#xE7;in a&#x15F;a&#x11F;&#x131;daki ad&#x131;mlar&#x131; kullanarak kurulum yapabilirsiniz. Bu i&#x15F;lemleri yaparken <strong>root</strong> kullan&#x131;c&#x131;s&#x131; olmay&#x131; unutmay&#x131;n.</p>
+<p>Paketleri Debian ve Ubuntu&apos;nun depolar&#x131;ndan ayn&#x131; isimle bulabilirsiniz ve da&#x11F;&#x131;t&#x131;m&#x131;n&#x131;z&#x131;n ana deposundan kurabilirsiniz.</p>
+<pre><code class="lang-text">~# apt install --yes --no-install-recommends zfs-dkms 
+~# apt install --yes zfsutils-linux
+</code></pre>
+<p>Bu a&#x15F;amalar&#x131;n bitmesinin ard&#x131;ndan <strong>zfs</strong> kernel mod&#xFC;l&#xFC;n&#xFC; etkinle&#x15F;tirmeniz gerekmekte:</p>
+<pre><code class="lang-text">~# modprobe zfs
+</code></pre>
+<p>Bu a&#x15F;aman&#x131;n ard&#x131;ndan zfs komutunu kullanabilirsiniz.</p>
+<h4 id="fedora-i&#xE7;in-openzfs-kurulumu">Fedora i&#xE7;in OpenZFS Kurulumu</h4>
+<p>Ba&#x15F;lang&#x131;&#xE7; i&#xE7;in ZFS deposunu Fedora sistemimize ekleyelim.</p>
+<pre><code class="lang-text">~# dnf install https://zfsonlinux.org/fedora/zfs-release$(rpm -E %dist).noarch.rpm
+~# gpg --import --import-options show-only /etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+pub   rsa2048 2013-03-21 [SC]
+      C93AFFFD9F3F7B03C310CEB6A9D5A1C0F14AB620
+uid                      ZFS on Linux &lt;zfs@zfsonlinux.org&gt;
+sub   rsa2048 2013-03-21 [E]
+</code></pre>
+<p>ZFS mod&#xFC;l&#xFC;n&#xFC; kural&#x131;m ve mod&#xFC;l&#xFC; aktive edelim.</p>
+<p>E&#x11F;er ki sisteminizde &#xF6;ncesinde <strong>zfs-fuse</strong> paketi kurulu ise <strong>zfs</strong> paketini kurmak i&#xE7;in <strong>zfs-fuse</strong> yerine <strong>zfs</strong> paketini se&#xE7;elim.</p>
+<pre><code class="lang-text">~# dnf swap zfs-fuse zfs
+</code></pre>
+<p>&#x15E;imdi ZFS deposundan <strong>zfs</strong> paketini kural&#x131;m ve mod&#xFC;l&#xFC; aktive edelim.</p>
+<pre><code class="lang-text">~# dnf install zfs 
+~# modprobe zfs
+</code></pre>
+<h3 id="macos-x-&#xFC;zerinde-zfs-kullanmak">MacOS X &#xDC;zerinde ZFS Kullanmak</h3>
+<p><a href="https://openzfsonosx.org/wiki/Downloads" target="_blank"> ZFS on OS X</a> indirme sayfas&#x131; &#xFC;zerinden i&#x15F;letim sisteminize uygun paketi se&#xE7;erek kurman&#x131;z yeterlidir.</p>
+<h3 id="windows-&#xFC;zerinde-zfs-kullanmak">Windows &#xDC;zerinde ZFS Kullanmak</h3>
+<p>Windows &#xFC;zerinde ZFS i&#xE7;in bir test yapmad&#x131;m ancak <a href="https://openzfsonwindows.org/" target="_blank">ZFS On Windows</a> projesi ile kurulumun m&#xFC;mk&#xFC;n oldu&#x11F;u belirtilmi&#x15F;. <a href="https://github.com/openzfsonwindows/ZFSin/releases" target="_blank">ZFS on Windows github sayfas&#x131;ndan</a> <strong><code>OpenZFSOnWindows-release-*.exe</code></strong> kurucusunu kullanarak kurabilirsiniz.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="zfsyi-anlamak.html" class="navigation navigation-prev " aria-label="Previous page: ZFS'yi Anlamak">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../zfsye-giris/zfs-ye-giris.html" class="navigation navigation-next " aria-label="Next page: ZFS'ye Giriş">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"ZFS dosya sistemini işletim sistemi üzerinde kullanmak için OpenZFS'yi edinmeyi anlatmaktadır. Esasen FreeBSD, Linux detaylı anlatılmışken, OSX ve Windows desteğine dair yüzeysel bilgi verilmiştir.","title":"ZFS'yi Çalışma Ortamına Kurmak","level":"2.3","depth":1,"next":{"title":"ZFS'ye Giriş","level":"3.1","depth":1,"path":"zfsye-giris/zfs-ye-giris.md","ref":"zfsye-giris/zfs-ye-giris.md","articles":[]},"previous":{"title":"ZFS'yi Anlamak","level":"2.2","depth":1,"path":"baslangic/zfsyi-anlamak.md","ref":"baslangic/zfsyi-anlamak.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"baslangic/zfsyi-gercek-ortamda-kullanmak.md","mtime":"2021-03-01T10:20:38.370Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

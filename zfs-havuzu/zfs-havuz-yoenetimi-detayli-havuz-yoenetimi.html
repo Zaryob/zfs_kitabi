@@ -1,0 +1,1113 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="Detaylı ZFS Havuz Yönetimi Komutlarını içermektedir.">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html" />
+    
+    
+    <link rel="prev" href="zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Başlangıç</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../baslangic/zfsnin-oezellikleri.html">
+            
+                <a href="../baslangic/zfsnin-oezellikleri.html">
+            
+                    
+                    ZFS'nin Özellikleri
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../baslangic/zfsyi-anlamak.html">
+            
+                <a href="../baslangic/zfsyi-anlamak.html">
+            
+                    
+                    ZFS'yi Anlamak
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                <a href="../baslangic/zfsyi-gercek-ortamda-kullanmak.html">
+            
+                    
+                    ZFS'yi Çalışma Ortamına Kurmak
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'ye Giriş</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../zfsye-giris/zfs-ye-giris.html">
+            
+                <a href="../zfsye-giris/zfs-ye-giris.html">
+            
+                    
+                    ZFS'ye Giriş
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Havuzu</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                <a href="zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Basit Havuz Operasyonları
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.2" data-path="zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                <a href="zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS Dosya Hiyerarşisi</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html">
+            
+                    
+                    ZFS Disk Hiyerarşisi
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                <a href="../zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.html">
+            
+                    
+                    ZFS Üst Düzey Disk Hiyerarşi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">ZFS'de Ek Özellikler</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                <a href="../zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.html">
+            
+                    
+                    ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Gerçek Hayatta ZFS'nin Kullanımı</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                <a href="../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html">
+            
+                    
+                    ZFS Veri Kurtarma Senaryoları
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">SON KISIM</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../son-kisim/ekler/">
+            
+                <a href="../son-kisim/ekler/">
+            
+                    
+                    Ekler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                <a href="../son-kisim/ekler/sikca-sorulan-sorular.html">
+            
+                    
+                    Sıkça Sorulan Sorular
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../son-kisim/kaynakca.html">
+            
+                <a href="../son-kisim/kaynakca.html">
+            
+                    
+                    Kaynakça
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../son-kisim/lisans.html">
+            
+                <a href="../son-kisim/lisans.html">
+            
+                    
+                    GNU Özgür Belgelendirme Lisansı
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="zfs-havuz-y&#xF6;netimi---detayl&#x131;-havuz-y&#xF6;netimi">ZFS Havuz Y&#xF6;netimi - Detayl&#x131; Havuz Y&#xF6;netimi</h1>
+<p>Bu k&#x131;s&#x131;ma kadar ufak bir giri&#x15F; yapt&#x131;&#x11F;&#x131;m&#x131;z ZFS ayg&#x131;t y&#xF6;netim sisteminin daha &#xF6;ncesinde bahsetmedi&#x11F;imiz &#xF6;zelliklerine de&#x11F;inece&#x11F;iz. Bunu yaparken bir &#xF6;nceki b&#xF6;l&#xFC;mde k&#x131;saca de&#x11F;indi&#x11F;imiz aynalanm&#x131;&#x15F; disk sistemleri olu&#x15F;turman&#x131;n alt&#x131;nda yatan ayg&#x131;tlar konusunu, &#xF6;zelle&#x15F;tirilmi&#x15F; ayg&#x131;tlar&#x131; olu&#x15F;turma ve bu ayg&#x131;tlar&#x131;n &#xF6;zelliklerini a&#xE7;&#x131;klayaca&#x11F;&#x131;m ve ger&#xE7;ek zamanl&#x131; baz&#x131; &#xF6;rneklerden bahsedece&#x11F;im.</p>
+<h2 id="zfs-ayg&#x131;t-tipleri-ve-havuzdaki-kullan&#x131;mlar&#x131;">ZFS Ayg&#x131;t Tipleri ve Havuzdaki Kullan&#x131;mlar&#x131;</h2>
+<p>Bir &#xF6;nceki b&#xF6;l&#xFC;mde bahsetti&#x11F;im gibi temel olarak 5 b&#xF6;l&#xFC;m bulunmakta. Bunlar <strong>disk (varsay&#x131;lan):</strong>, <strong>dosya (file)</strong>, <strong>ayna (mirror)</strong>, <strong>raidz1/2/3</strong>, <strong>yedek (spare)</strong>, <strong>&#xF6;nbellek (cache)</strong>, <strong>g&#xFC;nl&#xFC;k (log)</strong> olarak adland&#x131;r&#x131;lmaktad&#x131;r. &#x15E;imdi tek tek bunlar&#x131;n &#xF6;zelliklerinden bahsedelim ve havuza bunlar&#x131; eklemeyi g&#xF6;relim.</p>
+<h3 id="dosya-t&#xFC;r&#xFC;nde-zfs-ayg&#x131;tlar&#x131;-olu&#x15F;turma">Dosya T&#xFC;r&#xFC;nde ZFS Ayg&#x131;tlar&#x131; Olu&#x15F;turma</h3>
+<p>Belirtildi&#x11F;i gibi, &#xF6;nceden tahsis edilmi&#x15F; dosyalar&#x131;, mevcut dosya sisteminize (<strong>ext4</strong>, <strong>xfs</strong> veya her neyse) m&#xFC;dahale etmeden <code>zpool</code>&apos;lar&#x131; kurmak i&#xE7;in kullan&#x131;labilir. Bunun, &#xFC;retim verilerini depolamak i&#xE7;in de&#x11F;il, tamamen &#xFC;retim ve test ama&#xE7;l&#x131; oldu&#x11F;u unutulmamal&#x131;d&#x131;r. Dosyalar&#x131; kullanmak, s&#x131;k&#x131;&#x15F;t&#x131;rma oran&#x131;n&#x131;, veri tekille&#x15F;tirme tablosunun boyutunu veya di&#x11F;er &#x15F;eyleri ger&#xE7;ekten &#xFC;retim verilerini taahh&#xFC;t etmeden test edebilece&#x11F;iniz bir sanal alana sahip olman&#x131;n harika bir yoludur.</p>
+<p>Dosya VDEV&apos;leri olu&#x15F;tururken, g&#xF6;receli yollar kullanamazs&#x131;n&#x131;z, ancak mutlak yollar kullanman&#x131;z gerekir. Yani <code>/tmp/dosya</code> &#x15F;eklinde k&#xF6;k dizininden ba&#x15F;layacak &#x15F;eklinde yolunu belirtmeniz gerekmekte. Ayr&#x131;ca, g&#xF6;r&#xFC;nt&#xFC; dosyalar&#x131;na &#xF6;nceden bir boyut tahsis edilmi&#x15F; olmas&#x131; veya bu boyutun seyrek veya k&#x131;smi olarak sa&#x11F;lanmas&#x131; gerekir. Bunun nas&#x131;l &#xE7;al&#x131;&#x15F;t&#x131;&#x11F;&#x131;n&#x131; g&#xF6;relim.</p>
+<p>&#x130;lk olarak 1 GB&apos;l&#x131;k alan kaplayacak 4 adet dosya olu&#x15F;tural&#x131;m:</p>
+<pre><code class="lang-text">~# for i in {1..4}
+do
+     dd if=/dev/zero of=/tmp/file$i bs=1G count=4 &amp;&gt; /dev/null
+done
+</code></pre>
+<p>&#x15E;imdi bu dosyalar&#x131; kullanarak bir havuz olu&#x15F;tural&#x131;m.</p>
+<pre><code class="lang-text">~# zpool create filetank /tmp/file1 /tmp/file2 /tmp/file3 /tmp/file4
+</code></pre>
+<pre><code class="lang-text">~# zpool status tank
+pool: tank
+state: ONLINE
+config:
+
+    NAME          STATE     READ WRITE CKSUM
+    tank          ONLINE       0     0     0
+      /tmp/file1  ONLINE       0     0     0
+      /tmp/file2  ONLINE       0     0     0
+      /tmp/file3  ONLINE       0     0     0
+      /tmp/file4  ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>Bu tip havuzlar&#x131; sadece dosyalardan olu&#x15F;acak &#x15F;ekilde yaratabilece&#x11F;imiz gibi buna ek olarak farkl&#x131; disklerle harmanlayarak olu&#x15F;turabiliriz de.</p>
+<pre><code class="lang-text">~# zpool create filetank  /dev/sdb /dev/sdc /tmp/file1 /tmp/file2 /tmp/file3 /tmp/file4
+</code></pre>
+<pre><code class="lang-text">~# zpool status tank
+pool: tank
+state: ONLINE
+config:
+
+    NAME          STATE     READ WRITE CKSUM
+    tank          ONLINE       0     0     0
+      sdb         ONLINE       0     0     0
+      sdc         ONLINE       0     0     0
+      /tmp/file1  ONLINE       0     0     0
+      /tmp/file2  ONLINE       0     0     0
+      /tmp/file3  ONLINE       0     0     0
+      /tmp/file4  ONLINE       0     0     0
+
+
+errors: No known data errors
+</code></pre>
+<p>.. Note:: Bu &#x15F;ekilde dosyalardan olu&#x15F;mu&#x15F; havuzlar&#x131;n export edilmesi durumunda havuzun yeniden bulunmas&#x131; sorun ya&#x15F;atabilir. Tekrar ayn&#x131; havuzu import etmek i&#xE7;in dosyalardan en az birinin bulundu&#x11F;u yolu belirtmemiz gerekmekte. &#xD6;rne&#x11F;in:</p>
+<pre><code class="lang-text">~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  7.50G   214K  7.50G        -         -     0%     0%  1.00x    ONLINE  -
+~# zpool export tank
+~# zpool import tank
+cannot import &apos;tank&apos;: no such pool available
+</code></pre>
+<p>Bu durumda <code>/tmp/file1</code>&apos;i belirterek <code>tank</code> havuzunu import etmeye &#xE7;al&#x131;&#x15F;&#x131;nca</p>
+<pre><code class="lang-text">~# zpool import -d /tmp/file1 tank
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  7.50G   300K  7.50G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<h3 id="yans&#x131;-ayg&#x131;tlar&#x131;-olu&#x15F;turma">Yans&#x131; Ayg&#x131;tlar&#x131; Olu&#x15F;turma</h3>
+<p>Yans&#x131;t&#x131;lm&#x131;&#x15F; bir havuz olu&#x15F;turmak i&#xE7;in, <code>mirror</code> anahtar s&#xF6;zc&#xFC;&#x11F;&#xFC;n&#xFC; ve ard&#x131;ndan aynay&#x131; olu&#x15F;turacak herhangi bir say&#x131;da depolama ayg&#x131;t&#x131;n&#x131; kullan&#x131;n. Komut sat&#x131;r&#x131;nda mirror anahtar s&#xF6;zc&#xFC;&#x11F;&#xFC; tekrarlanarak birden &#xE7;ok ayna belirtilebilir. A&#x15F;a&#x11F;&#x131;daki komut, iki, iki y&#xF6;nl&#xFC; aynaya sahip bir havuz olu&#x15F;turur:</p>
+<pre><code class="lang-text">~# zpool create tank mirror /dev/sdb /dev/sdc
+</code></pre>
+<p>Yans&#x131;lanm&#x131;&#x15F; olan sanal cihazlar olu&#x15F;turmak i&#xE7;in en az iki adet cihaz gerekmektedir. Bu cihazlardan ikinde ana dosyalar depolan&#x131;rken ikincisinde ise buradaki dosyalar&#x131;n anl&#x131;k yans&#x131;lar&#x131; yani kopyalar&#x131; bulunmaktad&#x131;r. Bu sayede bu iki cihazdan birisi bozulursa di&#x11F;erini kullanarak ayg&#x131;t havuzumuzu kurtarabiliriz. Burda &#xF6;nemli olan nokta &#x15F;u. Bu iki yans&#x131; diskinden en az bir tanesinin d&#xFC;zg&#xFC;n durumda olmas&#x131; gerekmektedir. Birden fazla diskten olu&#x15F;an aynalarda da yine ayn&#x131; durum ge&#xE7;erli. Bu disklerden en az bir tanesinin d&#xFC;zg&#xFC;n olmas&#x131; gerekmekte.</p>
+<p>Buraya kadar anlatt&#x131;klar&#x131;m prati&#x11F;e d&#xF6;k&#xFC;lmedi&#x11F;i i&#xE7;in anlams&#x131;z olabilir. Hemen bir &#xF6;rnek ile izah edelim. Bu &#xF6;rnek i&#xE7;in 2 tane sanal dosya ayg&#x131;t&#x131; olu&#x15F;tural&#x131;m. &#x130;lki tek bir dosyadan olu&#x15F;sun.</p>
+<pre><code class="lang-text">~# zpool create tank /dev/sdb
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME          STATE     READ WRITE CKSUM
+    tank          ONLINE       0     0     0
+      sdb         ONLINE       0     0     0
+
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  3.75G   105K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>Boyut g&#xF6;r&#xFC;ld&#xFC;&#x11F;&#xFC; &#x15F;ekildedir. &#x15E;imdi 2 diskten olu&#x15F;an bir havuz olu&#x15F;tural&#x131;m.</p>
+<pre><code class="lang-text">~# zpool create tank /dev/sdb /dev/sdc
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  7.50G   128K  7.50G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>Bu durumda da boyut bu &#x15F;ekildedir. Ancak 2 diskten olu&#x15F;an aynalanm&#x131;&#x15F; bir havuz i&#xE7;in ise &#x15F;&#xF6;yle bir tablo kar&#x15F;&#x131;m&#x131;za &#xE7;&#x131;kar.</p>
+<pre><code class="lang-text">~# zpool create tank mirror /dev/sdb /dev/sdc
+~# zpool status 
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME            STATE     READ WRITE CKSUM
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        sdb         ONLINE       0     0     0
+        sdc         ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  3.75G   122K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>Bizim i&#xE7;in bu durumda <code>/dev/sdc</code> diski <code>/dev/sdb</code> i&#xE7;in yans&#x131; ihtiva etmektedir.</p>
+<h3 id="raidz-ayg&#x131;tlar&#x131;-olu&#x15F;turma">RAIDZ Ayg&#x131;tlar&#x131; Olu&#x15F;turma</h3>
+<p>Daha &#xF6;ncesinde belirtti&#x11F;im gibi ZFS&apos;nin kendi RAIDZ y&#xF6;netimi bulunmakta. RAIDZ&apos;yi anlamak i&#xE7;in &#xF6;ncelikli olarak RAID yap&#x131;s&#x131;n&#x131; anlamam&#x131;z gerekmekte. Genellikle birden &#xE7;ok diske yay&#x131;lm&#x131;&#x15F; verilerde birden &#xE7;ok veri kopyas&#x131;na ihtiya&#xE7; duyulur. Donan&#x131;msal olarak bu &#xF6;zellik, bir <strong>RAID</strong> denetleyicisi kullan&#x131;larak elde edilebilir. Yani donan&#x131;msal olarak birden fazla diski birlikte kullanmaya imkan sa&#x11F;layan bu yap&#x131;ya biz RAID diyoruz.</p>
+<p>RAID e&#x15F;lik tabanl&#x131; seviyelere ihtiya&#xE7; duymakta ve her bir seviye RAID i&#xE7;in farkl&#x131; disk miktar&#x131;na ve baz&#x131; donan&#x131;msal gereksinimlere ihtiyac&#x131;m&#x131;z var. &#xD6;rne&#x11F;in <strong>RAID-5</strong> dizisi i&#xE7;in en az 3 ayg&#x131;ttan/diskten olu&#x15F;an bir disk &#x15F;eridine ihtiyac&#x131;m&#x131;z var. RAID, bunu sa&#x11F;larken iki diskteki verileri birle&#x15F;tirir, daha sonra, k&#xFC;medeki t&#xFC;m &#xFC;&#xE7; &#x15F;eridin <strong>XOR</strong>&apos;u s&#x131;f&#x131;r olarak hesaplanacak &#x15F;ekilde bir e&#x15F;lik biti hesaplan&#x131;r. E&#x15F;lik daha sonra diske yaz&#x131;l&#x131;r. Bu, bir disk ar&#x131;zas&#x131;na maruz kalman&#x131;za ve verileri yeniden hesaplaman&#x131;za olanak tan&#x131;r. Ayr&#x131;ca, RAID-5&apos;te, dizideki tek bir disk e&#x15F;lik verileri i&#xE7;in ayr&#x131;lmam&#x131;&#x15F;t&#x131;r. Bunun yerine, e&#x15F;lik t&#xFC;m disklere da&#x11F;&#x131;t&#x131;l&#x131;r. B&#xF6;ylece, herhangi bir disk ar&#x131;zalanabilirse veriler yine de geri y&#xFC;klenebilir. Ancak RAID-5&apos;in bir sorunu var. Herhangi bir e&#x15F;lik biti (parity) yaz&#x131;m&#x131; s&#x131;ras&#x131;nda diskle veya donan&#x131;mla alakal&#x131; bir hata meydana gelmesi durumunda b&#xFC;t&#xFC;n veriler kaybedilebilir. K&#xF6;t&#xFC; olan durum ise, &#xE7;o&#x11F;u donan&#x131;m yaz&#x131;l&#x131;m tabanl&#x131; RAID&apos;in bir sorunun varl&#x131;&#x11F;&#x131;n&#x131; tespit edemeyip veriyi &#xF6;ylece yazmas&#x131;d&#x131;r. E&#x15F;lik bitlerinin verilerle tutars&#x131;z oldu&#x11F;unu belirleyen yaz&#x131;l&#x131;m &#xE7;&#xF6;z&#xFC;mleri var, ancak bunlar yava&#x15F; ve g&#xFC;venilir de&#x11F;iller. Sonu&#xE7; olarak, yaz&#x131;l&#x131;m tabanl&#x131; RAID, depolama y&#xF6;neticilerinin &#xE7;o&#x11F;u i&#xE7;in iyi bir &#xE7;&#xF6;z&#xFC;m de&#x11F;il. Donan&#x131;m destekli RAID ise ar&#x131;zalara ve karars&#x131;zl&#x131;klara sebep olmas&#x131;ndan dolay&#x131; y&#xF6;netmesi ve s&#xFC;reklili&#x11F;i hayli zordur. &#xC7;o&#x11F;unlukla RAID cihazlar&#x131;n&#x131; kullanmak i&#xE7;in B&#x130;OS &#xFC;zerine g&#xFC;ncellemeler yap&#x131;lmal&#x131;, baz&#x131; durumlarda i&#x15F;letim sisteminin cihaz i&#xE7;in uygun &#x15F;ekilde yamanmas&#x131;n&#x131; gerekmektedir.</p>
+<p>ZFS, birim y&#xF6;neticisi ve dosya sistemlerinin g&#xF6;revlerini birle&#x15F;tirir. Bu, yeni bir havuz olu&#x15F;tururken diskleriniz i&#xE7;in ayg&#x131;t d&#xFC;&#x11F;&#xFC;mlerini belirtebilece&#x11F;iniz anlam&#x131;na gelir ve ZFS bunlar&#x131; tek bir mant&#x131;ksal havuzda birle&#x15F;tirir ve daha sonra bu birimin &#xFC;st&#xFC;nde farkl&#x131; kullan&#x131;mlar i&#xE7;in veri k&#xFC;meleri ve disk alanlar&#x131; olu&#x15F;turabilirsiniz. RAID i&#xE7;in bir alternatif olarak ZFS, RAID&apos;in donan&#x131;msal katman&#x131;n&#x131; tahliye etmek i&#xE7;in kendi RAID yap&#x131;s&#x131;n&#x131; getirmektedir.</p>
+<p>ZFS kendi RAIDZ&apos;si sayesinde donan&#x131;m bazl&#x131; RAID&apos;e ayg&#x131;t y&#xF6;netimi noktas&#x131;nda bir alternatif olu&#x15F;turur. RAIDZ olu&#x15F;turmas&#x131; s&#x131;ras&#x131;nda &#x15F;erit geni&#x15F;li&#x11F;inin statik olarak ayarlanmas&#x131;ndan ziyade, &#x15F;erit geni&#x15F;li&#x11F;i dinamiktir. &#x130;&#x15F;lemsel olarak diske aktar&#x131;lan her blok kendi &#x15F;erit geni&#x15F;li&#x11F;ine sahiptir ve bu sayede veri sa&#x11F;lamas&#x131; yap&#x131;labilir. Bu da RAID&apos;in sorunlar&#x131;na kar&#x15F;&#x131; bir &#xE7;&#xF6;z&#xFC;m olu&#x15F;turur. Ayr&#x131;ca her RAIDZ yaz&#x131;m&#x131;, tam &#x15F;eritli bir yazma sa&#x11F;lar. Ayr&#x131;ca, e&#x15F;lik biti &#x15F;eritle e&#x15F;zamanl&#x131; olarak i&#x15F;lenmektedir ve bu &#xF6;zelli&#x11F;i daha &#xF6;nce belirtti&#x11F;im RAID-5&apos;in yazma sorunlar&#x131;n&#x131; tamamen ortadan kald&#x131;r&#x131;l&#x131;r. Dolay&#x131;s&#x131;yla, bir elektrik kesintisi durumunda, ya en son veri ak&#x131;&#x15F;&#x131;na sahip olursunuz ya da son veri ak&#x131;&#x15F;&#x131;n&#x131;n tamamlanmam&#x131;&#x15F; k&#x131;s&#x131;mlar&#x131;n&#x131; kaybedersiniz ancak bu sebeple herhangi bir disk sorunu ya&#x15F;anmam&#x131;&#x15F; olursunuz.</p>
+<p>Ayr&#x131;ca ZFS&apos;nin RAIDZ yap&#x131;s&#x131; donan&#x131;m taban&#x131;ndan daha az i&#x15F;lem maaliyetine sahip bir &#xE7;&#xF6;z&#xFC;m getirmekte. ZFS, sessiz hatalar&#x131; alg&#x131;layabilir ve an&#x131;nda d&#xFC;zeltebilir. Bir an i&#xE7;in dizideki diskte herhangi bir nedenle verilerin hatayla de&#x11F;i&#x15F;tirildi&#x11F;ini veya bozuldu&#x11F;unu varsayal&#x131;m. Uygulama veriyi talep etti&#x11F;inde, ZFS &#x15F;eridi az &#xF6;nce &#xF6;&#x11F;rendi&#x11F;imiz gibi olu&#x15F;turulur ve her blo&#x11F;u <code>fletcher4</code> olarak bilinen bir sa&#x11F;lama toplam&#x131; ile kar&#x15F;&#x131;la&#x15F;t&#x131;r&#x131;r meta verilerdeki sa&#x11F;lama toplamlar&#x131; ile kar&#x15F;&#x131;la&#x15F;t&#x131;r&#x131;r. Okuma &#x15F;eridi sa&#x11F;lama toplam&#x131; ile e&#x15F;le&#x15F;miyorsa, ZFS bozuk blo&#x11F;u bulur, ard&#x131;ndan e&#x15F;lik bitlerini okur ve kombinatoryal yeniden yap&#x131;land&#x131;rma yoluyla d&#xFC;zeltir. Daha sonra uygulamaya d&#xFC;zeltilmi&#x15F; veriler d&#xF6;nd&#xFC;r&#xFC;r. T&#xFC;m bunlar, &#xF6;zel bir donan&#x131;m&#x131;n yard&#x131;m&#x131; olmadan ZFS&apos;nin kendisinde ger&#xE7;ekle&#x15F;tirilir.</p>
+<p>RAIDZ seviyelerinin bir ba&#x15F;ka y&#xF6;n&#xFC; de, &#x15F;erit dizideki disklerden daha uzunsa, bir disk ar&#x131;zas&#x131; varsa veya e&#x15F;likli veriler bozulursa, verileri yeniden yap&#x131;land&#x131;ramaz. Bu nedenle, ZFS, bunun olmas&#x131;n&#x131; &#xF6;nlemek i&#xE7;in &#x15F;eritteki baz&#x131; verileri aynalayacakt&#x131;r.</p>
+<p>RAIDZ 5 katmanda incelenir: <strong>RAIDZ-1</strong>, <strong>RAIDZ-2</strong>, <strong>RAIDZ-3</strong>, <strong>RAIDZ-4</strong> ve <strong>RAIDZ-5</strong> olarak bunlar s&#x131;ralanabilir. Sonda yer alan say&#x131;lar da e&#x15F;lik biti say&#x131;s&#x131;n&#x131; g&#xF6;stermektedir. Son olarak, performans a&#xE7;&#x131;s&#x131;ndan, aynalar her zaman RAIDZ seviyelerinden daha iyi performans g&#xF6;sterecektir. Hem okurken hem de yazarken ayna yap&#x131;s&#x131; RAIDZ&apos;den daha az maliyete sahiptir. Ayr&#x131;ca RAIDZ-1, RAIDZ-2&apos;den daha iyi performans g&#xF6;sterecek ve RAIDZ-2&apos;de RAIDZ-3&apos;ten daha iyi performans g&#xF6;sterecektir. Ne kadar &#xE7;ok e&#x15F;lik biti hesaplamak zorunda kal&#x131;rsan&#x131;z, verileri hem okumak hem de yazmak o kadar uzun s&#xFC;recektir. Ayr&#x131;ca ayn&#x131; diskler i&#xE7;in &#xFC;retilen RAIDZ&apos;lerin e&#x15F;lik bitlerinin artmas&#x131; durumunda kullan&#x131;labilir bo&#x15F; alan azalacakt&#x131;r. Elbette, depolama ve performans&#x131;n bir k&#x131;sm&#x131;n&#x131; en &#xFC;st d&#xFC;zeye &#xE7;&#x131;karmak i&#xE7;in <strong>VDEV</strong>&apos;lerinize her zaman &#x15F;erit ekleyebilirsiniz. RAID-1+0 gibi i&#xE7; i&#xE7;e ge&#xE7;mi&#x15F; RAID seviyeleri, e&#x15F;liksiz diskleri kaybedebilece&#x11F;iniz esneklik ve &#x15F;eritten elde etti&#x11F;iniz verim nedeniyle &quot;RAID seviyelerinin Kadilla&#x11F;&#x131;&quot; olarak kabul edilir. &#xD6;zetle, en h&#x131;zl&#x131;dan en yava&#x15F;a, i&#xE7; i&#xE7;e olmayan RAID d&#xFC;zeyleriniz &#x15F;u &#x15F;ekilde performans g&#xF6;sterir:</p>
+<ol>
+<li>RAID-0 (en h&#x131;zl&#x131;)</li>
+<li>RAID-1</li>
+<li>RAIDZ-1</li>
+<li>RAIDZ-2</li>
+<li>RAIDZ-3 (en yava&#x15F;)</li>
+</ol>
+<h4 id="raidz-ayg&#x131;tlar&#x131;-raidz-1">RAIDZ Ayg&#x131;tlar&#x131;: RAIDZ-1</h4>
+<p>RAIDZ-1, dizideki t&#xFC;m disklere da&#x11F;&#x131;t&#x131;lan tek bir e&#x15F;lik biti olmas&#x131; a&#xE7;&#x131;s&#x131;ndan RAID-5&apos;e benzer. Her bir disk &#x15F;eridi i&#xE7;in bir adet e&#x15F;lik biti bulunurken, RAID5&apos;den farkl&#x131; olarak &#x15F;erit geni&#x15F;li&#x11F;i de&#x11F;i&#x15F;kendir ve dizideki disklerin geni&#x15F;li&#x11F;ine ba&#x11F;l&#x131; olarak RAIDZ yap&#x131;s&#x131;, daha az diski veya daha fazla diski kapsayabilir.</p>
+<p>RAIDZ-1&apos;de minimum 3 disk kullan&#x131;lmal&#x131;d&#x131;r. RAIDZ-1 verileri korumak i&#xE7;in bir disk ar&#x131;zas&#x131;na izin verir. &#x130;kici diskte ya&#x15F;anan bir veri hatas&#x131; veri kayb&#x131;na neden olur. RAIDZ-1 i&#xE7;in depolama kapasitesi, dizinizdeki en k&#xFC;&#xE7;&#xFC;k diskin depolanma miktar&#x131; ile hesaplan&#x131;r. Bunlar aras&#x131;nda bir tane disk, e&#x15F;lik depolama i&#xE7;in kullan&#x131;l&#x131;r. &#xD6;rne&#x11F;in 3 diskimiz bulunmas&#x131; durumunda bunlar&#x131;n 2 tanesi veri depolama i&#xE7;in kullan&#x131;l&#x131;r. Bir di&#x11F;er yandan depolamay&#x131; da 2 disk aras&#x131;nda en d&#xFC;&#x15F;&#xFC;k kapasiteye sahip disk belirler. Bu disklerden birinin boyutu 100 GB olsun diyelim, di&#x11F;erinin boyutu 90 GB olmas&#x131; durumunda; toplam disk boyutunun tavan boyutu 180GB olacakt&#x131;r.</p>
+<p>RAIDZ-1 ile bir havuz kurmak i&#xE7;in, &quot;raidz1&quot; <strong>VDEV</strong> anahtar&#x131;n&#x131; kullan&#x131;yoruz:</p>
+<pre><code class="lang-text">~# zpool create tank raidz1 /dev/sdb /dev/sdc /dev/sdd
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME                 STATE     READ WRITE CKSUM
+    tank                 ONLINE       0     0     0
+      raidz1-0           ONLINE       0     0     0
+        sdb              ONLINE       0     0     0
+        sdc              ONLINE       0     0     0
+        sdd              ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME    SIZE   ALLOC    FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  100.5G   190K   100.5G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<h4 id="raidz-ayg&#x131;tlar&#x131;-raidz-2">RAIDZ Ayg&#x131;tlar&#x131;: RAIDZ-2</h4>
+<p>RAIDZ-2, dizideki t&#xFC;m disklere da&#x11F;&#x131;t&#x131;lan bir ikili e&#x15F;lik biti olmas&#x131; a&#xE7;&#x131;s&#x131;ndan RAID-6&apos;ya benzer. &#x15E;erit geni&#x15F;li&#x11F;i de&#x11F;i&#x15F;kendir. Bu RAIDZ yap&#x131;s&#x131; verileri korumak i&#xE7;in iki disk ar&#x131;zas&#x131;na izin verir. &#xDC;&#xE7;&#xFC;nc&#xFC; diskte ya&#x15F;anm&#x131;&#x15F; bir hata veri kayb&#x131;na neden olur. RAIDZ-2&apos;de minimum 4 disk kullan&#x131;lmal&#x131;d&#x131;r. Disklerden ilki e&#x15F;lik bitlerini i&#xE7;erir. Veri depolama &#x15F;eritinin boyutunu &#xF6;nceki durumdaki gibi en k&#xFC;&#xE7;&#xFC;k boyutlu disk belirler.</p>
+<p>RAIDZ-2 ile bir zpool kurmak i&#xE7;in &quot;raidz2&quot; <strong>VDEV</strong> anahtar&#x131;n&#x131; kullan&#x131;yoruz:</p>
+<pre><code class="lang-text">~# zpool create tank raidz2 /dev/sdb /dev/sdc /dev/sdd /dev/sde
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME                 STATE     READ WRITE CKSUM
+    tank                 ONLINE       0     0     0
+      raidz2-0           ONLINE       0     0     0
+        sdb              ONLINE       0     0     0
+        sdc              ONLINE       0     0     0
+        sdd              ONLINE       0     0     0
+        sde              ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME    SIZE   ALLOC    FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  182.2G   270K   182.2G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<h4 id="raidz-ayg&#x131;tlar&#x131;-raidz-3">RAIDZ Ayg&#x131;tlar&#x131;: RAIDZ-3</h4>
+<p>RAIDZ-3, herhangi bir RAID yap&#x131;s&#x131;na e&#x15F;de&#x11F;er de&#x11F;ildir. RAIDZ-3&apos;te minimum 5 disk kullan&#x131;lmal&#x131;d&#x131;r. &#x15E;erit geni&#x15F;li&#x11F;i de&#x11F;i&#x15F;kendir. Bu RAIDZ yap&#x131;s&#x131; verileri korumak i&#xE7;in &#xFC;&#xE7; disk ar&#x131;zas&#x131;na izin verir. D&#xF6;rd&#xFC;nc&#xFC; diskte ya&#x15F;anm&#x131;&#x15F; bir hata veri kayb&#x131;na neden olur. Disklerden ilki e&#x15F;lik bitlerini i&#xE7;erir. Veri depolama &#x15F;eritinin boyutunu &#xF6;nceki durumdaki gibi en k&#xFC;&#xE7;&#xFC;k boyutlu disk belirler.</p>
+<p>RAIDZ-2 ile bir zpool kurmak i&#xE7;in &quot;raidz3&quot; <strong>VDEV</strong> anahtar&#x131;n&#x131; kullan&#x131;yoruz:</p>
+<pre><code class="lang-text">~# zpool create tank raidz3 /dev/sdb /dev/sdc /dev/sdd /dev/sde /dev/sdf
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME                 STATE     READ WRITE CKSUM
+    tank                 ONLINE       0     0     0
+      raidz3-0           ONLINE       0     0     0
+        sdb              ONLINE       0     0     0
+        sdc              ONLINE       0     0     0
+        sdd              ONLINE       0     0     0
+        sde              ONLINE       0     0     0
+        sdf              ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME    SIZE   ALLOC    FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  273.2G   410K   273.2G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<h4 id="raidz-ayg&#x131;tlar&#x131;-hybrid-raidz">RAIDZ Ayg&#x131;tlar&#x131;: Hybrid RAIDZ</h4>
+<p>Ne yaz&#x131;k ki, e&#x15F;lik tabanl&#x131; RAID, &#xF6;zellikle tek bir &#x15F;eritte &#xE7;ok say&#x131;da diskiniz oldu&#x11F;unda (&#xF6;rne&#x11F;in 48 diskli bir JBOD) yava&#x15F; olabilir. &#x130;&#x15F;leri biraz h&#x131;zland&#x131;rmak i&#xE7;in, tek b&#xFC;y&#xFC;k RAIDZ sanal diski birden fazla RAIDZ sanal disk &#x15F;eridine ay&#x131;rmak bir &#xE7;&#xF6;z&#xFC;m olabilir. Bu i&#x15F;leme Hybrid RAIDZ sanal disk &#x15F;eridi demekteyiz. Bu hibrit sanal disk &#x15F;eridi i&#x15F;leri kolayla&#x15F;t&#x131;r&#x131;rken, depolaman&#x131;n devaml&#x131;l&#x131;&#x11F;&#x131;n&#x131;n sa&#x11F;lanmas&#x131; i&#xE7;in kullan&#x131;labilir disk alan&#x131;na mal olur ancak performans&#x131; b&#xFC;y&#xFC;k &#xF6;l&#xE7;&#xFC;de art&#x131;rabilir.</p>
+<p>Elbette, &#xF6;nceki RAIDZ sanal disklerinde oldu&#x11F;u gibi, &#x15F;erit geni&#x15F;li&#x11F;i her yuvalanm&#x131;&#x15F; RAIDZ disk &#x15F;eridi i&#xE7;in de&#x11F;i&#x15F;kendir. Her RAIDZ seviyesi i&#xE7;in, her sanal diskte o kadar &#xE7;ok diski kaybedebilirsiniz. &#xD6;rne&#x11F;in, &#xFC;&#xE7; RAIDZ-1 sanal disk &#x15F;eridiniz varsa, sanal disk ba&#x15F;&#x131;na bir disk olmak &#xFC;zere toplam &#xFC;&#xE7; disk ar&#x131;zas&#x131;na maruz kalabilirsiniz. Kullan&#x131;labilir alan benzer &#x15F;ekilde hesaplanacakt&#x131;r. Ve her sanal diskteki e&#x15F;lik depolamas&#x131; nedeniyle &#xFC;&#xE7; diski kaybedersiniz.</p>
+<p>Bu kavram&#x131; a&#xE7;&#x131;klamak i&#xE7;in, 12 diskli bir depolama sunucumuz oldu&#x11F;unu varsayal&#x131;m ve &#x15F;erit performans&#x131;n&#x131; en &#xFC;st d&#xFC;zeye &#xE7;&#x131;kar&#x131;rken olabildi&#x11F;ince az disk kaybetmek istiyoruz. Bu nedenle, her biri 3 diskten olu&#x15F;an 4 RAIDZ-1 sanal diski olu&#x15F;turaca&#x11F;&#x131;z. Bu bize 4 disk kullan&#x131;labilir depolamaya mal olacak, ancak ayn&#x131; zamanda bize 4 disk ar&#x131;zas&#x131;na maruz kalma yetene&#x11F;i verecek ve 4 sanal diskteki &#x15F;erit performans&#x131; art&#x131;racakt&#x131;r.</p>
+<p>4 RAIDZ-1 sanal diski ile bi havuz kurmak i&#xE7;in, komutumuzda &quot;raidz1&quot; parametresini 4 kez kullan&#x131;yoruz</p>
+<pre><code class="lang-text">~# zpool create tank raidz1 /dev/sdb /dev/sdc /dev/sdd raidz1 /dev/sde /dev/sdf /dev/sdg raidz1 /dev/sdh /dev/sdi /dev/sdk raidz1 /dev/sdl /dev/sdm /dev/sdn
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME                 STATE     READ WRITE CKSUM
+    tank                 ONLINE       0     0     0
+      raidz1-0           ONLINE       0     0     0
+        sdb              ONLINE       0     0     0
+        sdc              ONLINE       0     0     0
+        sdd              ONLINE       0     0     0
+      raidz1-0           ONLINE       0     0     0
+        sde              ONLINE       0     0     0
+        sdf              ONLINE       0     0     0
+        sdg              ONLINE       0     0     0
+      raidz1-0           ONLINE       0     0     0
+        sdh              ONLINE       0     0     0
+        sdi              ONLINE       0     0     0
+        sdk              ONLINE       0     0     0
+      raidz1-0           ONLINE       0     0     0
+        sdl              ONLINE       0     0     0
+        sdm              ONLINE       0     0     0
+        sdn              ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool list
+NAME    SIZE   ALLOC    FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  547.1G   6000K   347.1G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<h3 id="yedek-ayg&#x131;tlar&#x131;-olu&#x15F;turma">Yedek Ayg&#x131;tlar&#x131; Olu&#x15F;turma</h3>
+<p>ZFS, havuzun bir k&#x131;sm&#x131; veya tamam&#x131;n&#x131; disk hasarlar&#x131;ndan ve kay&#x131;plardan korumak i&#xE7;in <code>spare</code> olarak da adland&#x131;r&#x131;lan yedekleme altyap&#x131;s&#x131;n&#x131; getirir. Geleneksel ayg&#x131;t y&#xF6;neticilerinde yedek yap&#x131;s&#x131; mevcut dosya sisteminin tamamen yede&#x11F;i olarak kullan&#x131;l&#x131;r. Bir veri kayb&#x131;nda manual eya bir ek program ile kaybolan verilere ula&#x15F;may&#x131; sa&#x11F;lar. Ancak, bunlar&#x131;n aksine ZFS, depolama havuzundaki ar&#x131;zal&#x131; veya hatal&#x131; bir ayg&#x131;t&#x131; de&#x11F;i&#x15F;tirmek i&#xE7;in kullan&#x131;labilecek diskleri tan&#x131;mlaman&#x131;za olanak tan&#x131;r. Yedekler, ar&#x131;zal&#x131; cihaz&#x131;n yerini alana kadar bir havuzda etkin yedek cihaz devre d&#x131;&#x15F;&#x131; kal&#x131;r.</p>
+<p>Yedekler etkin yedekler (hot spares) ve pasif yedekler (cold spares) olarak ikiye ayr&#x131;lmaktad&#x131;r.</p>
+<p>Yedekleri otomatik ve elle ayarlayarak etkin yedekleri ar&#x131;zal&#x131; bir disk alan&#x131;n&#x131; d&#xFC;zeltmek i&#xE7;in kullanabiliriz. Disk ar&#x131;zas&#x131; durumunda ar&#x131;zalanan diski de&#x11F;i&#x15F;tirerek yede&#x11F;e ba&#x11F;lamam&#x131;z halinde eski verilerimize eri&#x15F;ebiliriz. E&#x11F;er ayarlarsan&#x131;z <code>autoReplace</code> havuz &#xF6;zelli&#x11F;i &#xFC;zerinde, yedek otomatik olarakyeni cihaz tak&#x131;ld&#x131;&#x11F;&#x131;nda havuz i&#xE7;erisine eklenerek t&#xFC;m kay&#x131;p dosyalar&#x131;n geri getirilmesine izin verir.</p>
+<p>Etkin olan bir yede&#x11F;i, k&#x131;sa s&#xFC;reli&#x11F;ine havuzdan ay&#x131;rarak veya <code>offline</code> moduna alarak verilerin bir noktada dondurulmas&#x131;n&#x131; da sa&#x11F;lamam&#x131;z m&#xFC;mk&#xFC;nd&#xFC;r. Bunu yapmam&#x131;z halinde yedek aktifle&#x15F;tirilene kadar devred&#x131;&#x15F;&#x131; b&#x131;rak&#x131;ld&#x131;&#x11F;&#x131; halde kalacak ve ancak elle geri getirme i&#x15F;lemlerinin yap&#x131;labilmesine imkan tan&#x131;yacakt&#x131;r.</p>
+<p>ZFS&apos;de yedek ayg&#x131;tlar&#x131; <code>spare</code> parametresi ile olu&#x15F;turulur. &#xD6;rne&#x11F;in, 4 GB boyuta sahip 4 adet diskten olu&#x15F;an bir ayg&#x131;t havuzu olu&#x15F;tural&#x131;m. Bu ayg&#x131;tlardan 3 tanesi bir ayna grubunda bulunsun ve bu havuz i&#xE7;in 1 adet de yedek diskimiz bulunsun. Bunu &#x15F;&#xF6;yle bir &#x15F;ekilde olu&#x15F;turabiliriz.</p>
+<pre><code class="lang-text">~# zpool create tank mirror /dev/sdb /dev/sdc log /dev/sdd /dev/sde
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME             STATE     READ WRITE CKSUM
+    tank             ONLINE       0     0     0
+      mirror-0       ONLINE       0     0     0
+        sdb          ONLINE       0     0     0
+        sdc          ONLINE       0     0     0
+      spare    
+         sdd             ONLINE       0     0     0
+        sde            ONLINE       0     0     0
+
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  3.75G   186K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>G&#xF6;rd&#xFC;&#x11F;&#xFC;m&#xFC;z gibi <code>mirror</code> blogu tek bir ana disk alan&#x131; ihtiva ederken <code>spare</code> buna ek olarak bir ayg&#x131;t alan&#x131; getirmemektedir. Yani bu alan fiziksel depolama i&#xE7;in kullan&#x131;lamamaktad&#x131;r. Ancak dikkat etmemiz gereken bir nokta var. Yedek ayg&#x131;tlar, havuzdaki en b&#xFC;y&#xFC;k diskin boyutuna e&#x15F;it veya daha b&#xFC;y&#xFC;k olmal&#x131;d&#x131;r. Aksi taktirde bu cihaz ar&#x131;zal&#x131; bir cihaz&#x131; de&#x11F;i&#x15F;tirmek i&#xE7;in etkinle&#x15F;tirildi&#x11F;inde, i&#x15F;lem ba&#x15F;ar&#x131;s&#x131;z olur:</p>
+<pre><code class="lang-text">cannot replace sdd with sdb: device is too small
+</code></pre>
+<p>Bu sebeple yedeklerin boyutunu, havuzumuzda alan olu&#x15F;turan cihazlar&#x131;n toplam boyutundan b&#xFC;y&#xFC;k olacak &#x15F;ekilde ayarlamam&#x131;z gerekmektedir.</p>
+<h3 id="g&#xFC;nl&#xFC;kleme-ayg&#x131;tlar&#x131;-olu&#x15F;turma">G&#xFC;nl&#xFC;kleme Ayg&#x131;tlar&#x131; Olu&#x15F;turma</h3>
+<p><strong>ZFS Ama&#xE7; G&#xFC;nl&#xFC;&#x11F;&#xFC;</strong> veya <strong>ZIL</strong> yaz&#x131;lacak t&#xFC;m verilerin depoland&#x131;&#x11F;&#x131; ve daha sonra i&#x15F;lemsel bir yazma olarak temizlendi&#x11F;i bir g&#xFC;nl&#xFC;&#x11F;e kaydetme mekanizmas&#x131;. Ext3 veya ext4 gibi g&#xFC;nl&#xFC;kl&#xFC; dosya sistemlerinde kullan&#x131;lan g&#xFC;nl&#xFC;k i&#x15F;levine benzer bir mekanizmaya sahiptir.</p>
+<p>Temel olarak dosya sistemilerinde kullan&#x131;lan ama&#xE7; g&#xFC;nl&#xFC;&#x11F;&#xFC; diskin kay&#x131;t listelerini tutan ve diskte k&#x131;sa s&#xFC;reli olarak geriye y&#xF6;nelik olarak blok de&#x11F;i&#x15F;imlerine izin veren yap&#x131;d&#x131;r.</p>
+<p>Genellikle kay&#x131;t listeleri disk alan&#x131;nda saklan&#x131;r. ZFS&apos;de kay&#x131;t listeleri geleneksel kay&#x131;t listelerinden farkl&#x131; de&#x11F;ildir. Bir kay&#x131;t listesi, ZIL bloklar&#x131; ve bir ZIL fragman&#x131;na i&#x15F;aret eden bir ZIL ba&#x15F;l&#x131;&#x11F;&#x131;ndan olu&#x15F;ur. ZIL, farkl&#x131; yazmalar i&#xE7;in dinamik olarak ayarlanan bir davran&#x131;&#x15F;a sahiptir. 64KB&apos;den k&#xFC;&#xE7;&#xFC;k veriler i&#xE7;in (varsay&#x131;lan olarak), ZIL yazma verilerini depolar. Daha b&#xFC;y&#xFC;k veriler i&#xE7;in, yazma ZIL&apos;de depolanmaz ve ZIL, g&#xFC;nl&#xFC;k kayd&#x131;nda depolanan senkronize edilmi&#x15F; verilere i&#x15F;aret&#xE7;iler tutar.</p>
+<p>ZFS&apos;de bu g&#xFC;nl&#xFC;kleme haricinde Ayr&#x131; Ama&#xE7; G&#xFC;nl&#xFC;&#x11F;&#xFC; (Seperated Log) veya SLOG bulunmakta. SLOG asl&#x131;nda ZIL&apos;in e&#x15F;zamanl&#x131; kay&#x131;t par&#xE7;alar&#x131;n&#x131; daha yava&#x15F; olan disklere (sabit disklere) yaz&#x131;lmadan &#xF6;nce &#xF6;nbelle&#x11F;e alan ayr&#x131; bir g&#xFC;nl&#xFC;k kayd&#x131; cihaz&#x131;d&#x131;r. Bu tip kay&#x131;tlar&#x131; tutan diskler, pil destekli bir DRAM s&#xFC;r&#xFC;c&#xFC;s&#xFC; veya h&#x131;zl&#x131; bir SSD olmas&#x131; gerekmekte. SLOG, yaln&#x131;zca e&#x15F;zamanlanm&#x131;&#x15F; verileri &#xF6;nbelle&#x11F;e al&#x131;r ve e&#x15F;zamanlanmam&#x131;&#x15F; ham verileri &#xF6;nbelle&#x11F;e almaz. E&#x15F;zamanlanmam&#x131;&#x15F; ham veriler do&#x11F;rudan sabit disklere aktar&#x131;l&#x131;r. Ayr&#x131;ca, bloklar, SLOG&apos;a e&#x15F;zamanl&#x131; i&#x15F;lemler olarak de&#x11F;il, bir seferde t&#xFC;m blok olarak yaz&#x131;l&#x131;r. SLOG mevcutsa, ZIL di&#x11F;er disklerde kalmak yerine &#xF6;zelle&#x15F;tirilmi&#x15F; SLOG diskine ta&#x15F;&#x131;nacakt&#x131;r. SLOG&apos;daki her veri her zaman RAM &#xFC;zerinde olacakt&#x131;r. Sonu&#xE7; olarak <code>Ayg&#x131;t Havuzuna ZIL Eklemek</code> i&#x15F;lemi asl&#x131;nda ZIL&apos;in bulunaca&#x11F;&#x131; yere &#xF6;zelle&#x15F;tirilmi&#x15F; bir SLOG diski eklemeyi a&#xE7;&#x131;kl&#x131;yor diyebiliriz. ZIL, SLOG&apos;un bir alt k&#xFC;mesidir; SLOG bir fiziksel ayg&#x131;tt&#x131;r, ZIL ise bu cihazdaki verilerdir.</p>
+<p>ZIL ile alakal&#x131; tek bir problem vard&#x131;r, t&#xFC;m uygulamalar ZIL&apos;den yararlanmaz. Veritabanlar&#x131; (MySQL, PostgreSQL, Oracle), NFS ve iSCSI gibi uygulamalar ZIL kullan&#x131;r. Ancak dosya sistemindeki basit kopyalama ta&#x15F;&#x131;ma i&#x15F;lemleri gibi i&#x15F;lemleri yapan uygulamalar ZIL kullanmaz.</p>
+<p>Son ve en &#xF6;nemli nokta ise, ZIL eksik bir i&#x15F;lem olup olmad&#x131;&#x11F;&#x131;n&#x131; g&#xF6;rmek i&#xE7;in &#xF6;ny&#xFC;kleme d&#x131;&#x15F;&#x131;nda genellikle asla okunmaz. ZIL temelde &quot;salt yaz&#x131;l&#x131;r&quot; ve daha &#xE7;ok yazma yo&#x11F;unlukludur.</p>
+<p>ZFS&apos;de SLOG-ZIL ayg&#x131;tlar&#x131; <code>log</code> parametresi ile olu&#x15F;turulur. &#xD6;rne&#x11F;in, 4 GB boyuta sahip 4 adet diskten olu&#x15F;an bir ayg&#x131;t havuzu olu&#x15F;tural&#x131;m. Bu ayg&#x131;tlardan 3 tanesi bir ayna grubunda bulunsun ve bu havuz i&#xE7;in 1 adet de g&#xFC;nl&#xFC;kleme diskimiz bulunsun. Bunu &#x15F;&#xF6;yle bir &#x15F;ekilde olu&#x15F;turabiliriz.</p>
+<pre><code class="lang-text">~# zpool create tank mirror /dev/sdb /dev/sdc log /dev/sdd /dev/sde
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME             STATE     READ WRITE CKSUM
+    tank             ONLINE       0     0     0
+      mirror-0       ONLINE       0     0     0
+        sdb          ONLINE       0     0     0
+        sdc          ONLINE       0     0     0
+      logs    
+         sdd             ONLINE       0     0     0
+        sde            ONLINE       0     0     0
+
+~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  3.75G   186K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>G&#xF6;rd&#xFC;&#x11F;&#xFC;m&#xFC;z gibi <code>mirror</code> blogu tek bir ana disk alan&#x131; ihtiva ederken <code>log</code> buna ek olarak bir ayg&#x131;t alan&#x131; getirmemektedir. Yani bu alan fiziksel depolama i&#xE7;in kullan&#x131;lamamaktad&#x131;r.</p>
+<h3 id="&#xF6;nbellek-ayg&#x131;tlar&#x131;-olu&#x15F;turma-the-adjustable-replacement-cache-arc-">&#xD6;nbellek Ayg&#x131;tlar&#x131; Olu&#x15F;turma (The Adjustable Replacement Cache (ARC) )</h3>
+<p>&#xD6;nbellek ayg&#x131;tlar&#x131;, ana bellek ve disk aras&#x131;nda ek bir &#xF6;nbelle&#x11F;e alma katman&#x131; sa&#x11F;lar. &#xD6;zellikle statik verilerin rastgele okuma performans&#x131;n&#x131; iyile&#x15F;tirmek i&#xE7;in olduk&#xE7;a i&#x15F;e yaramaktad&#x131;r.</p>
+<p>Geleneksel &#xF6;nbellekleme i&#x15F;lemleri en son kullan&#x131;lan verilerin &#xF6;nbellekleme diskinde &#xF6;n s&#x131;raya getirilmesi algoritmas&#x131; ( Least Recently Used Algorithm - LRU ) ile &#xE7;al&#x131;&#x15F;maktad&#x131;r. Bu sayede s&#x131;kl&#x131;kla kullan&#x131;lan veriler daha az maaliyet ile eri&#x15F;ebiliriz. Ancak diskte &#xF6;nbelleklenen veri her yeni veri giri&#x15F;inde geriye at&#x131;lmaktad&#x131;r. Bu durum &#x15F;&#xF6;yle bir senaryo i&#xE7;in verimsizdir. Sunucudaki bir program bir adet ana dosyan&#x131;n okuma ve yaz&#x131;lmas&#x131; &#xFC;zerine i&#x15F;lemlerler yapmaktad&#x131;r. Ancak bu program&#x131;n haricinde ba&#x15F;ka programlar da rastgele ba&#x15F;ka dosyalara eri&#x15F;meye &#xE7;al&#x131;&#x15F;&#x131;yor diyelim. Bu durumda mantiken en &#xE7;ok kullan&#x131;lan dosyan&#x131;n daha &#xF6;nde olmas&#x131; h&#x131;z&#x131; art&#x131;racakt&#x131;r ama rastgele getirilen dosyalar y&#xFC;z&#xFC;nden s&#xFC;rekli olarak bu dosya geriye at&#x131;l&#x131;r. Ve her ne kadar &#xF6;ncekinden daha h&#x131;zl&#x131; olsa da yine de yava&#x15F; bir veri ak&#x131;&#x15F;&#x131; sa&#x11F;lanm&#x131;&#x15F; olur. Geleneksel y&#xF6;ntemlerde, &#xF6;nbellek ayr&#x131;ca bir FIFO (ilk giren ilk &#xE7;&#x131;kar) algoritmas&#x131;d&#x131;r. B&#xF6;ylece, &#xF6;nbellek doldu&#x11F;unda, eski sayfalara daha s&#x131;k eri&#x15F;ilse bile &#xF6;nbellekten &#xE7;&#x131;kar&#x131;lacakt&#x131;r. T&#xFC;m s&#xFC;reci asl&#x131;nda bir ta&#x15F;&#x131;ma band&#x131; gibi &#xE7;al&#x131;&#x15F;maktad&#x131;r.</p>
+<p>Bir di&#x11F;er yandan geleneksel &#xF6;nbellekleme uygulamalar&#x131;nda kullan&#x131;lan en az s&#x131;kl&#x131;kla kullan&#x131;lan verileri &#xF6;ne getiren ( Least Frequently Used (LFU) ) &#xF6;nbellekleme algoritmalar&#x131; da de vard&#x131;r. Ancak bu durumda da veri, yeterince s&#x131;k okunmazsa, daha yeni verilerin &#xF6;nbellekten &#xE7;&#x131;kar&#x131;l&#x131;r ve yine bu yakla&#x15F;&#x131;m da bir tak&#x131;m yava&#x15F;l&#x131;klara ve sorunlara neden olmaktad&#x131;r. Ayr&#x131;ca bu y&#xF6;ntemin bir sorunu da, i&#x15F;letim sistemlerinin ba&#x15F;lat&#x131;lmas&#x131; veya bir sunucu sisteminin ba&#x15F;lat&#x131;lmas&#x131; esnas&#x131;nda bu &#xE7;e&#x15F;it &#xF6;nbellekleri bozan &#xE7;ok say&#x131;da disk iste&#x11F;i yap&#x131;l&#x131;r ki bu da &#xF6;nbelleklerimizi zehirler (snoffing).</p>
+<p>ZFS ayarlanabilir de&#x11F;i&#x15F;tirme &#xF6;nbelle&#x11F;i (ARC), her iki y&#xF6;ntemin avantajlar&#x131;n&#x131; kullanan ve bu sayede hem son blok isteklerini hem de s&#x131;k blok isteklerini &#xF6;nbelle&#x11F;e alan b&#xF6;yle bir &#xF6;nbellek mekanizmas&#x131;na sahiptir. Asl&#x131;nda ZFS&apos;nin kulland&#x131;&#x11F;&#x131; ARC y&#xF6;ntemi, patentli IBM ARC algoritmas&#x131;n&#x131;n basitle&#x15F;tirilerek ZFS i&#xE7;in adapte edilmesi ile elde edilen bir y&#xF6;ntemdir.</p>
+<p>ZFS ARC &#xF6;nbelle&#x11F;ini anlamak i&#xE7;in &#x15F;u yap&#x131;lara bakmam&#x131;z gerekmekte:</p>
+<ul>
+<li>Ayarlanabilir Yedek &#xD6;nbellek veya ARC - Fiziksel RAM&apos;de bulunan bir &#xF6;nbellektir. &#xD6;nceden belirtti&#x11F;im &#x15F;ekilde hem en son kullan&#x131;lan hem de en s&#x131;k kullan&#x131;lan verileri bar&#x131;nd&#x131;ran bir ilkin bellektir. Bu &#xF6;nbellek dizini, en s&#x131;k kullan&#x131;lan hayalet &#xF6;nbellekleri (Ghost MRU ve Ghost MFU) ve son kullan&#x131;lan dosyalar&#x131;n ayg&#x131;ttaki i&#x15F;aret&#xE7;ilerini RAM &#xFC;zerinde &#xF6;nbellek olarak indeksler.</li>
+<li>&#xD6;nbellek Dizini - MRU, MFU, hayalet MRU ve hayalet MFU &#xF6;nbelleklerini olu&#x15F;turan i&#x15F;aret&#xE7;ilerden olu&#x15F;an bir &#xF6;nbellek dizini.</li>
+<li>MRU &#xD6;nbelle&#x11F;i - ARC&apos;nin en son kullan&#x131;lan dosyalar &#xF6;nbelle&#x11F;i. Dosya sisteminden en son istenen bloklar burada &#xF6;nbelle&#x11F;e al&#x131;n&#x131;r.</li>
+<li>MFU &#xD6;nbelle&#x11F;i - ARC&apos;nin en s&#x131;k kullan&#x131;lan dosyalar &#xF6;nbelle&#x11F;i. Dosya sisteminden en s&#x131;k istenen bloklar burada &#xF6;nbelle&#x11F;e al&#x131;n&#x131;r.</li>
+<li>Ghost MRU - MRU&apos;da yer kazanmak i&#xE7;in MRU &#xF6;nbelle&#x11F;inden &#xE7;&#x131;kan verilerin diske bas&#x131;lmas&#x131; ile elde edilen &#xF6;nbellektir. </li>
+<li>Ghost MFU - MFU&apos;da yer kazanmak i&#xE7;in MFU &#xF6;nbelle&#x11F;inden &#xE7;&#x131;kan verilerin diske bas&#x131;lmas&#x131; ile elde edilen &#xF6;nbellektir. </li>
+<li>&#x130;kinci Seviye Ayarlanabilir Yedek &#xD6;nbellek veya L2ARC - RAM d&#x131;&#x15F;&#x131;nda, genellikle h&#x131;zl&#x131; bir SSD&apos;ye bas&#x131;larak elde edilen bir dinamik &#xF6;nbellektir. RAM ARC&apos;nin ger&#xE7;ek bir uzant&#x131;s&#x131; iken, L2ARC fiziksel bir uzant&#x131;s&#x131;d&#x131;r.</li>
+</ul>
+<p>ZFS ARC, kullan&#x131;labilir RAM&apos;in maksimum 1/2&apos;sini kaplar. Ancak bu de&#x11F;er statik de&#x11F;il. Kulland&#x131;&#x11F;&#x131;n&#x131;z bilgisayarda 32 GB RAM varsa, bu &#xF6;nbelle&#x11F;in her zaman 16 GB&apos;&#x131;n&#x131;n ZFS taraf&#x131;ndan kullan&#x131;laca&#x11F;&#x131; anlam&#x131;na gelmez. Toplam &#xF6;nbellek boyutunu kernel kararlar&#x131;na g&#xF6;re ayarlayacakt&#x131;r. Kernelin zamanlanm&#x131;&#x15F; bir i&#x15F;lem i&#xE7;in veya bir uygulaman&#x131;n anl&#x131;k olarak daha fazla RAM&apos;e ihtiyac&#x131; olmas&#x131; durumunda, ZFS ARC &#xE7;ekirde&#x11F;in ihtiyac&#x131; olan her &#x15F;eye yer a&#xE7;mak i&#xE7;in ayarlanacakt&#x131;r. Ancak, ZFS sistemde &#xF6;nbellekleme i&#xE7;in &#xF6;ncelik istemesi halinde, ARC&apos;nin kaplayabilece&#x11F;i alan varsa, onu rezerve ederek kullanacakt&#x131;r.</p>
+<p>&#xD6;nbelleklemelerin kararl&#x131;l&#x131;&#x11F;&#x131; ve sistemsel ar&#x131;zalar&#x131;n y&#xFC;k yapmamas&#x131; a&#xE7;&#x131;s&#x131;nda, ZFS ARC tasar&#x131;m&#x131;, baz&#x131; durumlarda bu &#xF6;nbelle&#x11F;in tamam&#x131; veya b&#xFC;y&#xFC;k bir k&#x131;sm&#x131; d&#xFC;&#x15F;&#xFC;r&#xFC;lebildi&#x11F;i gibi, &#xF6;nbellek &#xFC;zerinden kullan&#x131;lan dosyalar ZFS ARC taraf&#x131;ndan mutlak surette RAM &#xFC;zerinde tutulmaya devam edecek &#x15F;ekilde olu&#x15F;turulmu&#x15F;tur. Ayr&#x131;ca h&#x131;zl&#x131; disklerin kullan&#x131;lmas&#x131; halinde &#xF6;nbelleklemedeki kritik veriler haricindeki &#xF6;nbellekler RAM &#xFC;zerinden bu disklere aktar&#x131;lacakt&#x131;r.</p>
+<p>..note :: L2ARC &#xF6;nbelleklemesi i&#xE7;in kullanaca&#x11F;&#x131;m&#x131;z disk, sa&#x11F;l&#x131;kl&#x131; bir &#x15F;ekilde kullan&#x131;lmas&#x131; i&#xE7;in kesinlikle ama kesinlikle manyetik veya optik okuyuculu bir disk olmamal&#x131;d&#x131;r.</p>
+<p>L2ARC &#xF6;nbellek ayg&#x131;tlar&#x131; yans&#x131; ayg&#x131;tlar&#x131;nda oldu&#x11F;u gibi toplam ayg&#x131;t havuzunun boyutuna etki etmez. Daha &#xE7;ok bir yan g&#xF6;revlerde kullan&#x131;lmak &#xFC;zere &#xF6;zel alan te&#x15F;kil etmektedir.</p>
+<p>ZFS&apos;de &#xF6;nbellek ayg&#x131;tlar&#x131; <code>cache</code> parametresi ile olu&#x15F;turulur. &#xD6;rne&#x11F;in, 4 GB boyuta sahip 4 adet diskten olu&#x15F;an bir ayg&#x131;t havuzu olu&#x15F;tural&#x131;m. Bu ayg&#x131;tlardan 3 tanesi bir ayna grubunda bulunsun ve bu havuz i&#xE7;in 1 adet de &#xF6;nbellekleme diskimiz bulunsun. &#x15E;&#xF6;yle bir &#x15F;ekilde olu&#x15F;turabiliriz.</p>
+<pre><code class="lang-text">~# zpool create tank mirror /dev/sdb /dev/sdc /dev/sdd cache /dev/sde
+~# zpool status
+  zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME            STATE     READ WRITE CKSUM
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        sdb          ONLINE       0     0     0
+        sdc          ONLINE       0     0     0
+        sdd         ONLINE       0     0     0
+    cache
+      sde            ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>&#x15E;imdi boyutu inceleyelim:</p>
+<pre><code class="lang-text">~# zpool list
+NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+</code></pre>
+<p>G&#xF6;rd&#xFC;&#x11F;&#xFC;m&#xFC;z gibi <code>mirror</code> blogu tek bir ana disk alan&#x131; ihtiva ederken <code>cache</code> buna ek olarak bir ayg&#x131;t alan&#x131; getirmemektedir. Yani bu alan fiziksel depolama i&#xE7;in kullan&#x131;lamamaktad&#x131;r.</p>
+<h2 id="zfs-havuzunda-ayg&#x131;t-y&#xF6;netim-i&#x307;&#x15F;lemleri">ZFS Havuzunda Ayg&#x131;t Y&#xF6;netim &#x130;&#x15F;lemleri</h2>
+<h3 id="zfs-havuzundan-ayg&#x131;t-eklemek">ZFS Havuzundan Ayg&#x131;t Eklemek</h3>
+<h3 id="zfs-havuzundaki-ayg&#x131;tlar&#x131;-de&#x11F;i&#x15F;tirmek">ZFS Havuzundaki Ayg&#x131;tlar&#x131; De&#x11F;i&#x15F;tirmek</h3>
+<h3 id="zfs-havuzundan-ayg&#x131;t&#x131;-&#xE7;evrimi&#xE7;i-hale-getirmek">ZFS Havuzundan Ayg&#x131;t&#x131; &#xC7;evrimi&#xE7;i Hale Getirmek</h3>
+<h3 id="zfs-havuzundan-ayg&#x131;t-&#xE7;evrimd&#x131;&#x15F;&#x131;-hale-getirmek">ZFS Havuzundan Ayg&#x131;t &#xC7;evrimd&#x131;&#x15F;&#x131; Hale Getirmek</h3>
+<h2 id="zfsde-havuz-aktar&#x131;m-i&#x307;&#x15F;lemleri">ZFS&apos;de Havuz Aktar&#x131;m &#x130;&#x15F;lemleri</h2>
+<p>ZFS&apos;de ayg&#x131;t havuzlar&#x131; sadece s&#x131;f&#x131;rdan olu&#x15F;turma yolu ile de&#x11F;il aktar&#x131;m yolu ile de elde edilebilir. Geleneksel disk y&#xF6;netim sistemlerinde diskler tak&#x131;ld&#x131;&#x11F;&#x131; anda diski ba&#x11F;lamak i&#xE7;in tek yapmam&#x131;z gereken diskin ba&#x11F;lama komutunu vermek olacakt&#x131;r. &#xC7;o&#x11F;unlukla diski ba&#x11F;lamak i&#xE7;in kulland&#x131;&#x11F;&#x131;m&#x131;z komutlar i&#x15F;letim sistemleri taraf&#x131;ndan kar&#x15F;&#x131;lanmaktad&#x131;r. Ancak, ZFS&apos;de bu diskleri uygun &#x15F;ekilde bulup ba&#x11F;lamam&#x131;z gerekmektedir.</p>
+<p>Yine ayn&#x131; &#x15F;ekilde geleneksel disk y&#xF6;netim sistemlerinde diskleri ay&#x131;rmak i&#xE7;in kullan&#x131;lan disk domutlar&#x131; &#xE7;o&#x11F;unlukla i&#x15F;letim sistemi taraf&#x131;ndan gelmektedir. ZFS&apos;de ise geleneksel y&#xF6;ntemlerin aksine bu i&#x15F;lem i&#xE7;in <code>zpool</code> havuz y&#xF6;neticisi taraf&#x131;ndan kullan&#x131;lan komutlar&#x131; kullanmam&#x131;z gerekmektedir.</p>
+<p>Bir di&#x11F;er &#xF6;nemli husus ise geleneksel disk y&#xF6;netim sistemlerinin aksine ZFS&apos;de bu i&#x15F;lemlerde basit bir g&#xFC;&#xE7; kesme i&#x15F;leminin aksine baz&#x131; &#xF6;nemli i&#x15F;lemlerin tamamlanmas&#x131;n&#x131; beklemek gerekmektedir, ki bu i&#x15F;lemler tamamen veri g&#xFC;venli&#x11F;ini sa&#x11F;lamak i&#xE7;in kullan&#x131;lmaktad&#x131;r. &#xD6;rne&#x11F;im d&#x131;&#x15F;a aktarma esnas&#x131;nda, yaz&#x131;lmam&#x131;&#x15F; verileri diske temizler, diske d&#x131;&#x15F;a aktarman&#x131;n yap&#x131;ld&#x131;&#x11F;&#x131;n&#x131; belirten verileri yazar ve havuzla ilgili t&#xFC;m bilgileri sistemden kald&#x131;r&#x131;r. &#x130;&#xE7;e aktarma esnas&#x131;nda ise diskleri okuyarak havuzu olu&#x15F;turur, aynalamalar&#x131; kontrol eder ve veri kay&#x131;plar&#x131;n&#x131; tespit eder, kay&#x131;p kaynaklar&#x131; bulup e&#x15F;le&#x15F;tirmeler yolu ile kay&#x131;p olan kaynaklar&#x131; telafi etmeye &#xE7;al&#x131;&#x15F;&#x131;r ve b&#xFC;t&#xFC;n verileri k&#xF6;k sisteme <code>veya nereye isteseniz</code> ba&#x11F;lar.</p>
+<p>ZFS&apos;de i&#xE7;e aktarma ve d&#x131;&#x15F;a aktarma yapmay&#x131; daha &#xF6;ncesinde g&#xF6;stermi&#x15F;tim. <code>zpool import</code> ve <code>zpool export</code> komutlar&#x131; i&#xE7;e ve d&#x131;&#x15F;a aktarma i&#x15F;leri i&#xE7;in kullan&#x131;lmaktad&#x131;r.</p>
+<h3 id="zfs-havuzunu-d&#x131;&#x15F;a-aktarmak">ZFS Havuzunu D&#x131;&#x15F;a Aktarmak</h3>
+<p>Bir havuzu d&#x131;&#x15F;a aktarmak i&#xE7;in <code>zpool export</code> komutunu kullan&#x131;l&#x131;r.</p>
+<pre><code class="lang-text">~# zpool export tank
+</code></pre>
+<p>Bu komut, devam etmeden &#xF6;nce havuzdaki ba&#x11F;l&#x131; dosya hiyerar&#x15F;ilerini kald&#x131;rmaya &#xE7;al&#x131;&#x15F;&#x131;r. Dosya hiyerar&#x15F;ilerini daha detayland&#x131;rmad&#x131;m lakin dosya hiyerar&#x15F;iler bir &#x15F;ekilde i&#x15F;letim sistemi ile havuz aras&#x131;ndaki ba&#x11F;lant&#x131;y&#x131; sa&#x11F;l&#x131;yor diyebilirim. Bazen d&#x131;&#x15F;a aktarma i&#x15F;lemi esnas&#x131;nda i&#x15F;letim sistemine ait i&#x15F;lemlerin bitmesi beklenir. Bu sebeple dosya hiyerar&#x15F;ileri havuzlar&#x131; kilitleyebilir. Dosya hiyerar&#x15F;ilerinin bu kilit durumunu kald&#x131;rmak i&#xE7;in, <code>-f</code> parametresini kullanabilir ve bunlar&#x131; zorla kald&#x131;rabilirsiniz. &#xD6;rne&#x11F;in:</p>
+<pre><code class="lang-text">~# zpool ihracat tank&#x131;
+&apos;/ export / home / eschrock&apos; ba&#x11F;lant&#x131;s&#x131; kesilemiyor: Cihaz me&#x15F;gul
+~# zpool export -f tank&#x131;
+</code></pre>
+<p>Havuzda ZFS birimleri kullan&#x131;l&#x131;yorsa, havuz <code>-f</code> se&#xE7;ene&#x11F;iyle bile d&#x131;&#x15F;a &#xE7;&#x131;kar&#x131;lamaz. ZFS&apos;de hacimli bir havuzu d&#x131;&#x15F;a aktarmak i&#xE7;in, &#xF6;ncelikle birimin &#xFC;zerindeki &#xE7;al&#x131;&#x15F;an i&#x15F;leticilerin ve g&#xF6;reletin tamamlanm&#x131;&#x15F; ve art&#x131;k aktif olmad&#x131;&#x11F;&#x131;ndan emin olun.</p>
+<p>Bu komutun yerine getirilmesinden sonra ayg&#x131;t havuz art&#x131;k sistemden ayr&#x131;lm&#x131;&#x15F; olur.</p>
+<p><strong>NOT:</strong> D&#x131;&#x15F;a aktarma s&#x131;ras&#x131;nda havuza ait b&#xFC;t&#xFC;n cihazlar mevcut de&#x11F;ilse, cihazlar temiz bir &#x15F;ekilde d&#x131;&#x15F;a aktar&#x131;lm&#x131;&#x15F; olarak tan&#x131;mlanamaz. Bu durum potansiyel olarak baz&#x131; havuz hatalar&#x131;na sebep olabilir. Bu y&#xFC;zden b&#xFC;t&#xFC;n diskleri aktar&#x131;m i&#x15F;lemleri s&#x131;ras&#x131;nda kontrol ediniz.</p>
+<p><code>zpool</code> taraf&#x131;ndan kullan&#x131;lan b&#xFC;t&#xFC;n aktif havuzlar&#x131; kald&#x131;rmak i&#xE7;in ise <code>-a</code> parametresini kullanmam&#x131;z gerekmektedir.</p>
+<pre><code class="lang-text">~# zpool list
+NAME      SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+tank      3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+tank2     3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+filetank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+hometank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+serv      3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
+
+~# zpool export -a
+~# zpool list
+no pools available
+</code></pre>
+<h3 id="zfs-havuzunu-i&#x307;&#xE7;e-aktarmak">ZFS Havuzunu &#x130;&#xE7;e Aktarmak</h3>
+<p>Havuz sistemden kald&#x131;r&#x131;ld&#x131;ktan sonra (a&#xE7;&#x131;k bir d&#x131;&#x15F;a aktar&#x131;m yoluyla veya cihazlar&#x131; zorla kald&#x131;rarak), cihazlar&#x131; ba&#x15F;ka bir sisteme ekleyebilirsiniz. ZFS, yaln&#x131;zca <code>mandatory</code> olan baz&#x131; cihazlar&#x131;n mevcut oldu&#x11F;u baz&#x131; durumlarda i&#xE7;e aktarma yapabilir, ancak ba&#x15F;ar&#x131;l&#x131; bir havuz aktar&#x131;m&#x131;, cihazlar&#x131;n genel sa&#x11F;l&#x131;&#x11F;&#x131;na ba&#x11F;l&#x131;d&#x131;r. Ancak, ba&#x15F;ka bir sistem taraf&#x131;ndan bir depolama a&#x11F;&#x131; &#xFC;zerinden kullan&#x131;mda olan bir havuzu i&#xE7;e aktarmak, her iki sistem de ayn&#x131; depolama alan&#x131;na yazmaya &#xE7;al&#x131;&#x15F;t&#x131;&#x11F;&#x131;ndan veri bozulmas&#x131;na ve pani&#x11F;e neden olabilir.</p>
+<p>Ek olarak, cihazlar&#x131;n ayn&#x131; cihaz ad&#x131; alt&#x131;nda ba&#x11F;lanmas&#x131; gerekmez. ZFS, ta&#x15F;&#x131;nan veya yeniden adland&#x131;r&#x131;lan cihazlar&#x131; alg&#x131;lar ve yap&#x131;land&#x131;rmay&#x131; uygun &#x15F;ekilde ayarlar. Kullan&#x131;labilir havuzlar&#x131; ke&#x15F;fetmek i&#xE7;in, zpool i&#xE7;e aktarma komutunu se&#xE7;enek olmadan &#xE7;al&#x131;&#x15F;t&#x131;r&#x131;n. &#xD6;rne&#x11F;in:</p>
+<pre><code class="lang-text">~# zpool import
+
+ pool: tank
+    state: ONLINE
+    action: The pool can be imported using its name or numeric identifier.
+    config:
+
+        tank        ONLINE
+          mirror-0  ONLINE
+            sdb     ONLINE
+            sdc     ONLINE
+</code></pre>
+<p>Bu komut sadece i&#xE7;e aktar&#x131;lacak ayg&#x131;lar&#x131;n listesini bize verecektir. Bu a&#x15F;amadan sonra <strong><code>zpool import tank</code></strong> diyerek i&#xE7;eri aktar&#x131;m&#x131; tamamlayabiliriz. Bu komutun avantaj&#x131; i&#xE7;e aktar&#x131;m yapmadan &#xF6;nce aktar&#x131;mda ya&#x15F;anabilecek &#xF6;ng&#xF6;r&#xFC;lebilir hatalar&#x131; bize vermesidir.</p>
+<p>Havuzdaki baz&#x131; cihazlar mevcut de&#x11F;ilse ancak kullan&#x131;labilir bir havuz sa&#x11F;lamak i&#xE7;in yeterli yedek veri mevcutsa, havuz BOZULMU&#x15E; durumda g&#xF6;r&#xFC;n&#xFC;r. &#xD6;rne&#x11F;in:</p>
+<pre><code class="lang-text">~# zpool import
+    pool: tank
+    state: DEGRADED
+    status: One or more devices are missing from the system.
+    action: The pool can be imported despite missing or damaged devices.  The
+        fault tolerance of the pool may be compromised if imported. 
+
+    config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        DEGRADED     0     0     0
+          mirror-0  DEGRADED     0     0     0
+            sdc     UNAVAIL      0     0     0  cannot open
+            sdd     ONLINE       0     0     0
+</code></pre>
+<p>Ba&#x11F;lama yap&#x131;laca&#x11F;&#x131; zaman yedekleri kullanarak as&#x131;l havuzu in&#x15F;aa edebilir, yani import i&#x15F;lemi i&#xE7;in hala izin verebilir. Ancak diskleri kaybedebilece&#x11F;imiz bir hatada havuz ba&#x11F;lanamaz durumda olabilir.</p>
+<pre><code class="lang-text">~# zpool import
+  pool: tank
+  state: FAULTED
+  action: The pool cannot be imported. Attach the missing
+          devices and try again.
+  config:
+        raidz1-0       FAULTED
+          sdc          ONLINE
+          sdd          FAULTED
+          sde          ONLINE
+          sdf          FAULTED
+</code></pre>
+<p>Bu durumda import i&#x15F;lemi i&#xE7;in izin verilmeyecektir. <code>FAULTED</code> olarak i&#x15F;aretlenmi&#x15F; olan ayg&#x131;t havuzu ba&#x11F;lanamayacakt&#x131;r.</p>
+<h2 id="zfs-disk-havuzunu-y&#xFC;kseltmek">ZFS Disk Havuzunu Y&#xFC;kseltmek</h2>
+<p>OpenZFS yak&#x131;nda zfs-2.0.0 ismindeki bir s&#xFC;r&#xFC;me ge&#xE7;meyi planl&#x131;yor. Her yeni ana s&#xFC;r&#xFC;m&#xFC;n getirdi&#x11F;i baz&#x131; &#xF6;zellikler var. E&#x11F;er eski s&#xFC;r&#xFC;mlerden kalma ZFS depolama havuzlar&#x131;n&#x131;z varsa, mevcut s&#xFC;r&#xFC;mdeki havuz &#xF6;zelliklerinden yararlanmak i&#xE7;in havuzlar&#x131;n&#x131;z&#x131; <code>zpool upgrade</code> komutuyla y&#xFC;kseltebilirsiniz. Ek olarak, <code>zpool status</code> komutu, havuzlar&#x131;n&#x131;z eski s&#xFC;r&#xFC;mleri &#xE7;al&#x131;&#x15F;t&#x131;rd&#x131;&#x11F;&#x131;nda sizi bilgilendirmek i&#xE7;in <strong>action</strong> &#xE7;&#x131;kt&#x131;s&#x131; verecektir. &#xD6;rne&#x11F;in:</p>
+<pre><code class="lang-text">~# zpool status
+   pool: tank
+   state: ONLINE
+   status: The pool is formatted using an older on-disk format.  The pool can
+           still be used, but some features are unavailable.
+   action: Upgrade the pool using &apos;zpool upgrade&apos;.  Once this is done, the
+           pool will no longer be accessible on older software versions.
+   scrub: none requested
+
+   config:
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+errors: No known data errors
+</code></pre>
+<p>Belirli bir s&#xFC;r&#xFC;m ve desteklenen s&#xFC;r&#xFC;mler hakk&#x131;nda ek bilgileri tan&#x131;mlamak i&#xE7;in a&#x15F;a&#x11F;&#x131;daki s&#xF6;zdizimini kullanabilirsiniz:</p>
+<pre><code class="lang-text">~# zpool upgrade -v
+This system supports ZFS pool feature flags.
+
+The following legacy versions are also supported:
+
+VER  DESCRIPTION
+---  --------------------------------------------------------
+ 1   Initial ZFS version
+ 2   Ditto blocks (replicated metadata)
+ 3   Hot spares and double parity RAID-Z
+ 4   zpool history
+ 5   Compression using the gzip algorithm
+ 6   bootfs pool property
+ 7   Separate intent log devices
+ 8   Delegated administration
+ 9   refquota and refreservation properties
+ 10  Cache devices
+ 11  Improved scrub performance
+ 12  Snapshot properties
+ 13  snapused property
+ 14  passthrough-x aclinherit
+ 15  user/group space accounting
+ 16  stmf property support
+ 17  Triple-parity RAID-Z
+ 18  Snapshot user holds
+ 19  Log device removal
+ 20  Compression using zle (zero-length encoding)
+ 21  Deduplication
+ 22  Received properties
+ 23  Slim ZIL
+ 24  System attributes
+ 25  Improved scrub stats
+ 26  Improved snapshot deletion performance
+ 27  Improved snapshot creation performance
+ 28  Multiple vdev replacements
+
+For more information on a particular version, including supported releases,
+see the ZFS Administration Guide.
+</code></pre>
+<p>Ard&#x131;ndan, t&#xFC;m havuzlar&#x131;n&#x131;z&#x131; y&#xFC;kseltmek i&#xE7;in zpool y&#xFC;kseltme komutunu &#xE7;al&#x131;&#x15F;t&#x131;rabilirsiniz. &#xD6;rne&#x11F;in:</p>
+<pre><code class="lang-text">~# zpool upgrade -a
+</code></pre>
+<p><strong>Not</strong>: Havuzunuzu daha sonraki bir ZFS s&#xFC;r&#xFC;m&#xFC;ne y&#xFC;kseltirseniz, havuza daha eski bir ZFS s&#xFC;r&#xFC;m&#xFC;n&#xFC; &#xE7;al&#x131;&#x15F;t&#x131;ran bir sistemde eri&#x15F;ilemez.</p>
+<h2 id="zfs-havuzunda-disk-kontrolleri">ZFS Havuzunda Disk Kontrolleri</h2>
+<p>Geleneksel disk y&#xF6;netim sistemlerinde veri kontrolleri yard&#x131;mc&#x131; programlar arac&#x131;l&#x131;&#x11F;&#x131; ile yap&#x131;l&#x131;r. Windows&apos;ta otomatik baz&#x131; ara&#xE7;lar yard&#x131;m&#x131; ile yap&#x131;l&#x131;rken; GNU/Linux&apos;ta, diskteki veri b&#xFC;t&#xFC;nl&#xFC;&#x11F;&#xFC;n&#xFC; do&#x11F;rulamak, bir dizi dosya sistemi kontrol pogramlar&#x131; arac&#x131;l&#x131;&#x11F;&#x131; ile yap&#x131;lmaktad&#x131;r. Bu i&#x15F;lem, <code>fsck</code> ara&#xE7; kiti arac&#x131;l&#x131;&#x11F;&#x131;yla yap&#x131;l&#x131;r.</p>
+<p>Bununla birlikte, <code>fsck</code> sisteminin birka&#xE7; b&#xFC;y&#xFC;k dezavantaj&#x131; vard&#x131;r. &#x130;lk olarak, veri hatalar&#x131;n&#x131; d&#xFC;zeltmeyi d&#xFC;&#x15F;&#xFC;n&#xFC;yorsan&#x131;z diski &#xE7;evrimd&#x131;&#x15F;&#x131; olarak kontrol etmeniz gerekir. Bu, diskin kontrol ve d&#xFC;zeltme esnas&#x131;nda kullan&#x131;lamaz halde olmas&#x131; demektir. Bu nedenle, <code>fsck</code>&apos;den &#xF6;nce disklerinizi ay&#x131;rmak i&#xE7;in <code>umount</code> komutunu kullanmal&#x131;s&#x131;n&#x131;z.</p>
+<p>Bu &#xF6;rnek vermek gerekirse, k&#xF6;k dizinin ba&#x11F;l&#x131; bulundu&#x11F;u disk bozulmas&#x131; durumunda, kontrol&#xFC; yapmak i&#xE7;in bir CDROM veya USB bellek gibi ba&#x15F;ka bir ortamdan bir sistem &#xF6;ny&#xFC;klemesi yapmam&#x131;z gerekmektedir. Disklerin boyutuna ba&#x11F;l&#x131; olarak saatler s&#xFC;rebilen bu i&#x15F;lem, b&#xFC;y&#xFC;k sistemler i&#xE7;in saatlerce s&#xFC;recek sistem kesintilerine sebep olabilir.</p>
+<p>&#x130;kincisi ise &#x15F;udur ki, <code>ext3</code> veya <code>ext4</code> gibi geleneksel dosya sistemleri, <code>LVM</code> veya <code>RAID</code> gibi &#xFC;st d&#xFC;zey veri yap&#x131;lar&#x131; ve disk sistemleri ile ba&#x11F;lant&#x131; katman&#x131; yoktur. &#xD6;rne&#x11F;in RAID dizisi i&#xE7;in bir diskte bozuk bir blo&#x11F;unuz olabilir, ancak ba&#x15F;ka bir diskte herhangi bir sorun bulunmayabilir ancak, Linux&apos;taki disk yaz&#x131;l&#x131;m&#x131; RAID&apos;in ba&#x11F;lanmas&#x131; ve kontrol edilmesi esnas&#x131;nda hangisinde veri kayb&#x131; oldu&#x11F;u hakk&#x131;nda hi&#xE7;bir fikri yoktur. <code>ext3</code> veya <code>ext4</code> a&#xE7;&#x131;s&#x131;ndan, sorunsuz diskten bloklar okundu&#x11F;unda d&#xFC;zg&#xFC;n veri al&#x131;n&#x131;rken bozuk blo&#x11F;u i&#xE7;eren diskten okurken, ister istemez, bozuk veri al&#x131;n&#x131;r. Verilerin hangi diskten &#xE7;ekilece&#x11F;i ve bozulman&#x131;n d&#xFC;zeltilmesi &#xFC;zerinde herhangi bir kontrol yap&#x131;s&#x131; da bulunmamaktad&#x131;r. Bu hatalar <strong>&quot;sessiz veri hatalar&#x131;&quot;</strong> olarak bilinir ve standart GNU/Linux dosya sistemi y&#x131;&#x11F;&#x131;n&#x131;yla bu konuda yapabilece&#x11F;iniz hi&#xE7;bir &#x15F;ey yoktur.</p>
+<p>ZFS&apos;nin belki de en iyi yan&#x131; bu sessiz hatalar&#x131; kendi i&#xE7;erisinde halletmektedir. Bu i&#x15F;lemi herhangi bir hizmet kesintisi olmadan sa&#x11F;layabilmektedir. Bu i&#x15F;lemi yaparken de t&#xFC;m diskler uygun &#x15F;ekilde yeniden yap&#x131;land&#x131;r&#x131;labilmekte ve tamamen kullan&#x131;c&#x131; m&#xFC;dahalesine gerek kalmadan bu i&#x15F;lemler yap&#x131;lmaktad&#x131;r.</p>
+<p>Linux&apos;ta ZFS ile sessiz veri hatalar&#x131;n&#x131;n tespiti ve d&#xFC;zeltilmesi, diskleri temizleyerek yap&#x131;l&#x131;r. Bu, ECC RAM&apos;leri ile teknik olarak benzerdir; burada ECC DIMM&apos;de bir hata varsa, sistem otomatik olarak iyi verileri i&#xE7;eren ba&#x15F;ka bir kay&#x131;t bulabilir ve onu k&#xF6;t&#xFC; kayd&#x131; d&#xFC;zeltmek i&#xE7;in kullanabilir.</p>
+<p>Bu tip sessiz veri d&#xFC;zeltmeleri bir s&#xFC;redir pek &#xE7;ok donan&#x131;mda kullan&#x131;lmaktad&#x131;r. Ayr&#x131;ca, bu y&#xF6;ntem sayesinde bir sistemde ECC RAM&apos;i kesinti olmadan temizleyebildi&#x11F;iniz gibi, disklerinizi kesinti olmadan da temizleyebilmelisiniz. Ancak geleneksel dosya sistemlerinde bu tarz bir yap&#x131; bulunmamaktad&#x131;r. Bunun temelindeki sebep ise h&#x131;z gerektiren durumlarda disk &#xFC;zerinde bu &#x15F;ekilde i&#x15F;lem yapan bir yap&#x131; istenmemesidir. <code>BTRFS</code> gibi sonradan geli&#x15F;tirilen disk y&#xF6;netim sistemlerinde her ne kadar bu yer almaya ba&#x15F;lad&#x131;ysa bile hala aktif olarak pek &#xE7;ok geleneksel sistemde bulunmamaktad&#x131;r.</p>
+<p>ZFS bu i&#x15F;lemleri kolayla&#x15F;t&#x131;rmak i&#xE7;in temizleme ve yeniden yay&#x131;mlama i&#x15F;lemi yapan iki adet altyap&#x131; ile gelmektedir.</p>
+<p>ZFS, havuzunuzda bir temizleme i&#x15F;lemi yaparken, depolama havuzundaki her blo&#x11F;un bilinen sa&#x11F;lama toplam&#x131;na g&#xF6;re kontrol eder. Yukar&#x131;dan a&#x15F;a&#x11F;&#x131;ya her blok, varsay&#x131;lan olarak uygun bir algoritma kullan&#x131;larak sa&#x11F;lama toplam&#x131; al&#x131;n&#x131;r. Daha &#xF6;ncesinde belirtti&#x11F;im gibi bu sa&#x11F;lama toplar&#x131;, 256 bitlik bir algoritma olan <strong>&quot;fletcher4&quot;</strong> algoritmas&#x131; ile al&#x131;nmaktad&#x131;r. Di&#x11F;er dosya sistemlerinin aksinde <strong>fletcher4</strong> kullan&#x131;lmas&#x131;n&#x131;n sebebi, SHA-256 sa&#x11F;lama toplam&#x131;n&#x131;n hesaplanmas&#x131; fletcher4&apos;ten daha maliyetli olmas&#x131;ndand&#x131;r. Ancak ZFS yine de SHA256 sistemini kendi i&#xE7;erisinde de getirmektedir ve &#xF6;nerilmese de, SHA-256 algoritmas&#x131; blok kontrol yap&#x131;s&#x131;nda kullan&#x131;labilir.</p>
+<p>ZFS, disklerdeki verileri kurtarmak ve d&#xFC;zeltmek i&#xE7;in yine bu ikili sa&#x11F;lama toplamlar&#x131; kullan&#x131;lmaktad&#x131;r. Burada &#xF6;nemli olan nokta herhangi bir yedek ya da aynalama diskine sahip bir havuza sahip olup olmam&#x131;zd&#x131;r. Bu &#x15F;ekilde bir yedekli yap&#x131;m&#x131;z bulunuyorsa ZFS&apos;de veri kendi kendine d&#xFC;zeltilebilmektedir. Bu i&#x15F;leme <code>self-healing</code> yani kendini iyile&#x15F;tirme i&#x15F;lemi denmektedir.</p>
+<h3 id="zfsde-sorun-temizleme-i&#x307;&#x15F;lemi-scrub">ZFS&apos;de Sorun Temizleme &#x130;&#x15F;lemi: Scrub</h3>
+<p>ZFS depolama havuzlar&#x131;n&#x131; temizlemek, otomatik olarak ger&#xE7;ekle&#x15F;en bir i&#x15F;lem de&#x11F;ildir. Bu i&#x15F;lemi manuel olarak tetiklememiz gerekir. Verileri bu &#x15F;ekilde kontrol etmek ve temizlemek i&#xE7;in bize gerekecek s&#xFC;re disk t&#xFC;r&#xFC;ne ba&#x11F;l&#x131; olarak de&#x11F;i&#x15F;mekle beraber s&#x131;kl&#x131;kla yap&#x131;lmas&#x131; gerekmektedir.</p>
+<p>Bu temizlik i&#x15F;lemi <code>zpool scrub</code> komutu ile yap&#x131;lmaktad&#x131;r.</p>
+<pre><code class="lang-text">~# zpool scrub tank
+~# zpool status
+  pool: tank
+  state: ONLINE
+  scan: scrub repaired 0B in 00:00:01 with 0 errors on Mon Mar  1 11:02:01 2021
+  config:
+
+    NAME           STATE     READ WRITE CKSUM
+    tank           ONLINE       0     0     0
+      mirror-0     ONLINE       0     0     0
+        sdc        ONLINE       0     0     0
+        sdd        ONLINE       0     0     0
+    logs    
+        sde        ONLINE       0     0     0
+        sdf        ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>G&#xF6;rd&#xFC;&#x11F;&#xFC;m&#xFC;z gibi <code>scan:</code> olarak g&#xF6;r&#xFC;len yeni bir durum tag&#x131; a&#xE7;&#x131;ld&#x131;. Ve burada ilerlememizi kolayca g&#xF6;rebiliriz. Devam eden bir temizlik i&#x15F;lemini de a&#x15F;a&#x11F;&#x131;daki komutla durdurabiliriz.</p>
+<pre><code class="lang-text">~# zpool scrub -s tank
+</code></pre>
+<h3 id="resilvering-kavram&#x131;-ve-bozuk-disklerin-tasfiye-i&#x307;&#x15F;lemi">Resilvering Kavram&#x131; ve Bozuk Disklerin Tasfiye &#x130;&#x15F;lemi</h3>
+<p>Verileri yeniden yay&#x131;mlamak <code>(resilvering)</code>, verileri yeni diskte diziye yeniden olu&#x15F;turmak veya yeniden e&#x15F;itlemek demektir. Ancak, donan&#x131;m bazl&#x131; RAID denetleyicileri ve di&#x11F;er geleneksel RAID uygulamalar&#x131; ile hangi bloklar&#x131;n ger&#xE7;ekte sorunsuz oldu&#x11F;u ve hangilerinin olmad&#x131;&#x11F;&#x131; aras&#x131;nda bir ayr&#x131;m yapamazlar. Bu nedenle, yeniden olu&#x15F;turma diskin ba&#x15F;lang&#x131;c&#x131;nda ba&#x15F;lar ve diskin sonuna ula&#x15F;&#x131;ncaya kadar durdurulamaz.</p>
+<p>ZFS, RAIDZ yap&#x131;s&#x131;n&#x131; ve dosya sistemi meta verilerini bildi&#x11F;inden, verileri yeniden olu&#x15F;turma konusunda daha ak&#x131;ll&#x131;ca bir yol izler. ZFS, veri bloklar&#x131;n&#x131;n saklanmad&#x131;&#x11F;&#x131; bo&#x15F; diskte bo&#x15F;a zaman harcamak yerine, sadece veri bloklar&#x131; bulunan canl&#x131; bloklarla i&#x15F;lem yapmaktad&#x131;r. Bu, depolama havuzu k&#x131;smen doluysa &#xF6;nemli &#xF6;l&#xE7;&#xFC;de zaman tasarrufu sa&#x11F;layabilir. &#xD6;rne&#x11F;in havuzun yaln&#x131;zca %25&apos;i doluysa, bu, s&#xFC;r&#xFC;c&#xFC;lerin yaln&#x131;zca %25&apos;inde i&#x15F;lem yapmak ve bir diski d&#xFC;zeltmek i&#xE7;in kullan&#x131;lacak zaman&#x131;n %25&apos;inin b&#xFC;t&#xFC;n diski d&#xFC;zeltmek i&#xE7;in yetece&#x11F;i anlam&#x131;na gelmektedir.</p>
+<p>Ne yaz&#x131;k ki zamanla disk havuzundaki diskler &#xF6;lecek ve de&#x11F;i&#x15F;tirilmeleri gerekecek. Depolama havuzunuzda bu diskleri kar&#x15F;&#x131;layabilecek fazlal&#x131;k diskler olmas&#x131; ve baz&#x131; ar&#x131;zalar&#x131; kar&#x15F;&#x131;layabilmeniz ko&#x15F;uluyla (&#xF6;rne&#x11F;in daha &#xF6;ncesinde belirtti&#x11F;im gibi RAIDZ1 i&#xE7;in 3 diskte sadece 1 disk ar&#x131;zas&#x131; ya&#x15F;anmas&#x131; ko&#x15F;ulu gibi), havuz &quot;DEGRADED&quot; modunda olsa bile uygulamalara veri g&#xF6;nderip alabilir ve diskleri onarabilirsiniz.</p>
+<p>Sistem &#xE7;al&#x131;&#x15F;&#x131;r durumdayken disk de&#x11F;i&#x15F;tirme l&#xFC;ks&#xFC;ne sahipseniz, diski kesinti olmadan de&#x11F;i&#x15F;tirebilirsiniz, de&#x11F;ilse, yine de &#xF6;l&#xFC; diski tan&#x131;mlaman&#x131;z ve de&#x11F;i&#x15F;tirmeniz gerekecektir. Havuzunuzda &#xE7;ok say&#x131;da disk varsa, bu bir angarya olabilir, &#xE7;&#xFC;nk&#xFC; tak&#x131;l&#x131; disklerin hepsini tan&#x131;y&#x131;p elle de&#x11F;i&#x15F;tirmeniz gerekmekte. Hepsinin seri numaras&#x131;n&#x131; &quot;hdparm&quot; adl&#x131; bir yard&#x131;mc&#x131; programla tespit etseniz de diskleri s&#xF6;k&#xFC;p yerine yenisini takmak i&#xE7;in b&#xFC;t&#xFC;n disk havuzundaki diskleri tek tek bulup do&#x11F;ru diski tespi etmemiz gerekmektedir. &#xD6;rne&#x11F;in, havuz i&#xE7;erisinde kulland&#x131;&#x11F;&#x131;m&#x131;z 5 tane disk olsun diyelim, bunlar a&#x15F;a&#x11F;&#x131;daki gibi id&apos;lenmi&#x15F; olsun.</p>
+<pre><code class="lang-text">/dev/sdc: WD-WX21A689CJ0H
+/dev/sdd: HSGT-HG23F829AJ9F
+/dev/sde: K34X52ADC2RX
+/dev/sdf: /dev/sde: No such file or directory
+/dev/sdg: AX231DEF
+</code></pre>
+<p>G&#xF6;r&#xFC;n&#xFC;&#x15F;e g&#xF6;re <code>/dev/sde</code> diskinin seri numaras&#x131;na ula&#x15F;&#x131;lamad&#x131; yani bu disk benim i&#xE7;in &#xF6;l&#xFC; disk ve havuzda g&#xF6;r&#xFC;lemiyor.</p>
+<p>Diski &#xE7;&#x131;kar&#x131;p, yenisiyle de&#x11F;i&#x15F;tirelim ve bunu ba&#x15F;ka bir diskle de&#x11F;i&#x15F;tirelim. Ekledi&#x11F;imiz disk <code>/dev/sdh</code> &#xFC;zerine ba&#x11F;lanm&#x131;&#x15F; olsun. Bu diskleri <code>zpool replace</code> komutu ile de&#x11F;i&#x15F;tirelim.</p>
+<pre><code class="lang-text">~# zpool replace tank sde sdh
+~# zpool status tank
+   pool: tank
+   state: ONLINE
+   status: One or more devices is currently being resilvered.  The pool will
+           continue to function, possibly in a degraded state.
+   action: Wait for the resilver to complete.
+   scrub: resilver in progress for 0h2m, 16.43% done, 0h13m to go
+   config:
+
+        NAME          STATE       READ WRITE CKSUM
+        tank          DEGRADED       0     0     0
+          mirror-0    DEGRADED       0     0     0
+            sdc       ONLINE         0     0     0
+            sdd       ONLINE         0     0     0
+          mirror-1    ONLINE         0     0     0
+            replacing DEGRADED       0     0     0
+            sdh       ONLINE         0     0     0
+            sdf       ONLINE         0     0     0
+          mirror-2    ONLINE         0     0     0
+            sdg       ONLINE         0     0
+</code></pre>
+<h3 id="zfs-havuzunun-sorunlar&#x131;n&#x131;-tespit-etmek">ZFS Havuzunun Sorunlar&#x131;n&#x131; Tespit Etmek</h3>
+<p>ZFS ayg&#x131;t havuzunun durumunu tespit etmek i&#xE7;in <code>zpool status</code> komutunu kulland&#x131;&#x11F;&#x131;m&#x131;z&#x131; hat&#x131;rl&#x131;yor olmal&#x131;y&#x131;z. Bu komuta verilecek <code>-x</code> parametresi ayg&#x131;t havuzumuza dair detayl&#x131; durumu bize aktaracakt&#x131;r.</p>
+<pre><code class="lang-text">~# zpool status -x
+all pools are healthy
+</code></pre>
+<h2 id="zfs-havuzunun-detayl&#x131;-&#xF6;znitelikleri">ZFS Havuzunun Detayl&#x131; &#xD6;znitelikleri</h2>
+<p><code>ext4</code> ve GNU/Linux&apos;taki bir&#xE7;ok dosya sisteminde &#xE7;e&#x15F;itli bayraklar yard&#x131;m&#x131; ile disk alan&#x131;n&#x131;n davran&#x131;&#x15F;lar&#x131;n&#x131; ayarlayabiliriz. Disk bayralar&#x131;, varsay&#x131;lan montaj se&#xE7;eneklerini ve di&#x11F;er ayarlar&#x131; ayarlamak gibi i&#x15F;lere yaramaktad&#x131;r.</p>
+<p>ZFS&apos;de de durum farkl&#x131; de&#x11F;il ancak ZFS&apos;deki bayrak yap&#x131;s&#x131; &#xE7;ok daha ayr&#x131;nt&#x131;l&#x131;d&#x131;r. Bu &#xF6;zellikler, hem havuz hem de i&#xE7;erdi&#x11F;i veri k&#xFC;meleri i&#xE7;in her t&#xFC;r de&#x11F;i&#x15F;keni de&#x11F;i&#x15F;tirmemize izin verir. B&#xF6;ylece, dosya sistemini kendi zevkimize veya ihtiya&#xE7;lar&#x131;m&#x131;za g&#xF6;re &quot;ayarlayabiliriz&quot;. Ancak, baz&#x131; &#xF6;ntan&#x131;ml&#x131; &#xF6;zellikler vard&#x131;r ki bunlar maalesef ayarlanamaz. Baz&#x131; &#xF6;zellikler ise salt okunurdur. Ancak, her bir &#xF6;zelli&#x11F;in ne oldu&#x11F;unu ve havuzu nas&#x131;l etkiledi&#x11F;ini tan&#x131;mlayaca&#x11F;&#x131;z.</p>
+<p>Bu b&#xF6;l&#xFC;mde sadece ZFS havuzunun &#xF6;zelliklerinden bahsedece&#x11F;iz. Dosya hiyerar&#x15F;isinin de kendi &#xF6;zellikleri vard&#x131;r ancak bunlar&#x131; hiyerar&#x15F;i alt&#x131;nda inceleyece&#x11F;iz.</p>
+<ul>
+<li><strong>allocated</strong>: T&#xFC;m ZFS veri k&#xFC;meleri taraf&#x131;ndan havuza kaydedilen veri miktar&#x131;d&#x131;r. Bu ayar salt okunurdur.</li>
+<li><strong>altroot</strong>: Alternatif bir k&#xF6;k dizini tan&#x131;mlar. Ayarlan&#x131;rsa, bu dizin havuzu ayarlanan ba&#x11F;lama noktas&#x131;n&#x131;n ba&#x15F;&#x131;na ekler. Bu &#xF6;zellik bilinmeyen bir havuzu incelerken, ba&#x11F;lama noktalar&#x131;na g&#xFC;venilemiyorsa, ba&#x11F;lama noktas&#x131;nda ba&#x15F;ka bir dizin veya havuz bulunuyorsa veya tipik yollar&#x131;n ge&#xE7;erli olmad&#x131;&#x11F;&#x131; alternatif bir &#xF6;ny&#xFC;kleme ortam&#x131;na ZFS diski ba&#x11F;lan&#x131;yorsa kullan&#x131;larak alternatif bir diske ba&#x11F;lama sa&#x11F;lan&#x131;r. &quot;cachefile = none&quot; olarak ayarlanm&#x131;&#x15F; havuzlarda, bu ge&#xE7;ersiz k&#x131;l&#x131;nabilir.</li>
+<li><strong>ashift</strong>: Yaln&#x131;zca havuz olu&#x15F;turma s&#x131;ras&#x131;nda ayarlanabilir, sonras&#x131;nda salt okunur olarak i&#x15F;aretlenir. Havuz sekt&#xF6;r boyutu 2&apos;nin &#xFC;stelleri olarak ayarlan&#x131;r yani bu &#x15F;u demek. Varsay&#x131;lan de&#x11F;er olan 9 i&#xE7;in, 2^9 = 512 bize boyut s&#x131;n&#x131;r&#x131;n&#x131; olu&#x15F;turur ve I/O i&#x15F;lemleri, belirtilen boyut s&#x131;n&#x131;rlar&#x131;na g&#xF6;re hizalan&#x131;r. Standart sekt&#xF6;r boyutu, i&#x15F;letim sistemi yard&#x131;mc&#x131; programlar&#x131; i&#xE7;in verileri okumak ve yazmak i&#xE7;in kullan&#x131;r. &#xD6;rne&#x11F;in, 4 KiB s&#x131;n&#x131;r&#x131;na sahip geli&#x15F;mi&#x15F; formatl&#x131; s&#xFC;r&#xFC;c&#xFC;ler i&#xE7;in, de&#x11F;er &quot;ashift = 12&quot; olarak 2 ^ 12 = 4096 olarak ayarlanmal&#x131;d&#x131;r ki bu sayede bloklar diskin donan&#x131;m&#x131;na uygun olarak ayarlanm&#x131;&#x15F; olur.</li>
+<li><strong>autoexpand</strong>: Havuzunuzdaki ilk s&#xFC;r&#xFC;c&#xFC;y&#xFC; de&#x11F;i&#x15F;tirmeden &#xF6;nce ayarlanmal&#x131;d&#x131;r. Temel <strong>LUN</strong> b&#xFC;y&#xFC;d&#xFC;&#x11F;&#xFC;nde otomatik havuz geni&#x15F;letmeyi kontrol eder. Varsay&#x131;lan &quot;kapal&#x131;&quot; <strong><code>(off)</code></strong>d&#x131;r. Havuzdaki t&#xFC;m s&#xFC;r&#xFC;c&#xFC;ler daha b&#xFC;y&#xFC;k s&#xFC;r&#xFC;c&#xFC;lerle de&#x11F;i&#x15F;tirildikten sonra, havuz otomatik olarak yeni boyuta b&#xFC;y&#xFC;r. Bu ayar i&#xE7;in de&#x11F;erler <strong><code>on</code></strong> veya <strong><code>off</code></strong>&apos;dur.</li>
+<li><strong>autoreplace</strong>:  Havuzunuzdaki &quot;yedek&quot; bir <strong>VDEV</strong>&apos;nin otomatik cihaz de&#x11F;i&#x15F;imini kontrol eder.  Varsay&#x131;lan &quot;kapal&#x131;&quot; <strong><code>(off)</code></strong>d&#x131;r. Bu nedenle, cihaz de&#x11F;i&#x15F;imi &quot;<strong><code>zpool replace</code></strong>&quot; komutu kullan&#x131;larak manuel olarak ba&#x15F;lat&#x131;lmal&#x131;d&#x131;r. Bu ayar i&#xE7;in de&#x11F;erler <strong><code>on</code></strong> veya <strong><code>off</code></strong>&apos;dur.</li>
+<li><strong>bootfs</strong>: Havuzdaki &#xF6;ny&#xFC;klenebilir ZFS diskleri i&#xE7;in veri k&#xFC;mesini tan&#x131;mlayan salt okunur ayard&#x131;r. Bu genellikle kernel taraf&#x131;ndan denetlenen bir &#xF6;ny&#xFC;kleme program&#x131; i&#xE7;in ayarlanmaktad&#x131;r.</li>
+<li><strong>cachefile</strong>: Havuz yap&#x131;land&#x131;rmas&#x131;n&#x131;n &#xF6;nbelle&#x11F;e al&#x131;nd&#x131;&#x11F;&#x131; yeri kontrol eder. Bir sistemdeki bir <code>zpool</code>&apos;u i&#xE7;e aktar&#x131;rken, ZFS disklerdeki meta verileri kullanarak s&#xFC;r&#xFC;c&#xFC; geometrisini ve havuz da&#x11F;&#x131;l&#x131;m&#x131; alg&#x131;layabilir. Ancak, baz&#x131; k&#xFC;meleme ortamlar&#x131;nda, otomatik olarak i&#xE7;e aktar&#x131;lmayacak havuzlar i&#xE7;in &#xF6;nbellek dosyas&#x131;n&#x131;n farkl&#x131; bir konumda depolanmas&#x131; gerekebilir. Bu de&#x11F;er bu konumu belirler, &#xF6;nbellek dosyas&#x131; bir konuma ayarlanabilir, ancak &#xE7;o&#x11F;u ZFS kurulumu i&#xE7;in &#xF6;nerilen &quot;<strong><code>/etc/zfs/zpool.cache</code></strong>&quot; varsay&#x131;lan konumu olmal&#x131;d&#x131;r.</li>
+<li><strong>capacity</strong>: Kullan&#x131;lan havuz alan&#x131; y&#xFC;zdesini tan&#x131;mlayan salt okunur de&#x11F;erdir. Havuz geni&#x15F;ledik&#xE7;e otomatik olarak ayarlan&#x131;r.</li>
+<li><strong>comment</strong>: Havuz hatal&#x131; olsa bile kullan&#x131;labilen bir parametredir. 32&apos;den fazla yazd&#x131;r&#x131;labilir ASCII karakterinden olu&#x15F;an bir metin dizesi yazmay&#x131; sa&#x11F;lar. Bu ayar&#x131; kullanarak bir havuz hakk&#x131;nda ek bilgi yazabilir ve gelecekte bu bilgileri kullanarak havuzu d&#xFC;zenleyebilirsiniz.</li>
+<li><strong>dedupditto</strong>: Bir blok tekille&#x15F;tirme e&#x15F;i&#x11F;i ayarlar ve tekille&#x15F;tirilmi&#x15F; bir blo&#x11F;un referans say&#x131;s&#x131; e&#x15F;i&#x11F;in &#xFC;zerine &#xE7;&#x131;karsa, blo&#x11F;un bir kopyas&#x131; otomatik olarak saklan&#x131;r. Varsay&#x131;lan de&#x11F;er 0&apos;d&#x131;r. Herhangi bir pozitif say&#x131; olabilir.</li>
+<li><strong>dedupratio</strong>: Bir havuz i&#xE7;in belirtilen salt okunur tekille&#x15F;tirme oran&#x131;, &#xE7;arpan olarak ifade edilir</li>
+<li><strong>delegation</strong>: Ayr&#x131;cal&#x131;kl&#x131; olmayan bir kullan&#x131;c&#x131;ya veri k&#xFC;mesi i&#xE7;in tan&#x131;mlanan eri&#x15F;im izinlerinin verilip verilmedi&#x11F;ini denetler. Ayar bir boolean&apos;d&#x131;r, bu ayar i&#xE7;in de&#x11F;erler <strong><code>on</code></strong> veya <strong><code>off</code></strong>&apos;dur ve varsay&#x131;lan de&#x11F;er <strong><code>on</code></strong>.</li>
+<li><strong>expandsize</strong>:  Havuzun toplam kapasitesini art&#x131;rmak i&#xE7;in kullan&#x131;labilecek havuz veya cihazdaki kullan&#x131;lmam&#x131;&#x15F; alan miktar&#x131;. Kullan&#x131;lmam&#x131;&#x15F; alan, EFI etiketli bir vdev &#xFC;zerindeki &#xE7;evrimi&#xE7;i duruma getirilmemi&#x15F; herhangi bir alandan olu&#x15F;ur (yani <strong><code>zpool online -e</code></strong>). Bu bo&#x15F;luk, bir <strong>LUN</strong> dinamik olarak geni&#x15F;letildi&#x11F;inde olu&#x15F;ur.</li>
+<li><strong>failmode</strong>: Katastrofik havuz ar&#x131;zas&#x131; durumunda sistem davran&#x131;&#x15F;&#x131;n&#x131; kontrol eder. Bu durum, tipik olarak, temeldeki depolama cihazlar&#x131;na ba&#x11F;lant&#x131; kayb&#x131;n&#x131;n veya havuz i&#xE7;indeki t&#xFC;m cihazlar&#x131;n ar&#x131;zalanmas&#x131;n&#x131;n bir sonucudur. B&#xF6;yle bir olay&#x131;n davran&#x131;&#x15F;&#x131; &#x15F;u &#x15F;ekilde belirlenir:<ul>
+<li><strong>wait</strong>: Cihaz ba&#x11F;lant&#x131;s&#x131; kurtar&#x131;l&#x131;ncaya ve hatalar giderilene kadar t&#xFC;m I/O eri&#x15F;imini engeller. Bu, varsay&#x131;lan davran&#x131;&#x15F;t&#x131;r.</li>
+<li><strong>continue</strong>: EIO&apos;yu yeni yazma I/O isteklerine d&#xF6;nd&#xFC;r&#xFC;r, ancak kalan sa&#x11F;l&#x131;kl&#x131; cihazlardan herhangi birine okumaya izin verir. Hen&#xFC;z diske i&#x15F;lenmemi&#x15F; yazma istekleri engellenecektir.</li>
+<li><strong>panic</strong>: Konsola bir mesaj yazd&#x131;r&#x131;r ve bir sistem kilitlenme d&#xF6;k&#xFC;m&#xFC; olu&#x15F;turur.</li>
+</ul>
+</li>
+<li><strong>feature@xxx</strong>: OpenZFS&apos;nin gelecekte eklenecek ve &#x15F;u an beta olarak getirilen &#xF6;zellikleri tan&#x131;mlayacakt&#x131;r.</li>
+<li><strong>free</strong>: Havuzdaki ayr&#x131;lmam&#x131;&#x15F; bloklar&#x131;n say&#x131;s&#x131;n&#x131; tan&#x131;mlayan salt okunur de&#x11F;er.</li>
+<li><strong>guid</strong>: Havuz i&#xE7;in benzersiz tan&#x131;mlay&#x131;c&#x131;y&#x131; tan&#x131;mlayan salt okunur &#xF6;zellik. Ext4 dosya sistemleri i&#xE7;in UUID dizesine benzer bir &#xF6;zelli&#x11F;e sahiptir, bu guid ile ba&#x11F;lama ve ayr&#x131;lmaya izin verir.</li>
+<li><strong>health</strong>: Havuzun mevcut durumunu tan&#x131;mlayan salt okunur &#xF6;zelliktir; <code>status</code> komutunda buna ait detaylar payla&#x15F;&#x131;lm&#x131;&#x15F;t&#x131;r.</li>
+<li><strong>listsnapshots</strong>: Bu havuzla ili&#x15F;kili anl&#x131;k g&#xF6;r&#xFC;nt&#xFC; bilgilerinin &quot;<strong><code>zfs list</code></strong>&quot; komutuyla g&#xF6;r&#xFC;nt&#xFC;lenip g&#xF6;r&#xFC;nt&#xFC;lenmeyece&#x11F;ini denetler. Bu &#xF6;zellik devre d&#x131;&#x15F;&#x131; b&#x131;rak&#x131;l&#x131;rsa, anl&#x131;k g&#xF6;r&#xFC;nt&#xFC; bilgileri &quot;<strong><code>zfs list -t snapshot</code></strong>&quot; komutuyla g&#xF6;r&#xFC;nt&#xFC;lenebilir. Bu ayar i&#xE7;in de&#x11F;erler <strong><code>on</code></strong> veya <strong><code>off</code></strong>&apos;dur ve varsay&#x131;lan de&#x11F;er <strong><code>off</code></strong>&apos;dur.</li>
+<li><strong>readonly</strong>: Bu ayar i&#xE7;in de&#x11F;erler <strong><code>on</code></strong> veya <strong><code>off</code></strong>&apos;dur ve varsay&#x131;lan de&#x11F;er <strong><code>off</code></strong>&apos;dur. Yazmalar&#x131; ve veri bozulmalar&#x131;n&#x131; &#xF6;nlemek i&#xE7;in havuzu salt okunur moda ayarlamay&#x131; denetler. </li>
+<li><strong>version</strong>: Havuzun ge&#xE7;erli disk &#xFC;zerindeki s&#xFC;r&#xFC;m&#xFC;n&#xFC; tan&#x131;mlayan yaz&#x131;labilir ayard&#x131;r. &quot;<strong><code>zpool upgrade -v</code></strong>&quot; komutunun &#xE7;&#x131;kt&#x131;s&#x131;na kadar herhangi bir de&#x11F;er olabilir. Bu &#xF6;zellik, geriye d&#xF6;n&#xFC;k uyumluluk i&#xE7;in belirli bir s&#xFC;r&#xFC;m gerekti&#x11F;inde kullan&#x131;labilir.</li>
+</ul>
+<h3 id="zfsde-parametreleri-ayarlamak">ZFS&apos;de Parametreleri Ayarlamak</h3>
+<p>Bundan daha &#xF6;ncesinde bahsetmi&#x15F;tim. <code>zpool get</code> ve <code>zpool set</code> sayesinde parametreleri g&#xF6;rebiliriz. B&#xFC;t&#xFC;n parametrelerini g&#xF6;r&#xFC;nt&#xFC;lemek i&#xE7;in <code>zpool get all havuz_adi</code> komutu kullan&#x131;l&#x131;r.</p>
+<pre><code class="lang-text">~# zpool get all tank
+NAME  PROPERTY                       VALUE                          SOURCE
+tank  size                           3.75G                          -
+tank  capacity                       0%                             -
+tank  altroot                        -                              default
+tank  health                         ONLINE                         -
+tank  guid                           16008357831728779071           -
+tank  version                        -                              default
+tank  bootfs                         -                              default
+tank  delegation                     on                             default
+tank  autoreplace                    off                            default
+tank  cachefile                      -                              default
+tank  failmode                       wait                           default
+tank  listsnapshots                  off                            default
+tank  autoexpand                     off                            default
+tank  dedupratio                     1.00x                          -
+tank  free                           3.75G                          -
+tank  allocated                      180K                           -
+tank  readonly                       off                            -
+tank  ashift                         0                              default
+tank  comment                        -                              default
+tank  expandsize                     -                              -
+tank  freeing                        0                              -
+tank  fragmentation                  0%                             -
+tank  leaked                         0                              -
+tank  multihost                      off                            default
+tank  checkpoint                     -                              -
+tank  load_guid                      2495128167517849836            -
+tank  autotrim                       off                            default
+tank  feature@async_destroy          enabled                        local
+tank  feature@empty_bpobj            enabled                        local
+tank  feature@lz4_compress           active                         local
+tank  feature@multi_vdev_crash_dump  enabled                        local
+tank  feature@spacemap_histogram     active                         local
+tank  feature@enabled_txg            active                         local
+tank  feature@hole_birth             active                         local
+tank  feature@extensible_dataset     active                         local
+tank  feature@embedded_data          active                         local
+tank  feature@bookmarks              enabled                        local
+tank  feature@filesystem_limits      enabled                        local
+tank  feature@large_blocks           enabled                        local
+tank  feature@large_dnode            enabled                        local
+tank  feature@sha512                 enabled                        local
+tank  feature@skein                  enabled                        local
+tank  feature@edonr                  enabled                        local
+tank  feature@userobj_accounting     active                         local
+tank  feature@encryption             enabled                        local
+tank  feature@project_quota          active                         local
+tank  feature@device_removal         enabled                        local
+tank  feature@obsolete_counts        enabled                        local
+tank  feature@zpool_checkpoint       enabled                        local
+tank  feature@spacemap_v2            active                         local
+tank  feature@allocation_classes     enabled                        local
+tank  feature@resilver_defer         enabled                        local
+tank  feature@bookmark_v2            enabled                        local
+tank  feature@redaction_bookmarks    enabled                        local
+tank  feature@redacted_datasets      enabled                        local
+tank  feature@bookmark_written       enabled                        local
+tank  feature@log_spacemap           active                         local
+tank  feature@livelist               enabled                        local
+tank  feature@device_rebuild         enabled                        local
+tank  feature@zstd_compress          enabled                        local
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="zfs-havuz-yoenetimi-basit-havuz-operasyonlari.html" class="navigation navigation-prev " aria-label="Previous page: ZFS Havuz Yönetimi - Basit Havuz Operasyonları">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.html" class="navigation navigation-next " aria-label="Next page: ZFS Disk Hiyerarşisi">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"description":"Detaylı ZFS Havuz Yönetimi Komutlarını içermektedir.","title":"ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi","level":"4.2","depth":1,"next":{"title":"ZFS Disk Hiyerarşisi","level":"5.1","depth":1,"path":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","ref":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","articles":[]},"previous":{"title":"ZFS Havuz Yönetimi - Basit Havuz Operasyonları","level":"4.1","depth":1,"path":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","ref":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.md","mtime":"2021-03-01T10:20:38.372Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
