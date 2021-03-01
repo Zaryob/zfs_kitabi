@@ -12,5 +12,3 @@ description: ZFS'de üst düzey olarak nitelendirilebilecek hiyerarşi komutlar�
 
 ### NFS ve Samba ile Disk Hiyerarşisi Paylaşımı
 
-
-

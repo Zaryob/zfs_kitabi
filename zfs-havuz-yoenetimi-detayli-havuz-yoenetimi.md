@@ -154,7 +154,7 @@ Bizim için bu durumda `/dev/sdc` diski `/dev/sdb` için yansı ihtiva etmektedi
 
 ### RAIDZ Aygıtları Oluşturma
 
-Daha öncesinde belirttiğim gibi ZFS'nin kendi RAIDZ yönetimi bulunmakta. RAIDZ'yi anlamak için öncelikli olarak RAID yapısını anlamamız gerekmekte. Genellikle birden çok diske yayılmış verilerde birden çok veri kopyasına ihtiyaç duyulur. Donanımsal olarak bu özellik, bir **RAID** denetleyicisi kullanılarak elde edilebilir. Yani donanımsal olarak birden fazla diski birlikte kullanmaya imkan sağlayan bu yapıya biz RAID diyoruz. 
+Daha öncesinde belirttiğim gibi ZFS'nin kendi RAIDZ yönetimi bulunmakta. RAIDZ'yi anlamak için öncelikli olarak RAID yapısını anlamamız gerekmekte. Genellikle birden çok diske yayılmış verilerde birden çok veri kopyasına ihtiyaç duyulur. Donanımsal olarak bu özellik, bir **RAID** denetleyicisi kullanılarak elde edilebilir. Yani donanımsal olarak birden fazla diski birlikte kullanmaya imkan sağlayan bu yapıya biz RAID diyoruz.
 
 RAID eşlik tabanlı seviyelere ihtiyaç duymakta ve her bir seviye RAID için farklı disk miktarına ve bazı donanımsal gereksinimlere ihtiyacımız var. Örneğin **RAID-5** dizisi için en az 3 aygıttan/diskten oluşan bir disk şeridine ihtiyacımız var. RAID, bunu sağlarken iki diskteki verileri birleştirir, daha sonra, kümedeki tüm üç şeridin **XOR**'u sıfır olarak hesaplanacak şekilde bir eşlik biti hesaplanır. Eşlik daha sonra diske yazılır. Bu, bir disk arızasına maruz kalmanıza ve verileri yeniden hesaplamanıza olanak tanır. Ayrıca, RAID-5'te, dizideki tek bir disk eşlik verileri için ayrılmamıştır. Bunun yerine, eşlik tüm disklere dağıtılır. Böylece, herhangi bir disk arızalanabilirse veriler yine de geri yüklenebilir. Ancak RAID-5'in bir sorunu var. Herhangi bir eşlik biti \(parity\) yazımı sırasında diskle veya donanımla alakalı bir hata meydana gelmesi durumunda bütün veriler kaybedilebilir. Kötü olan durum ise, çoğu donanım yazılım tabanlı RAID'in bir sorunun varlığını tespit edemeyip veriyi öylece yazmasıdır. Eşlik bitlerinin verilerle tutarsız olduğunu belirleyen yazılım çözümleri var, ancak bunlar yavaş ve güvenilir değiller. Sonuç olarak, yazılım tabanlı RAID, depolama yöneticilerinin çoğu için iyi bir çözüm değil. Donanım destekli RAID ise arızalara ve kararsızlıklara sebep olmasından dolayı yönetmesi ve sürekliliği hayli zordur. Çoğunlukla RAID cihazlarını kullanmak için BİOS üzerine güncellemeler yapılmalı, bazı durumlarda işletim sisteminin cihaz için uygun şekilde yamanmasını gerekmektedir.
 
@@ -439,7 +439,6 @@ tank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
 
 Gördüğümüz gibi `mirror` blogu tek bir ana disk alanı ihtiva ederken `cache` buna ek olarak bir aygıt alanı getirmemektedir. Yani bu alan fiziksel depolama için kullanılamamaktadır.
 
-
 ## ZFS Havuzunda Aygıt Yönetim İşlemleri
 
 ### ZFS Havuzundan Aygıt Eklemek
@@ -450,12 +449,9 @@ Gördüğümüz gibi `mirror` blogu tek bir ana disk alanı ihtiva ederken `cach
 
 ### ZFS Havuzundan Aygıt Çevrimdışı Hale Getirmek
 
-
-
 ## ZFS'de Havuz Aktarım İşlemleri
 
 ZFS'de aygıt havuzları sadece sıfırdan oluşturma yolu ile değil aktarım yolu ile de elde edilebilir. Geleneksel disk yönetim sistemlerinde diskler takıldığı anda diski bağlamak için tek yapmamız gereken diskin bağlama komutunu vermek olacaktır. Çoğunlukla diski bağlamak için kullandığımız komutlar işletim sistemleri tarafından karşılanmaktadır. Ancak, ZFS'de bu diskleri uygun şekilde bulup bağlamamız gerekmektedir.
-
 
 Yine aynı şekilde geleneksel disk yönetim sistemlerinde diskleri ayırmak için kullanılan disk domutları çoğunlukla işletim sistemi tarafından gelmektedir. ZFS'de ise geleneksel yöntemlerin aksine bu işlem için `zpool` havuz yöneticisi tarafından kullanılan komutları kullanmamız gerekmektedir.
 
@@ -467,13 +463,13 @@ ZFS'de içe aktarma ve dışa aktarma yapmayı daha öncesinde göstermiştim. `
 
 Bir havuzu dışa aktarmak için `zpool export` komutunu kullanılır.
 
-```
+```text
 ~# zpool export tank
 ```
 
 Bu komut, devam etmeden önce havuzdaki bağlı dosya hiyerarşilerini kaldırmaya çalışır. Dosya hiyerarşilerini daha detaylandırmadım lakin dosya hiyerarşiler bir şekilde işletim sistemi ile havuz arasındaki bağlantıyı sağlıyor diyebilirim. Bazen dışa aktarma işlemi esnasında işletim sistemine ait işlemlerin bitmesi beklenir. Bu sebeple dosya hiyerarşileri havuzları kilitleyebilir. Dosya hiyerarşilerinin bu kilit durumunu kaldırmak için, `-f` parametresini kullanabilir ve bunları zorla kaldırabilirsiniz. Örneğin:
 
-```
+```text
 ~# zpool ihracat tankı
 '/ export / home / eschrock' bağlantısı kesilemiyor: Cihaz meşgul
 ~# zpool export -f tankı
@@ -487,7 +483,7 @@ Bu komutun yerine getirilmesinden sonra aygıt havuz artık sistemden ayrılmı�
 
 `zpool` tarafından kullanılan bütün aktif havuzları kaldırmak için ise `-a` parametresini kullanmamız gerekmektedir.
 
-```
+```text
 ~# zpool list
 NAME      SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
 tank      3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
@@ -499,16 +495,15 @@ serv      3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE 
 ~# zpool export -a
 ~# zpool list
 no pools available
-
 ```
 
 ### ZFS Havuzunu İçe Aktarmak
 
-Havuz sistemden kaldırıldıktan sonra (açık bir dışa aktarım yoluyla veya cihazları zorla kaldırarak), cihazları başka bir sisteme ekleyebilirsiniz. ZFS, yalnızca `mandatory` olan bazı cihazların mevcut olduğu bazı durumlarda içe aktarma yapabilir, ancak başarılı bir havuz aktarımı, cihazların genel sağlığına bağlıdır. Ancak, başka bir sistem tarafından bir depolama ağı üzerinden kullanımda olan bir havuzu içe aktarmak, her iki sistem de aynı depolama alanına yazmaya çalıştığından veri bozulmasına ve paniğe neden olabilir. 
+Havuz sistemden kaldırıldıktan sonra \(açık bir dışa aktarım yoluyla veya cihazları zorla kaldırarak\), cihazları başka bir sisteme ekleyebilirsiniz. ZFS, yalnızca `mandatory` olan bazı cihazların mevcut olduğu bazı durumlarda içe aktarma yapabilir, ancak başarılı bir havuz aktarımı, cihazların genel sağlığına bağlıdır. Ancak, başka bir sistem tarafından bir depolama ağı üzerinden kullanımda olan bir havuzu içe aktarmak, her iki sistem de aynı depolama alanına yazmaya çalıştığından veri bozulmasına ve paniğe neden olabilir.
 
 Ek olarak, cihazların aynı cihaz adı altında bağlanması gerekmez. ZFS, taşınan veya yeniden adlandırılan cihazları algılar ve yapılandırmayı uygun şekilde ayarlar. Kullanılabilir havuzları keşfetmek için, zpool içe aktarma komutunu seçenek olmadan çalıştırın. Örneğin:
 
-```
+```text
 ~# zpool import
 
  pool: tank
@@ -521,18 +516,19 @@ Ek olarak, cihazların aynı cihaz adı altında bağlanması gerekmez. ZFS, ta�
             sdb     ONLINE
             sdc     ONLINE
 ```
+
 Bu komut sadece içe aktarılacak aygıların listesini bize verecektir. Bu aşamadan sonra **`zpool import tank`** diyerek içeri aktarımı tamamlayabiliriz. Bu komutun avantajı içe aktarım yapmadan önce aktarımda yaşanabilecek öngörülebilir hataları bize vermesidir.
 
 Havuzdaki bazı cihazlar mevcut değilse ancak kullanılabilir bir havuz sağlamak için yeterli yedek veri mevcutsa, havuz BOZULMUŞ durumda görünür. Örneğin:
 
-```
+```text
 ~# zpool import
     pool: tank
     state: DEGRADED
     status: One or more devices are missing from the system.
     action: The pool can be imported despite missing or damaged devices.  The
         fault tolerance of the pool may be compromised if imported. 
-    
+
     config:
 
         NAME        STATE     READ WRITE CKSUM
@@ -544,7 +540,7 @@ Havuzdaki bazı cihazlar mevcut değilse ancak kullanılabilir bir havuz sağlam
 
 Bağlama yapılacağı zaman yedekleri kullanarak asıl havuzu inşaa edebilir, yani import işlemi için hala izin verebilir. Ancak diskleri kaybedebileceğimiz bir hatada havuz bağlanamaz durumda olabilir.
 
-```
+```text
 ~# zpool import
   pool: tank
   state: FAULTED
@@ -562,9 +558,9 @@ Bu durumda import işlemi için izin verilmeyecektir. `FAULTED` olarak işaretle
 
 ## ZFS Disk Havuzunu Yükseltmek
 
-OpenZFS yakında zfs-2.0.0 ismindeki bir sürüme geçmeyi planlıyor. Her yeni ana sürümün getirdiği bazı özellikler var. Eğer eski sürümlerden kalma ZFS depolama havuzlarınız varsa, mevcut sürümdeki havuz özelliklerinden yararlanmak için havuzlarınızı `zpool upgrade` komutuyla yükseltebilirsiniz. Ek olarak, `zpool status ` komutu, havuzlarınız eski sürümleri çalıştırdığında sizi bilgilendirmek için **action** çıktısı verecektir. Örneğin:
+OpenZFS yakında zfs-2.0.0 ismindeki bir sürüme geçmeyi planlıyor. Her yeni ana sürümün getirdiği bazı özellikler var. Eğer eski sürümlerden kalma ZFS depolama havuzlarınız varsa, mevcut sürümdeki havuz özelliklerinden yararlanmak için havuzlarınızı `zpool upgrade` komutuyla yükseltebilirsiniz. Ek olarak, `zpool status` komutu, havuzlarınız eski sürümleri çalıştırdığında sizi bilgilendirmek için **action** çıktısı verecektir. Örneğin:
 
-```
+```text
 ~# zpool status
    pool: tank
    state: ONLINE
@@ -573,7 +569,7 @@ OpenZFS yakında zfs-2.0.0 ismindeki bir sürüme geçmeyi planlıyor. Her yeni 
    action: Upgrade the pool using 'zpool upgrade'.  Once this is done, the
            pool will no longer be accessible on older software versions.
    scrub: none requested
-   
+
    config:
         NAME        STATE     READ WRITE CKSUM
         tank        ONLINE       0     0     0
@@ -585,7 +581,7 @@ errors: No known data errors
 
 Belirli bir sürüm ve desteklenen sürümler hakkında ek bilgileri tanımlamak için aşağıdaki sözdizimini kullanabilirsiniz:
 
-```
+```text
 ~# zpool upgrade -v
 This system supports ZFS pool feature flags.
 
@@ -628,7 +624,7 @@ see the ZFS Administration Guide.
 
 Ardından, tüm havuzlarınızı yükseltmek için zpool yükseltme komutunu çalıştırabilirsiniz. Örneğin:
 
-```
+```text
 ~# zpool upgrade -a
 ```
 
@@ -638,9 +634,9 @@ Ardından, tüm havuzlarınızı yükseltmek için zpool yükseltme komutunu ça
 
 Geleneksel disk yönetim sistemlerinde veri kontrolleri yardımcı programlar aracılığı ile yapılır. Windows'ta otomatik bazı araçlar yardımı ile yapılırken; GNU/Linux'ta, diskteki veri bütünlüğünü doğrulamak, bir dizi dosya sistemi kontrol pogramları aracılığı ile yapılmaktadır. Bu işlem, `fsck` araç kiti aracılığıyla yapılır.
 
-Bununla birlikte, `fsck` sisteminin birkaç büyük dezavantajı vardır. İlk olarak, veri hatalarını düzeltmeyi düşünüyorsanız diski çevrimdışı olarak kontrol etmeniz gerekir. Bu, diskin kontrol ve düzeltme esnasında kullanılamaz halde olması demektir. Bu nedenle, `fsck`'den önce disklerinizi ayırmak için `umount` komutunu kullanmalısınız. 
+Bununla birlikte, `fsck` sisteminin birkaç büyük dezavantajı vardır. İlk olarak, veri hatalarını düzeltmeyi düşünüyorsanız diski çevrimdışı olarak kontrol etmeniz gerekir. Bu, diskin kontrol ve düzeltme esnasında kullanılamaz halde olması demektir. Bu nedenle, `fsck`'den önce disklerinizi ayırmak için `umount` komutunu kullanmalısınız.
 
-Bu örnek vermek gerekirse, kök dizinin bağlı bulunduğu disk bozulması durumunda, kontrolü yapmak için bir CDROM veya USB bellek gibi başka bir ortamdan bir sistem önyüklemesi yapmamız gerekmektedir. Disklerin boyutuna bağlı olarak saatler sürebilen bu işlem, büyük sistemler için saatlerce sürecek sistem kesintilerine sebep olabilir. 
+Bu örnek vermek gerekirse, kök dizinin bağlı bulunduğu disk bozulması durumunda, kontrolü yapmak için bir CDROM veya USB bellek gibi başka bir ortamdan bir sistem önyüklemesi yapmamız gerekmektedir. Disklerin boyutuna bağlı olarak saatler sürebilen bu işlem, büyük sistemler için saatlerce sürecek sistem kesintilerine sebep olabilir.
 
 İkincisi ise şudur ki, `ext3` veya `ext4` gibi geleneksel dosya sistemleri, `LVM` veya `RAID` gibi üst düzey veri yapıları ve disk sistemleri ile bağlantı katmanı yoktur. Örneğin RAID dizisi için bir diskte bozuk bir bloğunuz olabilir, ancak başka bir diskte herhangi bir sorun bulunmayabilir ancak, Linux'taki disk yazılımı RAID'in bağlanması ve kontrol edilmesi esnasında hangisinde veri kaybı olduğu hakkında hiçbir fikri yoktur. `ext3` veya `ext4` açısından, sorunsuz diskten bloklar okunduğunda düzgün veri alınırken bozuk bloğu içeren diskten okurken, ister istemez, bozuk veri alınır. Verilerin hangi diskten çekileceği ve bozulmanın düzeltilmesi üzerinde herhangi bir kontrol yapısı da bulunmamaktadır. Bu hatalar **"sessiz veri hataları"** olarak bilinir ve standart GNU/Linux dosya sistemi yığınıyla bu konuda yapabileceğiniz hiçbir şey yoktur.
 
@@ -650,11 +646,9 @@ Linux'ta ZFS ile sessiz veri hatalarının tespiti ve düzeltilmesi, diskleri te
 
 Bu tip sessiz veri düzeltmeleri bir süredir pek çok donanımda kullanılmaktadır. Ayrıca, bu yöntem sayesinde bir sistemde ECC RAM'i kesinti olmadan temizleyebildiğiniz gibi, disklerinizi kesinti olmadan da temizleyebilmelisiniz. Ancak geleneksel dosya sistemlerinde bu tarz bir yapı bulunmamaktadır. Bunun temelindeki sebep ise hız gerektiren durumlarda disk üzerinde bu şekilde işlem yapan bir yapı istenmemesidir. `BTRFS` gibi sonradan geliştirilen disk yönetim sistemlerinde her ne kadar bu yer almaya başladıysa bile hala aktif olarak pek çok geleneksel sistemde bulunmamaktadır.
 
-
 ZFS bu işlemleri kolaylaştırmak için temizleme ve yeniden yayımlama işlemi yapan iki adet altyapı ile gelmektedir.
 
-ZFS, havuzunuzda bir temizleme işlemi yaparken, depolama havuzundaki her bloğun bilinen sağlama toplamına göre kontrol eder. Yukarıdan aşağıya her blok, varsayılan olarak uygun bir algoritma kullanılarak sağlama toplamı alınır. Daha öncesinde belirttiğim gibi bu sağlama topları, 256 bitlik bir algoritma olan **"fletcher4"** algoritması ile alınmaktadır.
-Diğer dosya sistemlerinin aksinde **fletcher4** kullanılmasının sebebi, SHA-256 sağlama toplamının hesaplanması fletcher4'ten daha maliyetli olmasındandır. Ancak ZFS yine de SHA256 sistemini kendi içerisinde de getirmektedir ve önerilmese de, SHA-256 algoritması blok kontrol yapısında kullanılabilir.
+ZFS, havuzunuzda bir temizleme işlemi yaparken, depolama havuzundaki her bloğun bilinen sağlama toplamına göre kontrol eder. Yukarıdan aşağıya her blok, varsayılan olarak uygun bir algoritma kullanılarak sağlama toplamı alınır. Daha öncesinde belirttiğim gibi bu sağlama topları, 256 bitlik bir algoritma olan **"fletcher4"** algoritması ile alınmaktadır. Diğer dosya sistemlerinin aksinde **fletcher4** kullanılmasının sebebi, SHA-256 sağlama toplamının hesaplanması fletcher4'ten daha maliyetli olmasındandır. Ancak ZFS yine de SHA256 sistemini kendi içerisinde de getirmektedir ve önerilmese de, SHA-256 algoritması blok kontrol yapısında kullanılabilir.
 
 ZFS, disklerdeki verileri kurtarmak ve düzeltmek için yine bu ikili sağlama toplamları kullanılmaktadır. Burada önemli olan nokta herhangi bir yedek ya da aynalama diskine sahip bir havuza sahip olup olmamızdır. Bu şekilde bir yedekli yapımız bulunuyorsa ZFS'de veri kendi kendine düzeltilebilmektedir. Bu işleme `self-healing` yani kendini iyileştirme işlemi denmektedir.
 
@@ -664,7 +658,7 @@ ZFS depolama havuzlarını temizlemek, otomatik olarak gerçekleşen bir işlem 
 
 Bu temizlik işlemi `zpool scrub` komutu ile yapılmaktadır.
 
-```
+```text
 ~# zpool scrub tank
 ~# zpool status
   pool: tank
@@ -672,36 +666,35 @@ Bu temizlik işlemi `zpool scrub` komutu ile yapılmaktadır.
   scan: scrub repaired 0B in 00:00:01 with 0 errors on Mon Mar  1 11:02:01 2021
   config:
 
-	NAME           STATE     READ WRITE CKSUM
-	tank           ONLINE       0     0     0
-	  mirror-0     ONLINE       0     0     0
-	    sdc        ONLINE       0     0     0
-	    sdd        ONLINE       0     0     0
-	logs	
-	    sde        ONLINE       0     0     0
-	    sdf        ONLINE       0     0     0
+    NAME           STATE     READ WRITE CKSUM
+    tank           ONLINE       0     0     0
+      mirror-0     ONLINE       0     0     0
+        sdc        ONLINE       0     0     0
+        sdd        ONLINE       0     0     0
+    logs    
+        sde        ONLINE       0     0     0
+        sdf        ONLINE       0     0     0
 
 errors: No known data errors
-
 ```
 
 Gördüğümüz gibi `scan:` olarak görülen yeni bir durum tagı açıldı. Ve burada ilerlememizi kolayca görebiliriz. Devam eden bir temizlik işlemini de aşağıdaki komutla durdurabiliriz.
 
-```
+```text
 ~# zpool scrub -s tank
 ```
 
 ### Resilvering Kavramı ve Bozuk Disklerin Tasfiye İşlemi
 
-Verileri yeniden yayımlamak `(resilvering)`, verileri yeni diskte diziye yeniden oluşturmak veya yeniden eşitlemek demektir. Ancak,  donanım bazlı RAID denetleyicileri ve diğer geleneksel RAID uygulamaları ile hangi blokların gerçekte sorunsuz olduğu ve hangilerinin olmadığı arasında bir ayrım yapamazlar. Bu nedenle, yeniden oluşturma diskin başlangıcında başlar ve diskin sonuna ulaşıncaya kadar durdurulamaz. 
+Verileri yeniden yayımlamak `(resilvering)`, verileri yeni diskte diziye yeniden oluşturmak veya yeniden eşitlemek demektir. Ancak, donanım bazlı RAID denetleyicileri ve diğer geleneksel RAID uygulamaları ile hangi blokların gerçekte sorunsuz olduğu ve hangilerinin olmadığı arasında bir ayrım yapamazlar. Bu nedenle, yeniden oluşturma diskin başlangıcında başlar ve diskin sonuna ulaşıncaya kadar durdurulamaz.
 
-ZFS, RAIDZ yapısını ve dosya sistemi meta verilerini bildiğinden, verileri yeniden oluşturma konusunda daha akıllıca bir yol izler. ZFS, veri bloklarının saklanmadığı boş diskte boşa zaman harcamak yerine, sadece veri blokları bulunan canlı bloklarla işlem yapmaktadır. Bu, depolama havuzu kısmen doluysa önemli ölçüde zaman tasarrufu sağlayabilir. Örneğin havuzun yalnızca %25'i doluysa, bu, sürücülerin yalnızca %25'inde işlem yapmak ve bir diski düzeltmek için kullanılacak zamanın %25'inin bütün diski düzeltmek için yeteceği anlamına gelmektedir. 
+ZFS, RAIDZ yapısını ve dosya sistemi meta verilerini bildiğinden, verileri yeniden oluşturma konusunda daha akıllıca bir yol izler. ZFS, veri bloklarının saklanmadığı boş diskte boşa zaman harcamak yerine, sadece veri blokları bulunan canlı bloklarla işlem yapmaktadır. Bu, depolama havuzu kısmen doluysa önemli ölçüde zaman tasarrufu sağlayabilir. Örneğin havuzun yalnızca %25'i doluysa, bu, sürücülerin yalnızca %25'inde işlem yapmak ve bir diski düzeltmek için kullanılacak zamanın %25'inin bütün diski düzeltmek için yeteceği anlamına gelmektedir.
 
-Ne yazık ki zamanla disk havuzundaki diskler ölecek ve değiştirilmeleri gerekecek. Depolama havuzunuzda bu diskleri karşılayabilecek fazlalık diskler olması ve bazı arızaları karşılayabilmeniz koşuluyla (örneğin daha öncesinde belirttiğim gibi RAIDZ1 için 3 diskte sadece 1 disk arızası yaşanması koşulu gibi), havuz "DEGRADED" modunda olsa bile uygulamalara veri gönderip alabilir ve diskleri onarabilirsiniz. 
+Ne yazık ki zamanla disk havuzundaki diskler ölecek ve değiştirilmeleri gerekecek. Depolama havuzunuzda bu diskleri karşılayabilecek fazlalık diskler olması ve bazı arızaları karşılayabilmeniz koşuluyla \(örneğin daha öncesinde belirttiğim gibi RAIDZ1 için 3 diskte sadece 1 disk arızası yaşanması koşulu gibi\), havuz "DEGRADED" modunda olsa bile uygulamalara veri gönderip alabilir ve diskleri onarabilirsiniz.
 
 Sistem çalışır durumdayken disk değiştirme lüksüne sahipseniz, diski kesinti olmadan değiştirebilirsiniz, değilse, yine de ölü diski tanımlamanız ve değiştirmeniz gerekecektir. Havuzunuzda çok sayıda disk varsa, bu bir angarya olabilir, çünkü takılı disklerin hepsini tanıyıp elle değiştirmeniz gerekmekte. Hepsinin seri numarasını "hdparm" adlı bir yardımcı programla tespit etseniz de diskleri söküp yerine yenisini takmak için bütün disk havuzundaki diskleri tek tek bulup doğru diski tespi etmemiz gerekmektedir. Örneğin, havuz içerisinde kullandığımız 5 tane disk olsun diyelim, bunlar aşağıdaki gibi id'lenmiş olsun.
 
-```
+```text
 /dev/sdc: WD-WX21A689CJ0H
 /dev/sdd: HSGT-HG23F829AJ9F
 /dev/sde: K34X52ADC2RX
@@ -713,8 +706,7 @@ Görünüşe göre `/dev/sde` diskinin seri numarasına ulaşılamadı yani bu d
 
 Diski çıkarıp, yenisiyle değiştirelim ve bunu başka bir diskle değiştirelim. Eklediğimiz disk `/dev/sdh` üzerine bağlanmış olsun. Bu diskleri `zpool replace` komutu ile değiştirelim.
 
-
-```
+```text
 ~# zpool replace tank sde sdh
 ~# zpool status tank
    pool: tank
@@ -735,15 +727,14 @@ Diski çıkarıp, yenisiyle değiştirelim ve bunu başka bir diskle değiştire
             sdh       ONLINE         0     0     0
             sdf       ONLINE         0     0     0
           mirror-2    ONLINE         0     0     0
-            sdg       ONLINE         0     0     
+            sdg       ONLINE         0     0
 ```
-
 
 ### ZFS Havuzunun Sorunlarını Tespit Etmek
 
 ZFS aygıt havuzunun durumunu tespit etmek için `zpool status` komutunu kullandığımızı hatırlıyor olmalıyız. Bu komuta verilecek `-x` parametresi aygıt havuzumuza dair detaylı durumu bize aktaracaktır.
 
-```
+```text
 ~# zpool status -x
 all pools are healthy
 ```
@@ -752,40 +743,40 @@ all pools are healthy
 
 `ext4` ve GNU/Linux'taki birçok dosya sisteminde çeşitli bayraklar yardımı ile disk alanının davranışlarını ayarlayabiliriz. Disk bayraları, varsayılan montaj seçeneklerini ve diğer ayarları ayarlamak gibi işlere yaramaktadır.
 
-ZFS'de de durum farklı değil ancak ZFS'deki bayrak yapısı çok daha ayrıntılıdır. Bu özellikler, hem havuz hem de içerdiği veri kümeleri için her tür değişkeni değiştirmemize izin verir. Böylece, dosya sistemini kendi zevkimize veya ihtiyaçlarımıza göre "ayarlayabiliriz". Ancak, bazı öntanımlı özellikler vardır ki bunlar maalesef ayarlanamaz. Bazı özellikler ise salt okunurdur. Ancak, her bir özelliğin ne olduğunu ve havuzu nasıl etkilediğini tanımlayacağız. 
+ZFS'de de durum farklı değil ancak ZFS'deki bayrak yapısı çok daha ayrıntılıdır. Bu özellikler, hem havuz hem de içerdiği veri kümeleri için her tür değişkeni değiştirmemize izin verir. Böylece, dosya sistemini kendi zevkimize veya ihtiyaçlarımıza göre "ayarlayabiliriz". Ancak, bazı öntanımlı özellikler vardır ki bunlar maalesef ayarlanamaz. Bazı özellikler ise salt okunurdur. Ancak, her bir özelliğin ne olduğunu ve havuzu nasıl etkilediğini tanımlayacağız.
 
 Bu bölümde sadece ZFS havuzunun özelliklerinden bahsedeceğiz. Dosya hiyerarşisinin de kendi özellikleri vardır ancak bunları hiyerarşi altında inceleyeceğiz.
 
-  * **allocated**: Tüm ZFS veri kümeleri tarafından havuza kaydedilen veri miktarıdır. Bu ayar salt okunurdur.
-  * **altroot**: Alternatif bir kök dizini tanımlar. Ayarlanırsa, bu dizin havuzu ayarlanan bağlama noktasının başına ekler. Bu özellik bilinmeyen bir havuzu incelerken, bağlama noktalarına güvenilemiyorsa, bağlama noktasında başka bir dizin veya havuz bulunuyorsa veya tipik yolların geçerli olmadığı alternatif bir önyükleme ortamına ZFS diski bağlanıyorsa kullanılarak alternatif bir diske bağlama sağlanır. "cachefile = none" olarak ayarlanmış havuzlarda, bu geçersiz kılınabilir.
-  * **ashift**: Yalnızca havuz oluşturma sırasında ayarlanabilir, sonrasında salt okunur olarak işaretlenir. Havuz sektör boyutu 2'nin üstelleri olarak ayarlanır yani bu şu demek. Varsayılan değer olan 9 için, 2^9 = 512 bize boyut sınırını oluşturur ve I/O işlemleri, belirtilen boyut sınırlarına göre hizalanır. Standart sektör boyutu, işletim sistemi yardımcı programları için verileri okumak ve yazmak için kullanır. Örneğin, 4 KiB sınırına sahip gelişmiş formatlı sürücüler için, değer "ashift = 12" olarak 2 ^ 12 = 4096 olarak ayarlanmalıdır ki bu sayede bloklar diskin donanımına uygun olarak ayarlanmış olur.
-  * **autoexpand**: Havuzunuzdaki ilk sürücüyü değiştirmeden önce ayarlanmalıdır. Temel **LUN** büyüdüğünde otomatik havuz genişletmeyi kontrol eder. Varsayılan "kapalı" **`(off)`**dır. Havuzdaki tüm sürücüler daha büyük sürücülerle değiştirildikten sonra, havuz otomatik olarak yeni boyuta büyür. Bu ayar için değerler **`on`** veya **`off`**'dur.
-  * **autoreplace**:  Havuzunuzdaki "yedek" bir **VDEV**'nin otomatik cihaz değişimini kontrol eder.  Varsayılan "kapalı" **`(off)`**dır. Bu nedenle, cihaz değişimi "**`zpool replace`**" komutu kullanılarak manuel olarak başlatılmalıdır. Bu ayar için değerler **`on`** veya **`off`**'dur.
-  * **bootfs**: Havuzdaki önyüklenebilir ZFS diskleri için veri kümesini tanımlayan salt okunur ayardır. Bu genellikle kernel tarafından denetlenen bir önyükleme programı için ayarlanmaktadır.
-  * **cachefile**: Havuz yapılandırmasının önbelleğe alındığı yeri kontrol eder. Bir sistemdeki bir `zpool`'u içe aktarırken, ZFS disklerdeki meta verileri kullanarak sürücü geometrisini ve havuz dağılımı algılayabilir. Ancak, bazı kümeleme ortamlarında, otomatik olarak içe aktarılmayacak havuzlar için önbellek dosyasının farklı bir konumda depolanması gerekebilir. Bu değer bu konumu belirler, önbellek dosyası bir konuma ayarlanabilir, ancak çoğu ZFS kurulumu için önerilen "**`/etc/zfs/zpool.cache`**" varsayılan konumu olmalıdır.
-  * **capacity**: Kullanılan havuz alanı yüzdesini tanımlayan salt okunur değerdir. Havuz genişledikçe otomatik olarak ayarlanır.
-  * **comment**: Havuz hatalı olsa bile kullanılabilen bir parametredir. 32'den fazla yazdırılabilir ASCII karakterinden oluşan bir metin dizesi yazmayı sağlar. Bu ayarı kullanarak bir havuz hakkında ek bilgi yazabilir ve gelecekte bu bilgileri kullanarak havuzu düzenleyebilirsiniz.
-  * **dedupditto**: Bir blok tekilleştirme eşiği ayarlar ve tekilleştirilmiş bir bloğun referans sayısı eşiğin üzerine çıkarsa, bloğun bir kopyası otomatik olarak saklanır. Varsayılan değer 0'dır. Herhangi bir pozitif sayı olabilir.
-  * **dedupratio**: Bir havuz için belirtilen salt okunur tekilleştirme oranı, çarpan olarak ifade edilir
-  * **delegation**: Ayrıcalıklı olmayan bir kullanıcıya veri kümesi için tanımlanan erişim izinlerinin verilip verilmediğini denetler. Ayar bir boolean'dır, bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`on`**.
-  * **expandsize**:  Havuzun toplam kapasitesini artırmak için kullanılabilecek havuz veya cihazdaki kullanılmamış alan miktarı. Kullanılmamış alan, EFI etiketli bir vdev üzerindeki çevrimiçi duruma getirilmemiş herhangi bir alandan oluşur (yani **`zpool online -e`**). Bu boşluk, bir **LUN** dinamik olarak genişletildiğinde oluşur.
-  * **failmode**: Katastrofik havuz arızası durumunda sistem davranışını kontrol eder. Bu durum, tipik olarak, temeldeki depolama cihazlarına bağlantı kaybının veya havuz içindeki tüm cihazların arızalanmasının bir sonucudur. Böyle bir olayın davranışı şu şekilde belirlenir:
-    * **wait**: Cihaz bağlantısı kurtarılıncaya ve hatalar giderilene kadar tüm I/O erişimini engeller. Bu, varsayılan davranıştır.
-    * **continue**: EIO'yu yeni yazma I/O isteklerine döndürür, ancak kalan sağlıklı cihazlardan herhangi birine okumaya izin verir. Henüz diske işlenmemiş yazma istekleri engellenecektir.
-    * **panic**: Konsola bir mesaj yazdırır ve bir sistem kilitlenme dökümü oluşturur.
-  * **feature@xxx**: OpenZFS'nin gelecekte eklenecek ve şu an beta olarak getirilen özellikleri tanımlayacaktır.
-  * **free**: Havuzdaki ayrılmamış blokların sayısını tanımlayan salt okunur değer.
-  * **guid**: Havuz için benzersiz tanımlayıcıyı tanımlayan salt okunur özellik. Ext4 dosya sistemleri için UUID dizesine benzer bir özelliğe sahiptir, bu guid ile bağlama ve ayrılmaya izin verir.
-  * **health**: Havuzun mevcut durumunu tanımlayan salt okunur özelliktir; `status` komutunda buna ait detaylar paylaşılmıştır.
-  * **listsnapshots**: Bu havuzla ilişkili anlık görüntü bilgilerinin "**`zfs list`**" komutuyla görüntülenip görüntülenmeyeceğini denetler. Bu özellik devre dışı bırakılırsa, anlık görüntü bilgileri "**`zfs list -t snapshot`**" komutuyla görüntülenebilir. Bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`off`**'dur.
-  * **readonly**: Bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`off`**'dur. Yazmaları ve veri bozulmalarını önlemek için havuzu salt okunur moda ayarlamayı denetler. 
-  * **version**: Havuzun geçerli disk üzerindeki sürümünü tanımlayan yazılabilir ayardır. "**`zpool upgrade -v`**" komutunun çıktısına kadar herhangi bir değer olabilir. Bu özellik, geriye dönük uyumluluk için belirli bir sürüm gerektiğinde kullanılabilir.
+* **allocated**: Tüm ZFS veri kümeleri tarafından havuza kaydedilen veri miktarıdır. Bu ayar salt okunurdur.
+* **altroot**: Alternatif bir kök dizini tanımlar. Ayarlanırsa, bu dizin havuzu ayarlanan bağlama noktasının başına ekler. Bu özellik bilinmeyen bir havuzu incelerken, bağlama noktalarına güvenilemiyorsa, bağlama noktasında başka bir dizin veya havuz bulunuyorsa veya tipik yolların geçerli olmadığı alternatif bir önyükleme ortamına ZFS diski bağlanıyorsa kullanılarak alternatif bir diske bağlama sağlanır. "cachefile = none" olarak ayarlanmış havuzlarda, bu geçersiz kılınabilir.
+* **ashift**: Yalnızca havuz oluşturma sırasında ayarlanabilir, sonrasında salt okunur olarak işaretlenir. Havuz sektör boyutu 2'nin üstelleri olarak ayarlanır yani bu şu demek. Varsayılan değer olan 9 için, 2^9 = 512 bize boyut sınırını oluşturur ve I/O işlemleri, belirtilen boyut sınırlarına göre hizalanır. Standart sektör boyutu, işletim sistemi yardımcı programları için verileri okumak ve yazmak için kullanır. Örneğin, 4 KiB sınırına sahip gelişmiş formatlı sürücüler için, değer "ashift = 12" olarak 2 ^ 12 = 4096 olarak ayarlanmalıdır ki bu sayede bloklar diskin donanımına uygun olarak ayarlanmış olur.
+* **autoexpand**: Havuzunuzdaki ilk sürücüyü değiştirmeden önce ayarlanmalıdır. Temel **LUN** büyüdüğünde otomatik havuz genişletmeyi kontrol eder. Varsayılan "kapalı" **`(off)`**dır. Havuzdaki tüm sürücüler daha büyük sürücülerle değiştirildikten sonra, havuz otomatik olarak yeni boyuta büyür. Bu ayar için değerler **`on`** veya **`off`**'dur.
+* **autoreplace**:  Havuzunuzdaki "yedek" bir **VDEV**'nin otomatik cihaz değişimini kontrol eder.  Varsayılan "kapalı" **`(off)`**dır. Bu nedenle, cihaz değişimi "**`zpool replace`**" komutu kullanılarak manuel olarak başlatılmalıdır. Bu ayar için değerler **`on`** veya **`off`**'dur.
+* **bootfs**: Havuzdaki önyüklenebilir ZFS diskleri için veri kümesini tanımlayan salt okunur ayardır. Bu genellikle kernel tarafından denetlenen bir önyükleme programı için ayarlanmaktadır.
+* **cachefile**: Havuz yapılandırmasının önbelleğe alındığı yeri kontrol eder. Bir sistemdeki bir `zpool`'u içe aktarırken, ZFS disklerdeki meta verileri kullanarak sürücü geometrisini ve havuz dağılımı algılayabilir. Ancak, bazı kümeleme ortamlarında, otomatik olarak içe aktarılmayacak havuzlar için önbellek dosyasının farklı bir konumda depolanması gerekebilir. Bu değer bu konumu belirler, önbellek dosyası bir konuma ayarlanabilir, ancak çoğu ZFS kurulumu için önerilen "**`/etc/zfs/zpool.cache`**" varsayılan konumu olmalıdır.
+* **capacity**: Kullanılan havuz alanı yüzdesini tanımlayan salt okunur değerdir. Havuz genişledikçe otomatik olarak ayarlanır.
+* **comment**: Havuz hatalı olsa bile kullanılabilen bir parametredir. 32'den fazla yazdırılabilir ASCII karakterinden oluşan bir metin dizesi yazmayı sağlar. Bu ayarı kullanarak bir havuz hakkında ek bilgi yazabilir ve gelecekte bu bilgileri kullanarak havuzu düzenleyebilirsiniz.
+* **dedupditto**: Bir blok tekilleştirme eşiği ayarlar ve tekilleştirilmiş bir bloğun referans sayısı eşiğin üzerine çıkarsa, bloğun bir kopyası otomatik olarak saklanır. Varsayılan değer 0'dır. Herhangi bir pozitif sayı olabilir.
+* **dedupratio**: Bir havuz için belirtilen salt okunur tekilleştirme oranı, çarpan olarak ifade edilir
+* **delegation**: Ayrıcalıklı olmayan bir kullanıcıya veri kümesi için tanımlanan erişim izinlerinin verilip verilmediğini denetler. Ayar bir boolean'dır, bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`on`**.
+* **expandsize**:  Havuzun toplam kapasitesini artırmak için kullanılabilecek havuz veya cihazdaki kullanılmamış alan miktarı. Kullanılmamış alan, EFI etiketli bir vdev üzerindeki çevrimiçi duruma getirilmemiş herhangi bir alandan oluşur \(yani **`zpool online -e`**\). Bu boşluk, bir **LUN** dinamik olarak genişletildiğinde oluşur.
+* **failmode**: Katastrofik havuz arızası durumunda sistem davranışını kontrol eder. Bu durum, tipik olarak, temeldeki depolama cihazlarına bağlantı kaybının veya havuz içindeki tüm cihazların arızalanmasının bir sonucudur. Böyle bir olayın davranışı şu şekilde belirlenir:
+  * **wait**: Cihaz bağlantısı kurtarılıncaya ve hatalar giderilene kadar tüm I/O erişimini engeller. Bu, varsayılan davranıştır.
+  * **continue**: EIO'yu yeni yazma I/O isteklerine döndürür, ancak kalan sağlıklı cihazlardan herhangi birine okumaya izin verir. Henüz diske işlenmemiş yazma istekleri engellenecektir.
+  * **panic**: Konsola bir mesaj yazdırır ve bir sistem kilitlenme dökümü oluşturur.
+* **feature@xxx**: OpenZFS'nin gelecekte eklenecek ve şu an beta olarak getirilen özellikleri tanımlayacaktır.
+* **free**: Havuzdaki ayrılmamış blokların sayısını tanımlayan salt okunur değer.
+* **guid**: Havuz için benzersiz tanımlayıcıyı tanımlayan salt okunur özellik. Ext4 dosya sistemleri için UUID dizesine benzer bir özelliğe sahiptir, bu guid ile bağlama ve ayrılmaya izin verir.
+* **health**: Havuzun mevcut durumunu tanımlayan salt okunur özelliktir; `status` komutunda buna ait detaylar paylaşılmıştır.
+* **listsnapshots**: Bu havuzla ilişkili anlık görüntü bilgilerinin "**`zfs list`**" komutuyla görüntülenip görüntülenmeyeceğini denetler. Bu özellik devre dışı bırakılırsa, anlık görüntü bilgileri "**`zfs list -t snapshot`**" komutuyla görüntülenebilir. Bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`off`**'dur.
+* **readonly**: Bu ayar için değerler **`on`** veya **`off`**'dur ve varsayılan değer **`off`**'dur. Yazmaları ve veri bozulmalarını önlemek için havuzu salt okunur moda ayarlamayı denetler. 
+* **version**: Havuzun geçerli disk üzerindeki sürümünü tanımlayan yazılabilir ayardır. "**`zpool upgrade -v`**" komutunun çıktısına kadar herhangi bir değer olabilir. Bu özellik, geriye dönük uyumluluk için belirli bir sürüm gerektiğinde kullanılabilir.
 
 ### ZFS'de Parametreleri Ayarlamak
 
-Bundan daha öncesinde bahsetmiştim. `zpool get` ve `zpool set` sayesinde parametreleri görebiliriz. Bütün parametrelerini görüntülemek için  `zpool get all havuz_adi` komutu kullanılır.
+Bundan daha öncesinde bahsetmiştim. `zpool get` ve `zpool set` sayesinde parametreleri görebiliriz. Bütün parametrelerini görüntülemek için `zpool get all havuz_adi` komutu kullanılır.
 
-```
+```text
 ~# zpool get all tank
 NAME  PROPERTY                       VALUE                          SOURCE
 tank  size                           3.75G                          -
@@ -849,3 +840,4 @@ tank  feature@livelist               enabled                        local
 tank  feature@device_rebuild         enabled                        local
 tank  feature@zstd_compress          enabled                        local
 ```
+
