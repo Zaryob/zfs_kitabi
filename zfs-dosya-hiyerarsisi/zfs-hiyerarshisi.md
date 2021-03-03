@@ -10,6 +10,10 @@ Verilerinizi depolamak için bir depolama havuzu oluşturduktan sonra, dosya sis
 
 Aslında ZFS geleneksel disk yönetim sistemi kullananlar için biraz karmaşık bir yapıya sahip. Ancak basitleştirmek gerekirse ZFS, dosya sistemlerinin, her dosya sisteminin yalnızca tek bir ana öğeye sahip olduğu hiyerarşiler halinde düzenlenmesine izin verir. Hiyerarşi aslında UNIX kök dosya yapısına benzemektedir. Hiyerarşinin kökü her zaman havuz adıdır. ZFS, özellik mirasını destekleyerek bu hiyerarşiden yararlanır, böylece ortak özellikler, tüm dosya sistemleri ağaçlarında hızlı ve kolay bir şekilde ayarlanabilir.
 
+ZFS, dosya sistemlerinde hiyerarşiler geleneksel disk yönetim sistemlerinden biraz daha farklı işler. İlk olarak, depolama için LVM yaklaşımı oluşturmaya gerek yoktur.Başka bir yığın yapısına gerek duyulmaz. 
+
+Hiyerarşiler, dosya sisteminde bir veri kümesi oluşturarak yapılır. Varsayılan olarak, bu veri kümesinin tüm depolama havuzuna tam erişimi olacaktır. Depolama havuzumuz daha önce de belirtildiği gibi 5 TB büyüklüğünde ise, ilk veri setimiz havuzdaki 5 TB'nin tamamına erişebilecektir. İkinci bir veri kümesi oluşturursam, bu da havuzdaki 5 TB'nin tamamına tam erişime sahip olacaktır. Sonuç olarak hepsi aynı havuzdan beslense bile bütün bir havuzu aynı anda bağlamaya gerek kalmadan parça parça havuz verilerine erişebiliriz ve bu erişimi sağlarken her bir veri kümesi diğer bir veri kümesini manüple etmeden bunu başarabiliriz. Her veri kümesi, havuz dolana kadar havuza dosya yerleştirmeye izin  verecektir. Bir diğer yandan, veri kümelerine kota koyulabilir, boyutları sınırlandırılabilir veya daha sonra dışa aktarabilirsiniz.
+
 ### ZFS Dosya Sistemi Hiyerarşini Belirleme
 
 ZFS dosya sistemleri, merkezi yönetim noktasıdır. Hafiftirler ve kolayca oluşturulabilirler. Kullanılacak iyi bir model, kullanıcı veya proje başına bir dosya sistemi oluşturmaktır, çünkü bu model özelliklerin, anlık görüntülerin ve yedeklemelerin kullanıcı başına veya proje bazında kontrol edilmesine izin verir.
@@ -49,6 +53,12 @@ NAME                   USED  AVAIL  REFER  MOUNTPOINT
 tank                  100.0K  67.0G   19K   /tank
 tank/home             18.0K   67.0G     6K  /tank/zfs
 ```
+
+### ZFS Dosya Sistemi Hiyerarşilerini Bağlamak
+
+Hiyerarşileri oluştururken, varsayılan olarak dışa aktarılabilir blok aygıtları oluşturmadığınızı anlamak önemlidir. Çünkü dışa aktarılabilir blok aygıtları, doğrudan kök sistemine bağlanabilmeyi engeller. Ayrıca, hiyerarişlerin yeniden başlatmalarda bağlanma noktasının kalıcılığını sağlamak için  **`/etc/fstab`** dosyanıza ekleneme yapmanıza gerek yoktur.
+
+Öyleyse, **`/etc/fstab`** dosyasına eklemeye gerek yoksa, dosya sistemleri nasıl bağlanır? ZFS hiyerarşileri bütün bu bağlama noktalarını kendi içerisinde tutar ve başlatma esnasında ZFS servisinin çalıştırılması ve havuzun tespit edilmesinden itibaren otomatik olarak bağlanır. Gerekirse havuzu içe aktardıktan sonra  "**`zfs mount`**" komutunu çalıştırmak ZFS dosya hiyerarşisini bağlayabilirsiniz. Benzer şekilde, hiyerarşileri ayırmak için bir "**`zfs unmount`**" komutunu kullanabilir veya standart "**`umount`**" yardımcı programını kullanabilirsiniz:
 
 ### ZFS Dosya Sistemi Hiyerarşinin Özelliklerini Belirtmek
 
