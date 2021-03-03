@@ -441,13 +441,319 @@ Gördüğümüz gibi `mirror` blogu tek bir ana disk alanı ihtiva ederken `cach
 
 ## ZFS Havuzunda Aygıt Yönetim İşlemleri
 
+ZFS havuzuna daha öncesinde belirttiğim gibi aygıt ekleme işlemleri yapılabildiği gibi aygıtları tamamen kapatmadan kapalı konuma getirerek aygıt bazlı işlem yapmamıza işlem sağlayacak altyapıya sahiptir. Yeni bir üst düzey sanal cihaz ekleyerek bir havuza dinamik olarak disk alanı ekleyebilir, özel amaçlı kullanılacak diskler sayesinde yansılama ve önbellekleme gibi işlemler için kullanabilirsiniz. Aynı şekilde bu disklerin bağlarını kaldırabilir ve havuz bakımını çalışma esnasında yapabilirsiniz. 
+
 ### ZFS Havuzundan Aygıt Eklemek
+
+Bir havuza yeni bir sanal cihaz eklemek için **`zpool add`** komutunu kullanılır.
+
+```text
+~# zpool add tank mirror sdf sdg
+~# zpool status 
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME            STATE     READ WRITE CKSUM
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        sdb         ONLINE       0     0     0
+        sdc         ONLINE       0     0     0
+      mirror-1      ONLINE       0     0     0
+        sdd         ONLINE       0     0     0
+        sde         ONLINE       0     0     0
+      mirror-2      ONLINE       0     0     0
+        sdf         ONLINE       0     0     0
+        sdg         ONLINE       0     0     0
+      
+```
+
+Sanal aygıtları belirtme biçimi, **`zpool create`** komutu ile aynıdır. Aygıt tipleri belirteçleri sayesinde o tipte aygıt tipi eklenebilir.  Aygıtlar eklenirken, kullanımda olup olmadıklarını belirlemek için kontrol edilir ve kullanımda olmadıkları durumda veya disklerle alakalı bir sorun olmadığı müddetçe komut, **`-f`** seçeneği olmadan havuz içerisine eklenemez. Komut ayrıca bu işlemi önizleyerek çalıştırmak için  **`-n`** seçeneğini vermek gerekmektedir. Örneğin:
+
+```text
+~# zpool add -n tank mirror sdf sdg
+would update 'tank' to the following configuration:
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        sdb         ONLINE       0     0     0
+        sdc         ONLINE       0     0     0
+      mirror-1      ONLINE       0     0     0
+        sdd         ONLINE       0     0     0
+        sde         ONLINE       0     0     0
+      mirror-2      ONLINE       0     0     0
+        sdf         ONLINE       0     0     0
+        sdg         ONLINE       0     0     0
+```
+
+#### Farklı ZFS aygıt çeşitlerinden oluşan aygıt havuzlarını eklemek
+
+Bunu bir senaryo olarak anlatmak istedim. Sunucu için bütünü ile fonksiyonel bir aygıt havuzu oluşturalım. Ve nerdeyse her tipte bir aygıt tipi oluşturarak ekleyelim.
+
+3 tane raid diskinden oluşan ve raidz yapısında olan bir disk havuzu oluşturalım
+
+```text
+~# zpool create tank raidz sdb sdc sdd
+~# zpool status tank
+  pool: tank
+  state: ONLINE
+  scrub: none requested
+  config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          raidz1-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+            sdd     ONLINE       0     0     0
+
+errors: No known data errors
+```
+
+Şimdi bu havuza ayna aygıtları ekleyelim
+
+```text
+~# zpool add tank mirror sde sdf
+~# zpool status tank
+  pool: tank
+  state: ONLINE
+  scrub: none requested
+  config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          raidz1-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+            sdd     ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sde     ONLINE       0     0     0
+            sdf     ONLINE       0     0     0
+
+errors: No known data errors
+```
+
+Havuza şimdi 4 tane önbellekleme diski ekleyelim.
+
+
+
+```text
+~# zpool add tank cache sdg sdh sdk sdl
+~# zpool status tank
+  pool: tank
+  state: ONLINE
+  scrub: none requested
+  config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          raidz1-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+            sdd     ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sde     ONLINE       0     0     0
+            sdf     ONLINE       0     0     0
+          cache-0  ONLINE        0     0     0
+            sdg     ONLINE       0     0     0
+            sdh     ONLINE       0     0     0
+            sdk     ONLINE       0     0     0
+            sdl     ONLINE       0     0     0            
+```
+
+Bir de log diski ekleyelim
+
+
+
+```text
+~# zpool add tank log sdm
+~# zpool status tank
+  pool: tank
+  state: ONLINE
+  scrub: none requested
+  config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          raidz1-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+            sdd     ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sde     ONLINE       0     0     0
+            sdf     ONLINE       0     0     0
+          cache-0  ONLINE        0     0     0
+            sdg     ONLINE       0     0     0
+            sdh     ONLINE       0     0     0
+            sdk     ONLINE       0     0     0
+            sdl     ONLINE       0     0     0  
+          logs
+            sdm     ONLINE       0     0     0        
+```
+
+### ZFS Havuzundan Aygıt Çıkartmak
+
+ZFS aygıt havuzuna disk ekleyebileceğimiz gibi aygıt da çıkartabiliriz
+
+```text
+~# zpool create  tank sdb sdc mirror sdd sde
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+        NAME          STATE     READ WRITE CKSUM
+        tank          ONLINE       0     0     0
+          sdb         ONLINE       0     0     0
+          sdc         ONLINE       0     0     0
+          mirror-0    ONLINE       0     0     0
+            sdd       ONLINE       0     0     0
+            sde       ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool remove tank sdb
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+        NAME          STATE     READ WRITE CKSUM
+        tank          ONLINE       0     0     0
+          sdc         ONLINE       0     0     0
+          mirror-0    ONLINE       0     0     0
+            sdd       ONLINE       0     0     0
+            sde       ONLINE       0     0     0
+
+errors: No known data errors
+```
+
+Aygıt havuzundan disk çıkarmak için uymamız gereken bazı kurallar var. Bunlar:
+
+* Aygıt kaldırma işlemi yalnızca etkin yedeklerin, günlük aygıtlarının ve önbellek aygıtlarının kaldırılmasını desteklemektedir. 
+* Ana yansıtılmış havuz yapılandırmasının parçası olan aygıtlar, disk havuzundan kaldırılamaz. 
+* Yedeksiz ve RAID-Z cihazları havuzdan kaldırılamaz.
+* Ayrılma işleminin tamamlanmasının ardından disk ancak yeniden biçimlendirilerek havuz alanına dahil edilebilir.
 
 ### ZFS Havuzundaki Aygıtları Değiştirmek
 
-### ZFS Havuzundan Aygıtı Çevrimiçi Hale Getirmek
+Aygıt havuzundan kullanılmayan diskleri kaldırabileceğimiz gibi bazı diskleri yenileri ile değiştirebiliriz. 
 
-### ZFS Havuzundan Aygıt Çevrimdışı Hale Getirmek
+```text
+~# zpool create  sdc tank mirror sdd sde
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+        NAME          STATE     READ WRITE CKSUM
+        tank          ONLINE       0     0     0
+          sdc         ONLINE       0     0     0
+          mirror-0    ONLINE       0     0     0
+            sdd       ONLINE       0     0     0
+            sde       ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool replace tank sdc sdb -f
+invalid vdev specification
+the following errors must be manually repaired:
+sdb is part of active pool 'tank'
+~# zpool status
+  pool: tank
+ state: ONLINE
+remove: Removal of vdev 0 copied 37.5K in 0h0m, completed on Wed Mar  3 11:32:25 2021
+    96 memory used for removed device mappings
+config:
+
+        NAME          STATE     READ WRITE CKSUM
+        tank          ONLINE       0     0     0
+          sdb         ONLINE       0     0     0
+          mirror-2    ONLINE       0     0     0
+            sdd       ONLINE       0     0     0
+            sde       ONLINE       0     0     0
+
+errors: No known data errors
+```
+
+
+
+Bu işlem sonunda ekleyeceğimiz diskin alanı az veya daha fazla olabilir. Bu durumda havuzun `autoexpand` parametresi açıksa yeniden boyutlandırma yapılır. Örnek vermek gerekirse bu parametresi açık olmayan disklerde havuzun boyutu `set` komutu ile bu parametre ayarlanana kadar sabit kalacaktır.
+
+```text
+~# zpool list pool
+NAME   SIZE   ALLOC  FREE    CAP  HEALTH  ALTROOT
+pool  16.8G  76.5K  16.7G     0%  ONLINE  -
+~# zpool replace pool sdc sdb
+# zpool list pool
+NAME   SIZE   ALLOC  FREE    CAP  HEALTH  ALTROOT
+pool  16.8G  88.5K  16.7G     0%  ONLINE  -
+# zpool set autoexpand=on pool
+# zpool list pool
+NAME   SIZE   ALLOC  FREE    CAP  HEALTH  ALTROOT
+pool  32.2G   117K  32.2G     0%  ONLINE  -
+```
+
+### ZFS Havuzundan Aygıtı Çevrimiçi ve Çevrimdışı Hale Getirmek
+
+ZFS, bireysel cihazların çevrimdışına alınmasına veya çevrimiçine alınmasına izin verir. Donanım güvenilir olmadığında veya düzgün çalışmadığında, ZFS, durumun geçici olduğunu varsayarak cihazdan veri okumaya veya cihaza veri yazmaya devam eder. Durum geçici değilse, aygıt havuzunun kararlılığı için ZFS'ye cihazı çevrimdışına alarak yok sayması talimatını verebilirsiniz. ZFS, çevrimdışı bir cihaza herhangi bir istek göndermez.
+
+Depolamanın geçici olarak bağlantısını kesmeniz gerektiğinde,**`zpool offline`**komutunu kullanabilirsiniz.
+
+```text
+~# zpool offline tank sdc
+~# zpool status
+  pool: tank
+ state: DEGRADED
+status: One or more devices has been taken offline by the administrator.
+        Sufficient replicas exist for the pool to continue functioning in a
+        degraded state.
+action: Online the device using 'zpool online' or replace the device with
+        'zpool replace'.
+  scan: resilvered 190K in 00:00:01 with 0 errors on Wed Mar  3 11:39:49 2021
+remove: Removal of vdev 0 copied 37.5K in 0h0m, completed on Wed Mar  3 11:32:25 2021
+    96 memory used for removed device mappings
+config:
+
+        NAME              STATE     READ WRITE CKSUM
+        tank              DEGRADED     0     0     0
+          sdb             ONLINE       0     0     0
+          mirror-2        DEGRADED     0     0     0
+            sdc           OFFLINE      0     0     0
+            sdd           ONLINE       0     0     0
+          sde             ONLINE       0     0     0
+
+errors: No known data errors
+
+```
+
+Bu işlemi yaparken `remove` komutunda olduğu gibi bazı noktalara dikkat etmemiz gerekmekte.
+
+* Bir havuzun bütününü hatalı hale gelene kadar çevrimdışı duruma getiremezsiniz.
+* Bir raidz1 yapılandırmasında iki cihazı çevrimdışına alamazsınız veya üst düzey bir sanal cihazı çevrimdışına alamazsınız.
+* Varsayılan olarak, çevrimdışına alınan diskin durumu kalıcıdır. Sistem yeniden başlatılsa bile durumu kalıcıdır.
+* Bir cihaz çevrimdışına alındığında, depolama havuzundan ayrılmaz. 
+* Çevrimdışına alınmış bir cihazı, orijinal havuz yok edildikten sonra bile başka bir havuzda kullanamazsınız.
+
+Çevrimdışı durumuna alınmış bir cihazı ya değiştirebiliriz veya geri çevrimiçi haline alabiliriz. Değiştirme komutunu gösterdim. diski geri çevrimiçi konuma almak için **`zpool online`** komutu kullanılır.
+
+```text
+~# zpool online tank sdc
+~# zpool status
+  pool: tank
+  state: ONLINE
+  scan: resilvered 16.5K in 00:00:01 with 0 errors on Wed Mar  3 11:56:37 2021
+  remove: Removal of vdev 0 copied 37.5K in 0h0m, completed on Wed Mar  3 11:32:25 2021
+    96 memory used for removed device mappings
+  config:
+        NAME              STATE     READ WRITE CKSUM
+        tank              ONLINE       0     0     0
+          sdb             ONLINE       0     0     0
+          mirror-2        ONLINE       0     0     0
+            sdc           ONLINE       0     0     0
+            sdd           ONLINE       0     0     0
+          sde             ONLINE       0     0     0
+
+errors: No known data errors
+
+```
 
 ## ZFS'de Havuz Aktarım İşlemleri
 
