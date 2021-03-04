@@ -390,7 +390,77 @@ Gördüğümüz gibi  diskler oluşturup bunları bağlamış olduk ama bu ne i�
 
 ext4'ün normalde size veremeyeceği şeylere ve ZFS'nin tüm avantajlarına ZVOL sayesinde sahibiz. Bu senaryoda, artık düzenli olarak verilerinizin anlık görüntüsünü alıyorsunuz, çevrimiçi fırçalamalar gerçekleştiriyor ve yedekleme için iş yeri dışına gönderiyorsunuz. En önemlisi, verileriniz oldukça tutarlı bir şekilde korunabiliyor ve ek bir diske gerek kalmadan yedeklemeler ve geriye dönük imajlandırma işlemleri yapılabiliyor.
 
-### iSCSI
+### iSCSI, NFS ve Samba ile Disk Hiyerarşisi Paylaşımı
 
-### NFS ve Samba ile Disk Hiyerarşisi Paylaşımı
+ZFS dosya hiyerarşileri ağ üzerinden aynı bir dosya paylaşım sisteminde olduğu gibi paylaşılmaktadır. ZFS hiyerarşileri, örneğin NFS gibi bir dosya paylaşım sunucusu aracılığıyla belirli bir veri kümesini paylaşabilirsiniz. Ancak, veri kümesini bağlamazsak, bu durumda dışa aktarma uygulama tarafından kullanılamaz ve NFS istemcisi engellenir.
+
+Ağ paylaşımı ZFS dosya sisteminin doğasında olduğundan, veri tutarsızlıkları için endişe etmemize veya herhangi bir işlem yapmamıza gerek yoktur. ZFS'nin sağladığı bütün veri koruma yapıları ve sistemleri paylaşılmış hiyerarşiler için de uygulanmaktadır.
+
+Veri paylaşımına genel bakışım şu. Ek bir kurulum yapmadan adeta dosya yöneticisinde dolaşır gibi başka bir bilgisayar aracılığı ile dosyalarımıza erişebilir ve bunları düzenleyebiliriz.Ancak her halükarda, paylaşımı sağlamak için gerekli daemonları kurmanız gerekir. Örneğin, bir veri kümesini NFS aracılığıyla paylaşmak istiyorsanız, NFS sunucusunu yüklememiz ve çalıştırmamız gerekir. Ardından, yapmanız gereken tek şey, veri kümesindeki paylaşım NFS anahtarını aktifleştirmektir ve bu işlemin hemen ardından hiyerarşimiz kullanılabilir olacaktır.
+
+#### NFS aracılığıyla paylaşma
+
+Bir veri kümesini NFS aracılığıyla paylaşmak için, önce NFS sunucusunu açmamız gerekmektedir. Debian ve Ubuntu'da NFS sunucusu "nfs-kernel-server" paketi tarafından sağlanmaktadır. Ayrıca, Debian ve Ubuntu ile, `/etc/export` dosyasında bir dışa aktarım talimatnamesi olmadığı sürece NFS arka plan programı başlamayacaktır. 
+Bu nedenle paylaşıma başlamak için, yalnızca localhost tarafından kullanılabilen sahte bir dışa aktarma oluşturabilir veya başlangıç ​​komut dosyasını geçerli bir dışa aktarmayı engellemeyecek şekilde düzenleyebiliriz.
+
+Bir diğer yandan OpenSUSE, Fedora, RHEL ve CentOS için `nfs-utils` paketi nfs paylaşımı için kullanılacaktır. Yine aynı şekilde `firewalld` üzerinden portları aktifleştirmemiz gerekmektedir.
+
+Gerekli paketleri kurmamızın ardından NFS sunucumuzu başlatalım:
+
+```
+~# service nfs start
+```
+Şimdi de ip adresimize bakalım
+```
+~# ifconfig
+
+enp2s0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether c8:d9:d2:eb:e9:d7  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 31570  bytes 10961690 (10.4 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 31570  bytes 10961690 (10.4 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlo1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.123  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::3eb2:86f:1c57:47c4  prefixlen 64  scopeid 0x20<link>
+        ether 74:40:bb:e0:e3:db  txqueuelen 1000  (Ethernet)
+        RX packets 174848  bytes 291792813 (278.2 MiB)
+        RX errors 0  dropped 4118  overruns 0  frame 0
+        TX packets 121922  bytes 29077165 (27.7 MiB)
+        TX errors 0  dropped 3 overruns 0  carrier 0  collisions 0
+```
+
+Ve artık hazırız, ZFS veri kümesini paylaşalım
+
+```
+~# zfs set sharenfs="rw=@192.168.1.123/24" tank/srv
+~# zfs share tank/srv
+```
+
+#### Samba aracılığıyla paylaşma
+
+NFS'de olduğu gibi, SMB/CIFS aracılığıyla bir ZFS veri kümesini paylaşmak için, arka plan sunucusunun kurulu ve çalışıyor olması gerekir. SMB 2.1 dosya paylaşım desteği, kümelenmiş dosya sunucuları ve çok daha fazlasını verimektedir. Samba 4 desteği ile beraber disk üzerinde NFS'den daha fazlasını daha esnekçe yapabileceğimiz bir yapıya sahibiz.
+
+```
+~# zfs set sharesmb=on tank/srv
+~# zfs share tank/srv
+```
+
+#### iSCSI aracılığı ile paylaşma
+
+SMB ve NFS'de olduğu gibi, iSCSI arka plan programının kurulu ve çalışıyor olması gerekir.
+
+```
+~# zfs set shareiscsi=on tank/srv
+```
 
