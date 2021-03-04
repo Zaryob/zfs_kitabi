@@ -712,10 +712,270 @@ tank  3.75G   141K  3.75G        -         -     0%     0%  1.00x    ONLINE  -
 </code></pre>
 <p>G&#xF6;rd&#xFC;&#x11F;&#xFC;m&#xFC;z gibi <code>mirror</code> blogu tek bir ana disk alan&#x131; ihtiva ederken <code>cache</code> buna ek olarak bir ayg&#x131;t alan&#x131; getirmemektedir. Yani bu alan fiziksel depolama i&#xE7;in kullan&#x131;lamamaktad&#x131;r.</p>
 <h2 id="zfs-havuzunda-ayg&#x131;t-y&#xF6;netim-i&#x307;&#x15F;lemleri">ZFS Havuzunda Ayg&#x131;t Y&#xF6;netim &#x130;&#x15F;lemleri</h2>
+<p>ZFS havuzuna daha &#xF6;ncesinde belirtti&#x11F;im gibi ayg&#x131;t ekleme i&#x15F;lemleri yap&#x131;labildi&#x11F;i gibi ayg&#x131;tlar&#x131; tamamen kapatmadan kapal&#x131; konuma getirerek ayg&#x131;t bazl&#x131; i&#x15F;lem yapmam&#x131;za i&#x15F;lem sa&#x11F;layacak altyap&#x131;ya sahiptir. Yeni bir &#xFC;st d&#xFC;zey sanal cihaz ekleyerek bir havuza dinamik olarak disk alan&#x131; ekleyebilir, &#xF6;zel ama&#xE7;l&#x131; kullan&#x131;lacak diskler sayesinde yans&#x131;lama ve &#xF6;nbellekleme gibi i&#x15F;lemler i&#xE7;in kullanabilirsiniz. Ayn&#x131; &#x15F;ekilde bu disklerin ba&#x11F;lar&#x131;n&#x131; kald&#x131;rabilir ve havuz bak&#x131;m&#x131;n&#x131; &#xE7;al&#x131;&#x15F;ma esnas&#x131;nda yapabilirsiniz. </p>
 <h3 id="zfs-havuzundan-ayg&#x131;t-eklemek">ZFS Havuzundan Ayg&#x131;t Eklemek</h3>
+<p>Bir havuza yeni bir sanal cihaz eklemek i&#xE7;in <strong><code>zpool add</code></strong> komutunu kullan&#x131;l&#x131;r.</p>
+<pre><code class="lang-text">~# zpool add tank mirror sdf sdg
+~# zpool status 
+  pool: tank
+  state: ONLINE
+  config:
+
+    NAME            STATE     READ WRITE CKSUM
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        sdb         ONLINE       0     0     0
+        sdc         ONLINE       0     0     0
+      mirror-1      ONLINE       0     0     0
+        sdd         ONLINE       0     0     0
+        sde         ONLINE       0     0     0
+      mirror-2      ONLINE       0     0     0
+        sdf         ONLINE       0     0     0
+        sdg         ONLINE       0     0     0
+</code></pre>
+<p>Sanal ayg&#x131;tlar&#x131; belirtme bi&#xE7;imi, <strong><code>zpool create</code></strong> komutu ile ayn&#x131;d&#x131;r. Ayg&#x131;t tipleri belirte&#xE7;leri sayesinde o tipte ayg&#x131;t tipi eklenebilir.  Ayg&#x131;tlar eklenirken, kullan&#x131;mda olup olmad&#x131;klar&#x131;n&#x131; belirlemek i&#xE7;in kontrol edilir ve kullan&#x131;mda olmad&#x131;klar&#x131; durumda veya disklerle alakal&#x131; bir sorun olmad&#x131;&#x11F;&#x131; m&#xFC;ddet&#xE7;e komut, <strong><code>-f</code></strong> se&#xE7;ene&#x11F;i olmadan havuz i&#xE7;erisine eklenemez. Komut ayr&#x131;ca bu i&#x15F;lemi &#xF6;nizleyerek &#xE7;al&#x131;&#x15F;t&#x131;rmak i&#xE7;in  <strong><code>-n</code></strong> se&#xE7;ene&#x11F;ini vermek gerekmektedir. &#xD6;rne&#x11F;in:</p>
+<pre><code class="lang-text">~# zpool add -n tank mirror sdf sdg
+would update &apos;tank&apos; to the following configuration:
+    tank            ONLINE       0     0     0
+      mirror-0      ONLINE       0     0     0
+        sdb         ONLINE       0     0     0
+        sdc         ONLINE       0     0     0
+      mirror-1      ONLINE       0     0     0
+        sdd         ONLINE       0     0     0
+        sde         ONLINE       0     0     0
+      mirror-2      ONLINE       0     0     0
+        sdf         ONLINE       0     0     0
+        sdg         ONLINE       0     0     0
+</code></pre>
+<h4 id="farkl&#x131;-zfs-ayg&#x131;t-&#xE7;e&#x15F;itlerinden-olu&#x15F;an-ayg&#x131;t-havuzlar&#x131;n&#x131;-eklemek">Farkl&#x131; ZFS ayg&#x131;t &#xE7;e&#x15F;itlerinden olu&#x15F;an ayg&#x131;t havuzlar&#x131;n&#x131; eklemek</h4>
+<p>Bunu bir senaryo olarak anlatmak istedim. Sunucu i&#xE7;in b&#xFC;t&#xFC;n&#xFC; ile fonksiyonel bir ayg&#x131;t havuzu olu&#x15F;tural&#x131;m. Ve nerdeyse her tipte bir ayg&#x131;t tipi olu&#x15F;turarak ekleyelim.</p>
+<p>3 tane raid diskinden olu&#x15F;an ve raidz yap&#x131;s&#x131;nda olan bir disk havuzu olu&#x15F;tural&#x131;m</p>
+<pre><code class="lang-text">~# zpool create tank raidz sdb sdc sdd
+~# zpool status tank
+  pool: tank
+  state: ONLINE
+  scrub: none requested
+  config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          raidz1-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+            sdd     ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>&#x15E;imdi bu havuza ayna ayg&#x131;tlar&#x131; ekleyelim</p>
+<pre><code class="lang-text">~# zpool add tank mirror sde sdf
+~# zpool status tank
+  pool: tank
+  state: ONLINE
+  scrub: none requested
+  config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          raidz1-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+            sdd     ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sde     ONLINE       0     0     0
+            sdf     ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>Havuza &#x15F;imdi 4 tane &#xF6;nbellekleme diski ekleyelim.</p>
+<pre><code class="lang-text">~# zpool add tank cache sdg sdh sdk sdl
+~# zpool status tank
+  pool: tank
+  state: ONLINE
+  scrub: none requested
+  config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          raidz1-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+            sdd     ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sde     ONLINE       0     0     0
+            sdf     ONLINE       0     0     0
+          cache-0  ONLINE        0     0     0
+            sdg     ONLINE       0     0     0
+            sdh     ONLINE       0     0     0
+            sdk     ONLINE       0     0     0
+            sdl     ONLINE       0     0     0
+</code></pre>
+<p>Bir de log diski ekleyelim</p>
+<pre><code class="lang-text">~# zpool add tank log sdm
+~# zpool status tank
+  pool: tank
+  state: ONLINE
+  scrub: none requested
+  config:
+
+        NAME        STATE     READ WRITE CKSUM
+        tank        ONLINE       0     0     0
+          raidz1-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+            sdd     ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sde     ONLINE       0     0     0
+            sdf     ONLINE       0     0     0
+          cache-0  ONLINE        0     0     0
+            sdg     ONLINE       0     0     0
+            sdh     ONLINE       0     0     0
+            sdk     ONLINE       0     0     0
+            sdl     ONLINE       0     0     0  
+          logs
+            sdm     ONLINE       0     0     0
+</code></pre>
+<h3 id="zfs-havuzundan-ayg&#x131;t-&#xE7;&#x131;kartmak">ZFS Havuzundan Ayg&#x131;t &#xC7;&#x131;kartmak</h3>
+<p>ZFS ayg&#x131;t havuzuna disk ekleyebilece&#x11F;imiz gibi ayg&#x131;t da &#xE7;&#x131;kartabiliriz</p>
+<pre><code class="lang-text">~# zpool create  tank sdb sdc mirror sdd sde
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+        NAME          STATE     READ WRITE CKSUM
+        tank          ONLINE       0     0     0
+          sdb         ONLINE       0     0     0
+          sdc         ONLINE       0     0     0
+          mirror-0    ONLINE       0     0     0
+            sdd       ONLINE       0     0     0
+            sde       ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool remove tank sdb
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+        NAME          STATE     READ WRITE CKSUM
+        tank          ONLINE       0     0     0
+          sdc         ONLINE       0     0     0
+          mirror-0    ONLINE       0     0     0
+            sdd       ONLINE       0     0     0
+            sde       ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>Ayg&#x131;t havuzundan disk &#xE7;&#x131;karmak i&#xE7;in uymam&#x131;z gereken baz&#x131; kurallar var. Bunlar:</p>
+<ul>
+<li>Ayg&#x131;t kald&#x131;rma i&#x15F;lemi yaln&#x131;zca etkin yedeklerin, g&#xFC;nl&#xFC;k ayg&#x131;tlar&#x131;n&#x131;n ve &#xF6;nbellek ayg&#x131;tlar&#x131;n&#x131;n kald&#x131;r&#x131;lmas&#x131;n&#x131; desteklemektedir. </li>
+<li>Ana yans&#x131;t&#x131;lm&#x131;&#x15F; havuz yap&#x131;land&#x131;rmas&#x131;n&#x131;n par&#xE7;as&#x131; olan ayg&#x131;tlar, disk havuzundan kald&#x131;r&#x131;lamaz. </li>
+<li>Yedeksiz ve RAID-Z cihazlar&#x131; havuzdan kald&#x131;r&#x131;lamaz.</li>
+<li>Ayr&#x131;lma i&#x15F;leminin tamamlanmas&#x131;n&#x131;n ard&#x131;ndan disk ancak yeniden bi&#xE7;imlendirilerek havuz alan&#x131;na dahil edilebilir.</li>
+</ul>
 <h3 id="zfs-havuzundaki-ayg&#x131;tlar&#x131;-de&#x11F;i&#x15F;tirmek">ZFS Havuzundaki Ayg&#x131;tlar&#x131; De&#x11F;i&#x15F;tirmek</h3>
-<h3 id="zfs-havuzundan-ayg&#x131;t&#x131;-&#xE7;evrimi&#xE7;i-hale-getirmek">ZFS Havuzundan Ayg&#x131;t&#x131; &#xC7;evrimi&#xE7;i Hale Getirmek</h3>
-<h3 id="zfs-havuzundan-ayg&#x131;t-&#xE7;evrimd&#x131;&#x15F;&#x131;-hale-getirmek">ZFS Havuzundan Ayg&#x131;t &#xC7;evrimd&#x131;&#x15F;&#x131; Hale Getirmek</h3>
+<p>Ayg&#x131;t havuzundan kullan&#x131;lmayan diskleri kald&#x131;rabilece&#x11F;imiz gibi baz&#x131; diskleri yenileri ile de&#x11F;i&#x15F;tirebiliriz. </p>
+<pre><code class="lang-text">~# zpool create  sdc tank mirror sdd sde
+~# zpool status
+  pool: tank
+  state: ONLINE
+  config:
+
+        NAME          STATE     READ WRITE CKSUM
+        tank          ONLINE       0     0     0
+          sdc         ONLINE       0     0     0
+          mirror-0    ONLINE       0     0     0
+            sdd       ONLINE       0     0     0
+            sde       ONLINE       0     0     0
+
+errors: No known data errors
+~# zpool replace tank sdc sdb -f
+invalid vdev specification
+the following errors must be manually repaired:
+sdb is part of active pool &apos;tank&apos;
+~# zpool status
+  pool: tank
+ state: ONLINE
+remove: Removal of vdev 0 copied 37.5K in 0h0m, completed on Wed Mar  3 11:32:25 2021
+    96 memory used for removed device mappings
+config:
+
+        NAME          STATE     READ WRITE CKSUM
+        tank          ONLINE       0     0     0
+          sdb         ONLINE       0     0     0
+          mirror-2    ONLINE       0     0     0
+            sdd       ONLINE       0     0     0
+            sde       ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>Bu i&#x15F;lem sonunda ekleyece&#x11F;imiz diskin alan&#x131; az veya daha fazla olabilir. Bu durumda havuzun <code>autoexpand</code> parametresi a&#xE7;&#x131;ksa yeniden boyutland&#x131;rma yap&#x131;l&#x131;r. &#xD6;rnek vermek gerekirse bu parametresi a&#xE7;&#x131;k olmayan disklerde havuzun boyutu <code>set</code> komutu ile bu parametre ayarlanana kadar sabit kalacakt&#x131;r.</p>
+<pre><code class="lang-text">~# zpool list pool
+NAME   SIZE   ALLOC  FREE    CAP  HEALTH  ALTROOT
+pool  16.8G  76.5K  16.7G     0%  ONLINE  -
+~# zpool replace pool sdc sdb
+# zpool list pool
+NAME   SIZE   ALLOC  FREE    CAP  HEALTH  ALTROOT
+pool  16.8G  88.5K  16.7G     0%  ONLINE  -
+# zpool set autoexpand=on pool
+# zpool list pool
+NAME   SIZE   ALLOC  FREE    CAP  HEALTH  ALTROOT
+pool  32.2G   117K  32.2G     0%  ONLINE  -
+</code></pre>
+<h3 id="zfs-havuzundan-ayg&#x131;t&#x131;-&#xE7;evrimi&#xE7;i-ve-&#xE7;evrimd&#x131;&#x15F;&#x131;-hale-getirmek">ZFS Havuzundan Ayg&#x131;t&#x131; &#xC7;evrimi&#xE7;i ve &#xC7;evrimd&#x131;&#x15F;&#x131; Hale Getirmek</h3>
+<p>ZFS, bireysel cihazlar&#x131;n &#xE7;evrimd&#x131;&#x15F;&#x131;na al&#x131;nmas&#x131;na veya &#xE7;evrimi&#xE7;ine al&#x131;nmas&#x131;na izin verir. Donan&#x131;m g&#xFC;venilir olmad&#x131;&#x11F;&#x131;nda veya d&#xFC;zg&#xFC;n &#xE7;al&#x131;&#x15F;mad&#x131;&#x11F;&#x131;nda, ZFS, durumun ge&#xE7;ici oldu&#x11F;unu varsayarak cihazdan veri okumaya veya cihaza veri yazmaya devam eder. Durum ge&#xE7;ici de&#x11F;ilse, ayg&#x131;t havuzunun kararl&#x131;l&#x131;&#x11F;&#x131; i&#xE7;in ZFS&apos;ye cihaz&#x131; &#xE7;evrimd&#x131;&#x15F;&#x131;na alarak yok saymas&#x131; talimat&#x131;n&#x131; verebilirsiniz. ZFS, &#xE7;evrimd&#x131;&#x15F;&#x131; bir cihaza herhangi bir istek g&#xF6;ndermez.</p>
+<p>Depolaman&#x131;n ge&#xE7;ici olarak ba&#x11F;lant&#x131;s&#x131;n&#x131; kesmeniz gerekti&#x11F;inde,<strong><code>zpool offline</code></strong>komutunu kullanabilirsiniz.</p>
+<pre><code class="lang-text">~# zpool offline tank sdc
+~# zpool status
+  pool: tank
+ state: DEGRADED
+status: One or more devices has been taken offline by the administrator.
+        Sufficient replicas exist for the pool to continue functioning in a
+        degraded state.
+action: Online the device using &apos;zpool online&apos; or replace the device with
+        &apos;zpool replace&apos;.
+  scan: resilvered 190K in 00:00:01 with 0 errors on Wed Mar  3 11:39:49 2021
+remove: Removal of vdev 0 copied 37.5K in 0h0m, completed on Wed Mar  3 11:32:25 2021
+    96 memory used for removed device mappings
+config:
+
+        NAME              STATE     READ WRITE CKSUM
+        tank              DEGRADED     0     0     0
+          sdb             ONLINE       0     0     0
+          mirror-2        DEGRADED     0     0     0
+            sdc           OFFLINE      0     0     0
+            sdd           ONLINE       0     0     0
+          sde             ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
+<p>Bu i&#x15F;lemi yaparken <code>remove</code> komutunda oldu&#x11F;u gibi baz&#x131; noktalara dikkat etmemiz gerekmekte.</p>
+<ul>
+<li>Bir havuzun b&#xFC;t&#xFC;n&#xFC;n&#xFC; hatal&#x131; hale gelene kadar &#xE7;evrimd&#x131;&#x15F;&#x131; duruma getiremezsiniz.</li>
+<li>Bir raidz1 yap&#x131;land&#x131;rmas&#x131;nda iki cihaz&#x131; &#xE7;evrimd&#x131;&#x15F;&#x131;na alamazs&#x131;n&#x131;z veya &#xFC;st d&#xFC;zey bir sanal cihaz&#x131; &#xE7;evrimd&#x131;&#x15F;&#x131;na alamazs&#x131;n&#x131;z.</li>
+<li>Varsay&#x131;lan olarak, &#xE7;evrimd&#x131;&#x15F;&#x131;na al&#x131;nan diskin durumu kal&#x131;c&#x131;d&#x131;r. Sistem yeniden ba&#x15F;lat&#x131;lsa bile durumu kal&#x131;c&#x131;d&#x131;r.</li>
+<li>Bir cihaz &#xE7;evrimd&#x131;&#x15F;&#x131;na al&#x131;nd&#x131;&#x11F;&#x131;nda, depolama havuzundan ayr&#x131;lmaz. </li>
+<li>&#xC7;evrimd&#x131;&#x15F;&#x131;na al&#x131;nm&#x131;&#x15F; bir cihaz&#x131;, orijinal havuz yok edildikten sonra bile ba&#x15F;ka bir havuzda kullanamazs&#x131;n&#x131;z.</li>
+</ul>
+<p>&#xC7;evrimd&#x131;&#x15F;&#x131; durumuna al&#x131;nm&#x131;&#x15F; bir cihaz&#x131; ya de&#x11F;i&#x15F;tirebiliriz veya geri &#xE7;evrimi&#xE7;i haline alabiliriz. De&#x11F;i&#x15F;tirme komutunu g&#xF6;sterdim. diski geri &#xE7;evrimi&#xE7;i konuma almak i&#xE7;in <strong><code>zpool online</code></strong> komutu kullan&#x131;l&#x131;r.</p>
+<pre><code class="lang-text">~# zpool online tank sdc
+~# zpool status
+  pool: tank
+  state: ONLINE
+  scan: resilvered 16.5K in 00:00:01 with 0 errors on Wed Mar  3 11:56:37 2021
+  remove: Removal of vdev 0 copied 37.5K in 0h0m, completed on Wed Mar  3 11:32:25 2021
+    96 memory used for removed device mappings
+  config:
+        NAME              STATE     READ WRITE CKSUM
+        tank              ONLINE       0     0     0
+          sdb             ONLINE       0     0     0
+          mirror-2        ONLINE       0     0     0
+            sdc           ONLINE       0     0     0
+            sdd           ONLINE       0     0     0
+          sde             ONLINE       0     0     0
+
+errors: No known data errors
+</code></pre>
 <h2 id="zfsde-havuz-aktar&#x131;m-i&#x307;&#x15F;lemleri">ZFS&apos;de Havuz Aktar&#x131;m &#x130;&#x15F;lemleri</h2>
 <p>ZFS&apos;de ayg&#x131;t havuzlar&#x131; sadece s&#x131;f&#x131;rdan olu&#x15F;turma yolu ile de&#x11F;il aktar&#x131;m yolu ile de elde edilebilir. Geleneksel disk y&#xF6;netim sistemlerinde diskler tak&#x131;ld&#x131;&#x11F;&#x131; anda diski ba&#x11F;lamak i&#xE7;in tek yapmam&#x131;z gereken diskin ba&#x11F;lama komutunu vermek olacakt&#x131;r. &#xC7;o&#x11F;unlukla diski ba&#x11F;lamak i&#xE7;in kulland&#x131;&#x11F;&#x131;m&#x131;z komutlar i&#x15F;letim sistemleri taraf&#x131;ndan kar&#x15F;&#x131;lanmaktad&#x131;r. Ancak, ZFS&apos;de bu diskleri uygun &#x15F;ekilde bulup ba&#x11F;lamam&#x131;z gerekmektedir.</p>
 <p>Yine ayn&#x131; &#x15F;ekilde geleneksel disk y&#xF6;netim sistemlerinde diskleri ay&#x131;rmak i&#xE7;in kullan&#x131;lan disk domutlar&#x131; &#xE7;o&#x11F;unlukla i&#x15F;letim sistemi taraf&#x131;ndan gelmektedir. ZFS&apos;de ise geleneksel y&#xF6;ntemlerin aksine bu i&#x15F;lem i&#xE7;in <code>zpool</code> havuz y&#xF6;neticisi taraf&#x131;ndan kullan&#x131;lan komutlar&#x131; kullanmam&#x131;z gerekmektedir.</p>
@@ -1070,7 +1330,7 @@ tank  feature@zstd_compress          enabled                        local
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"Detaylı ZFS Havuz Yönetimi Komutlarını içermektedir.","title":"ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi","level":"4.2","depth":1,"next":{"title":"ZFS Disk Hiyerarşisi","level":"5.1","depth":1,"path":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","ref":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","articles":[]},"previous":{"title":"ZFS Havuz Yönetimi - Basit Havuz Operasyonları","level":"4.1","depth":1,"path":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","ref":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.md","mtime":"2021-03-01T10:20:38.372Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-01T10:33:13.419Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"Detaylı ZFS Havuz Yönetimi Komutlarını içermektedir.","title":"ZFS Havuz Yönetimi - Detaylı Havuz Yönetimi","level":"4.2","depth":1,"next":{"title":"ZFS Disk Hiyerarşisi","level":"5.1","depth":1,"path":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","ref":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","articles":[]},"previous":{"title":"ZFS Havuz Yönetimi - Basit Havuz Operasyonları","level":"4.1","depth":1,"path":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","ref":"zfs-havuzu/zfs-havuz-yoenetimi-basit-havuz-operasyonlari.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfs-havuzu/zfs-havuz-yoenetimi-detayli-havuz-yoenetimi.md","mtime":"2021-03-03T09:02:47.620Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-04T20:51:51.531Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
