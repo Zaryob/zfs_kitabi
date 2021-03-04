@@ -6,6 +6,161 @@ description: ZFS'de üst düzey olarak nitelendirilebilecek hiyerarşi komutlar�
 
 ## ZFS'ye Has Hiyerarşi Özellikleri
 
+### ZFS'de Anlık Görüntü Özelliği
+
+ZFS'de anlık görüntüler (snapshot), Linux LVM anlık görüntülerine benzemektedir. Anlık görüntü, birinci sınıf salt okunur bir dosya sistemidir. Anlık görüntüyü aldığınız andaki dosya sisteminin durumunun aynalanmış bir kopyasıdır. Diskimizin o andaki verilerinin bir fotoğrafı gibidir. Disk verileri değişiyor olsa da, tam o fotoğrafı çektiğiniz anda diskin neye benzediğine dair bir imajımız olduğu için o ana geri dönerek verileri kurtarabiliriz. Sonuç olarak veri kümesinin parçası olan veri değişiklikleri, orijinal kopyayı anlık görüntünün kendisinde tutarsınız. Bu şekilde, o dosya sisteminin kalıcılığını koruyabilirsiniz.
+
+Havuzunuzda 2^64'e kadar anlık görüntü tutabilirsiniz, ZFS anlık görüntüleri yeniden başlatma sırasında kalıcıdır ve herhangi bir ek yedekleme deposu gerektirmez; verilerinizin geri kalanıyla aynı depolama havuzunu kullanırlar. Bir ZFS anlık görüntüsü, bu ZFS veri ağacının bir kopyasıdır, ancak bu veri ağacının anlık görüntüsünün hiçbir zaman değiştirilmediğinden imajın %100 sağlam olduğundan emin olabilirsiniz.
+
+Anlık görüntü oluşturmak neredeyse anlıktır ve maaliyeti çok azdır. Bununla birlikte, veriler değişmeye başladığında, anlık görüntü verileri depolamaya başlayacaktır. Birden fazla anlık görüntünüz varsa, tüm anlık görüntülerde birden çok delta izlenmektedir. Yani git'e ait commit yapısından farklı olarak het görüntü kendi deltalarına sahiptir
+
+
+#### Anlık Görüntü Oluşturma
+
+İki tür anlık görüntü oluşturabilirsiniz: havuz anlık görüntüleri ve veri kümesi anlık görüntüleri. Hangi tür anlık görüntü almak istediğiniz size kalmış. Ancak anlık görüntüye bir ad vermelisiniz. Anlık görüntü adının sözdizimi şöyledir:
+
+    havuz/veri kümesi@anlık_görüntü-adı
+    havuz@anlık_görüntü-adı
+
+Bir anlık görüntü oluşturmak için "zfs snapshot" komutunu kullanıyoruz. Örneğin, "tank/deneme" veri kümesinin anlık görüntüsünü almak için şunları çıkarırız:
+
+```
+~# zfs snapshot tank/test@20210403
+```
+
+Anlık görüntü birinci sınıf bir dosya sistemi olsa da, standart ZFS veri kümeleri veya havuzlar gibi değiştirilebilir özellikler içermez. Aslında, anlık görüntü hakkındaki her şey salt okunurdur. Örneğin, bir anlık görüntüde sıkıştırmayı etkinleştirmek isterseniz, şu şekilde olur:
+
+```
+# zfs set compression=lzma tank/test@20210403
+cannot set property for 'tank/test@20210403': this property can not be modified for snapshots
+```
+
+#### Anlık Görüntüleri Listeleme
+
+Anlık görüntüler iki şekilde görüntülenebilir: veri kümesinin kök dizininde yer alan gizli ".zfs" dizinine erişerek veya "zfs list" komutunu kullanarak görüntüleyebiliriz. 
+
+```
+~# ls -a /tank/test
+./ ../ boot.tar text.tar text.tar.2
+~# cd /tank/test/.zfs/
+~# ls -a
+./  ../  shares/  snapshot/
+```
+
+Varsayılan zfs detay dizini gizlidir. Ancak ZFS'deki her şey gibi bunu da değiştirebiliriz:
+
+```
+# zfs set snapdir=visible tank/test
+# ls -a /tank/test
+./  ../  zfs/
+```
+
+Anlık görüntüleri görüntülemenin diğer yolu,  "-t anlık snapshot" parametresi ile "zfs list" komutunu kullanmaktır:
+```
+# zfs list -t snapshot
+NAME                       USED  AVAIL  REFER  MOUNTPOINT
+tank/test@20210403            0      -   525M  -
+```
+
+Bende bir tane aygıt havuzu ve bir tane snaphot olduğuna dikkat çekerim. Varsayılan olarak, tüm havuzlar için tüm anlık görüntüleri zfs list komutu ile gösterilmektedir.
+
+Çıktıyla daha spesifik olmak istiyorsanız, ister veri kümesi ister depolama havuzu olsun, belirli bir kök sistemin tüm anlık görüntülerini görebilirsiniz. Özyineleme için yalnızca "-r" parametresini kullanmamız ve ardından kök sistemi sağlamanız gerekir. Bu durumda, yalnızca depolama havuzu "tank" ın anlık görüntülerini göreceğim ve diğer havuzların içindekileri göz ardı edeceğim:
+
+```
+~# zpool create tank2
+~# zfs snapshot tank2@firstcreated
+~# zpool create tank3
+~# zfs snapshot tank3@firstcreated
+# zfs list -t snapshot
+NAME                       USED  AVAIL  REFER  MOUNTPOINT
+tank/test@20210403            0      -   525M  -
+tank2@firstcreated            0      -   1M    -
+tank2@firstcreated            0      -   1M    -
+~# zfs list -r -t snapshot tank
+NAME                       USED  AVAIL  REFER  MOUNTPOINT
+tank/test@20210403            0      -   525M  -
+```
+
+
+#### Anlık Görüntüleri Yok Etme
+
+Bir depolama havuzunu veya bir ZFS veri kümesini yok edeceğiniz gibi, anlık görüntüleri yok etmek için benzer bir yöntem kullanırız. Bir anlık görüntüyü yok etmek için, "zfs destroy" komutunu kullanırız, bu komuta parametre olarak yok etmek istediğiniz anlık görüntüyü vererek anlık görüntüleri yok edebiliriz:
+
+```
+~# zfs destroy tank/test@20210403
+```
+
+Bilinmesi gereken önemli bir nokta, bir anlık görüntü varsa, veri kümesinin alt dosya sistemi olarak kabul edilmektedir. Bu nedenle, tüm anlık görüntüler ve iç içe geçmiş veri kümeleri yok edilene kadar bir veri kümesini kaldıramazsınız.
+
+```
+~# zfs destroy tank/test 
+cannot destroy 'tank/test': filesystem has children
+use '-r' to destroy the following datasets:
+tank/test@20210403
+```
+
+Anlık görüntüleri yok etmek, diğer anlık görüntülerin tuttuğu ek alanı boşaltabilir, ana disk alanına etkisi hiç omlayacak veya çok az olacaktır çünkü bunlar bu alan anlık görüntülere özgü bir alandır.
+
+#### Anlık Görüntüleri Yeniden Adlandırma
+
+Anlık görüntüleri yeniden adlandırabilirsiniz, ancak oluşturuldukları depolama havuzunda ve ZFS veri kümesinde yeniden adlandırılmaları gerekir. Bunun dışında, anlık görüntüleri yeniden adlandırmak disk hiyerarşisi veya havuzu yeniden adlandırmak kadar basittir:
+
+```
+# zfs rename tank/test@20210403 tank/test@2021-mart-carsamba
+```
+
+#### Anlık Görüntüye Geri Dönme
+
+Önceki bir anlık görüntüye geri dönmek, bu anlık görüntü ile geçerli saat arasındaki tüm veri değişikliklerini temizleyecektir. Ayrıca, varsayılan olarak, yalnızca en son anlık görüntüye geri dönebilirsiniz. Daha önceki bir anlık görüntüye geri dönmek için, geçerli saat ile geri dönmek istediğiniz anlık görüntü arasındaki tüm anlık görüntüleri yok etmeniz anlamına gelmektedir. ZFS'de tek kesinti yaşayabileceğimiz an geriye dönme işlemidir. 
+
+`zfs rollback` komutu ile bu işlem yapılmaktadır.
+
+```
+~# zfs rollback tank/test@20210403
+```
+
+Eğer bu anlık görüntülerden sonra alınmış başka anlık görüntüler varsa bu işlem yapılmayacaktır.
+
+```
+# zfs rollback tank/test@20210403
+cannot rollback to 'tank/test@20210403': more recent snapshots exist
+use '-r' to force deletion of the following snapshots:
+tank/test@20210404
+tank/test@20210405
+```
+
+#### ZFS Klonları
+
+Bir ZFS klonu, anlık görüntülerden türetilmiş veya bir nevi "yükseltilmiş" yazılabilir bir dosya sistemidir. Klonlar yalnızca anlık görüntülerden oluşturulabilir ve anlık görüntüye bağımlıdır ve bu klonlar, klon var olduğu sürece kalır. Bu, bir anlık görüntüyü klonladıysanız yok edemeyeceğiniz anlamına gelir. Klon, anlık görüntünün verdiği verilere dayanır. Anlık görüntüyü yok etmeden önce klonu yok etmelisiniz.
+
+Klonlar oluşturmak, tıpkı anlık görüntüler gibi neredeyse anlıktır ve başlangıçta herhangi bir ek yer kaplamaz. Klonların aksine, anlık görüntünün tüm başlangıç ​​alanını kaplar. Veriler klonda değiştirildikçe, anlık görüntüden ayrı bir yer kaplamaya başlar.
+
+
+#### ZFS Klonları Oluşturma
+
+Bir klon oluşturma, "zfs klonu" komutu, klonlanacak anlık görüntü ve yeni dosya sisteminin adı ile yapılır. Klonun, klonla aynı veri kümesinde bulunması gerekmez, ancak aynı depolama havuzunda bulunması gerekir. Örneğin, "tank/test@20210403" anlık görüntüsünü klonlamak ve ona "tank/klon1" adını vermek istersem, aşağıdaki şekilde bunu yapabilirim:
+
+```
+~# zfs clone tank/test@20210403 tank/klon1
+~# zfs list -r tank
+NAME           USED   AVAIL  REFER  MOUNTPOINT
+tank           161M   2.78G  44.9K  /tank
+tank/test      37.1M  2.78G  37.1M  /tank/test
+tank/klon1     37.1M  2.78G  37.1M  /tank/klon1
+```
+
+Klonlarla alakalı bir durum da onları hiyerarşi gibi kullanıyor olmamızdır. Ancak unutmayın ki bu bizim dosya havuzumuzdaki alandan yemektedir.
+
+
+#### Klonları Yok Etmek
+
+Veri kümelerini ve tabi ki anlık görüntüleri yok ederken olduğu gibi, "zfs destory" komutunu kullanıyoruz. Yine, klonları yok edene kadar bir anlık görüntüyü yok edemezsiniz. Ayrıca bir görüntü bir klona bağlıysa yine başta bu klonu yok etmeden görüntüyü yok edemezsiniz.
+
+```
+~# zfs destroy tank/klon1
+```
+
+
 ### Hiyerarşi Bazında Sıkıştırma Ayarlamak
 
 Eğer etkinleştirirseniz, ZFS hiyerarşileri, ayrı ayrı sıkıştırmayı destekler ve bu işlemde veriler şeffaf bir şekilde tutulur. Havuzunuzda sakladığınız her dosya sıkıştırılabilir. Kullanıcı ise bu sıkıştırılmış dosyalara hiç sıkıştırılmamışçasına erişilebilir. Başka bir deyişle, geleneksel dosya sistemine bağlandığı andan itibaren hiyerarşiler kullanıcının ek bir işlem yapmasına gerek kalmadan sıkıştırılmasını ve kullanıldığı zaman açılarak kullanılmasını sağlar. ZFS geleneksel sıkıştırma yöntemlerinin aksine, dosya katmanının altında, diskteki veriler anında sıkıştırılır veya açılır. Ve CPU'da sıkıştırma yapmanın maliyeti az olduğu ve bazı algoritmalarda sıkıştırma son derece hızlı olduğu için kullanıcı tarafından çoğunlukla farkedilmemektedir.
