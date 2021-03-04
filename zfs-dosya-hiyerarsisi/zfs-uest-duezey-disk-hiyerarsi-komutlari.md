@@ -161,6 +161,80 @@ Bu durumda, veriler önce sıkıştırılır, ardından tekilleştirilir. Ham ve
 
 ### ZVol
 
+Bir ZVOL, sisteme blok cihaz olarak aktarılan bir ZFS hiyerarşi birimidir. Şimdiye kadar, ZFS dosya sistemi ile uğraşırken, havuzumuzu oluşturmak dışında, hiyerarşiler oluşturmayı ve veri setlerini monte etmeyi gösterdim. Bunları anlatırken blok cihazlarla hiç ilgilenmedim.
+
+ZFS, geleneksel bir dosya sisteminden daha fazlası olduğunu belirtmiştim. ZFS disklerle aygıtlarla ve veri blokları ile çalışırken daha çok bir kullanıcı alanı uygulaması gibi bir kullanım sunuyor. Bu şu denemek, GNU/Linux'ta dosya sistemleriyle çalışırken, ister tam diskler, bölümler, RAID dizileri veya mantıksal birimler olsun, sürekli olarak blok aygıtlarla çalışmamız gerekir. Bunu yaparken çoğunlukla neredeyse alt düzey bazı komutlarla uğraşmamız, sistemde değişimler yapmamız ve hatta saçma sapan zorluklara sebep verecek bazı şeylerle boğuşmamız gerekmektedir. ZFS ise bu dizilerle neredeyse donanım ve çekirdek katmanla kullanıcıyı uğraştırmak yerine basit bir komut seti sayesinde bütün bunları kendisi otomatik bir şekilde halleder, veya neredeyse otomatik bir şekilde. 
+
+Şimdi ellerimizi ZVOL ile uğraşırken bütün bu yapıya daha biraz geleneksel disk yönetim sistemlerindeki gibi dalacağız. ZVOL, depolama havuzunuzda bulunan bir ZFS blok cihazıdır. Bu cihaz sayesinde, tek bloklu aygıtın aynalardan veya RAID-Z aygıtları gibi temel RAID dizilerinden ZVOL sayesinde yararlanabileceğimiz ve alt düzeyde bazı değişimler yapabileceğimiz anlamına gelir.
+
+ZVOL bir taraftan disk hiyerarşisinin yararlandığı anlık görüntüler gibi yazma üzerine kopyalama özelliklerinin avantajlarından yararlanırken bir diğer noktada havuzlara ait çevrimiçi sorun temizleme, veri yayımlama, blok sıkıştırma ve veri tekilleştirme özelliklerinden ve hatta havuzlara ait ZIL ve ARC gibi disk sistemlerinden de faydalanır.
+
+Meşru bir blok cihazı olduğu için, ZVOL'nuzla çok ilginç şeyler yapabilirsiniz. İlginç derken ciddi manada saçma sapan gelebilecek şeyleri bile yapabiliriz.
+
+#### ZVOL oluşturmak
+
+Bir ZVOL oluşturmak için, "zfs create" komutumuzla "-V" parametresini kullanıyoruz ve ona bir boyut veriyoruz. ZVOL'ü  ZFS havuzları altında oluşturuyoruz, hiyerarşilerden tek farkımız ZVOL oluştururken boyut belirlememiz gerekmektedir. Şimdi 1G boyutunda bir ZVOL oluşturalım:
+```
+# zfs create -V 1G tank/zvoldisk
+# ls -l /dev/zvol/tank/zvoldisk
+lrwxrwxrwx  2 root root   4096 Şub  1 14:41  /dev/zvol/tank/disk1 -> ../../zd145
+# ls -l /dev/tank/zvoldisk
+lrwxrwxrwx  2 root root   4096 Şub  1 14:41  /dev/tank/zvoldisk -> ../../zd145
+```
+
+ZVOL ile alakalı farkettiğimiz gibi resmen /dev dizini içerisinde bir aygıt oluşturmul gibi görünmekteyiz, bu diskin 1 GB boyutunda olduğu ve %100 gerçek bir blok cihaz olduğu için, başka herhangi bir blok cihazla yapacağımız her şeyi yapabiliriz. İşte bu esneklik sayesinde  ZFS'ye mükemmel bir esneklik ekleme avantajını elde ederiz. Ayrıca, boyutundan bağımsız olarak bir ZVOL oluşturmak neredeyse anında gerçekleşir. Neredeyse bilgisayara yeni bir disk bağlamaktan daha hızlı olarak bu gerçekleştirilebilir.
+
+Bu ZVOL aygıtının bir blok cihazı olduğunu belirtmiştim. Bu aygıt aynı bir img gibi bir blok aygıtı oluştup bağlamamamız mümkün. Ayrıca diğer herhangi bir blok cihazda olduğu gibi, onu biçimlendirebilir, takas için ve hatta ext4 formatında disk olarak bile kullanabiliriz. 
+Ama ZVOL aygıtları bu kadar zarif ve geniş özelliklere sahip değil, hatta ciddi sınırlamalara bile sahip.
+
+İlk olarak, varsayılan olarak ZVOL blok cihazlarınız için her bir havuz için yalnızca 8 cihaz oluşturabilme hakkımız vardır. Ancak bu miktarı havuz üzerinden değiştirebiliriz. ZFS ile varsayılan olarak maksimum 2^64 ZVOL aygıtı oluşturabiliriz. Ayrıca, dosya sisteminizin üstünde önceden tahsis edilmiş bir imaj gerektirir. Yani, ZFS sayesinde üç veri katmanını yönetebiliyoryz: blok aygıtı, dosya ve dosya sistemindeki bloklar. ZVOL'larla, blok cihazı, tıpkı diğer veri kümeleri gibi yönetim yapabilir, ve bu cihazlardan yararlanarak verilerimizi depolama havuzunun hemen dışına aktarabiliriz.
+
+Bu ZVOL ile yapabileceğimiz bazı şeylere bakalım.
+
+#### ZVOL'de Ext4
+
+Bu kulağa tuhaf gelebilir, ancak ZVOL aynen bir donanım aygıtı gibidir, başka bir dosya sistemini ZVOL'ü biçimlendirmek için kullanabilir ve onu bir ZVOL'un üzerine bağlayabilirsiniz. Diğer bir deyişle, ext4 formatlı bir ZVOL oluşturup ve bunu /mnt'ye bağlayabiliriz. Hatta ZVOL'u alt bölümlere ayırabilir ve üzerine birden çok dosya sistemi koyabiliriz. Hadi bunu yapalım!
+
+```
+~# zfs create -V 100G tank/ext4
+~# fdisk /dev/tank/ext4
+( follow the prompts to create 2 partitions- the first 1 GB in size, the second to fill the rest )
+~# fdisk -l /dev/tank/ext4
+
+Disk /dev/tank/ext4: 107.4 GB, 107374182400 bytes
+16 heads, 63 sectors/track, 208050 cylinders, total 209715200 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 8192 bytes
+I/O size (minimum/optimal): 8192 bytes / 8192 bytes
+Disk identifier: 0x000a0d54
+
+          Device Boot      Start         End      Blocks   Id  System
+/dev/tank/ext4p1            2048     2099199     1048576   83  Linux
+/dev/tank/ext4p2         2099200   209715199   103808000   83  Linux
+~# ls -l /dev/tank/ext4p1 
+lrwxrwxrwx  2 root root   4096 Şub  1 14:41  /dev/tank/ext4p1 -> ../../zd0p1
+~# ls -l /dev/tank/ext4p2
+lrwxrwxrwx  2 root root   4096 Şub  1 14:41  /dev/tank/ext4p2 -> ../../zd0p2
+```
+
+ZFS 2 ZVOL aygıtımızı /dev/zd0p1 ve /dev/zd0p2 olarak linklemiş oldu. Bunları biçimlendirelim.
+
+```
+~# mkfs.ext4 /dev/zd0p1
+~# mkfs.ext4 /dev/zd0p2
+~# mkdir /mnt/zd0p{1,2}
+~# mount /dev/zd0p1 /mnt/zd0p1
+~# mount /dev/zd0p2 /mnt/zd0p2
+```
+
+Gördüğümüz gibi  diskler oluşturup bunları bağlamış olduk ama bu ne işimize yaradı. Mesela ZFS'nin anlık görüntü oluşturma özelliğini ext4 ile kullanabiliriz.
+
+```
+~# zfs snapshot tank/ext4@001
+```
+
+ext4'ün normalde size veremeyeceği şeylere ve ZFS'nin tüm avantajlarına ZVOL sayesinde sahibiz. Bu senaryoda, artık düzenli olarak verilerinizin anlık görüntüsünü alıyorsunuz, çevrimiçi fırçalamalar gerçekleştiriyor ve yedekleme için iş yeri dışına gönderiyorsunuz. En önemlisi, verileriniz oldukça tutarlı bir şekilde korunabiliyor ve ek bir diske gerek kalmadan yedeklemeler ve geriye dönük imajlandırma işlemleri yapılabiliyor.
+
 ### iSCSI
 
 ### NFS ve Samba ile Disk Hiyerarşisi Paylaşımı
