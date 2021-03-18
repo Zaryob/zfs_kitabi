@@ -34,6 +34,7 @@
 
 * [Ekler](son-kisim/ekler/README.md)
   * [Sıkça Sorulan Sorular](son-kisim/ekler/sikca-sorulan-sorular.md)
+  * [ZFS Kopya Kağıdı](son-kisim/ekler/kopya-kagidi.md)
 * [Kaynakça](son-kisim/kaynakca.md)
 * [GNU Özgür Belgelendirme Lisansı](son-kisim/lisans.md)
 
