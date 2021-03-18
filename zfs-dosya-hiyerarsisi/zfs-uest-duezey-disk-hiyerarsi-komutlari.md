@@ -456,3 +456,152 @@ SMB ve NFS'de olduğu gibi, iSCSI arka plan programının kurulu ve çalışıyo
 ~# zfs set shareiscsi=on tank/srv
 ```
 
+## ZFS Disk Hiyerarşilerinin Detaylı Öznitelikleri
+
+ZFS disk hiyerarşilerinde aynı havuzlarda olduğu gibi bir öznitelik mantığı bulunmakta. Bayrak yapısını karşılayan bu öznitelikler havuzun bazı kısımlarının farklı bazı kısımlarının farklı davranması sağlanarak bütün bir havuzun farklı parçalara ayrılıp farklı şekillerde çalışmasına imkan sağlamayarak farklı diskler kullanmadan farklı amaçlar için özelleştirilmiş hiyerarşileri aynı havuz içerisinden kullanabiliriz. (Bayaa uzun cümle kurmuşum haa)
+
+Bu bölümde sadece ZFS hiyerarşilerinin özniteliklerinden bahsedeceğiz. Ancak bunu havuz özniteliklerinden farklı olarak örneklerle göstereceğiz.
+
+### Belli Başlı Bazı Öznitelikler
+
+* **allocated**: Tüm ZFS hiyerarşileri tarafından havuza kaydedilen veri miktarıdır. Bu ayar salt okunurdur
+* **type**: Tüm ZFS hiyerarşilerinin tipini belirlemede kullanılır
+* **used**: Bu hiyerarşide kullanılan boyutu belirtir.
+* **compressratio**: Dosya hiyerarşisinin sıkıştırma oranını belirtir.
+* **guid**: ZFS hiyerarşisine donanım GUID değeri tarzı sanal değer atar. Bu değeri tutan parametredir.
+* **quota**: Bu hiyerarşide kullanılacak maksimum boyutu belirler. Bu boyut sanal bir boyuttur. Belli bir hiyerarşinin havuzu domine etmesini önlemek için kullanabiliriz. 
+* **sharenfs**: NFS ile hiyerarşinin paylaşılabilirliğini kontrol eden parametredir.
+* **sharensmb**: SAMBA ile hiyerarşinin paylaşılabilirliğini kontrol eden parametredir.
+* **readonly**: Hiyerarşiyi raw okunabilir konuma getirir.
+* **compression**: Hiyerarşiyi sıkıştırmayı ayarlar.
+* **copies**: Hiyerarşinin ayne ve klon sayısını belirtir.
+* **version**: Hiyerarşinin versiyonunu belirler.
+
+### Öznitellikleri Görüntüleme
+
+Depolama havuzu öznitelliklerini görüntüleme ve ayarlamada olduğu gibi, hiyerarşi öznitelliklerini de alabileceğiniz birkaç yol vardır - tüm öznitelikleri bir kerede, yalnızca bir mülk veya birden fazla virgülle ayrılmış olarak alabilirsiniz. 
+
+```shell
+~# zfs get all tank/ROOT/root 
+NAME            PROPERTY              VALUE                   SOURCE
+tank/ROOT/root  type                  filesystem              -
+tank/ROOT/root  creation              Prş Mar 18 20:26 2021  -
+tank/ROOT/root  used                  24K                     -
+tank/ROOT/root  available             14.5G                   -
+tank/ROOT/root  referenced            24K                     -
+tank/ROOT/root  compressratio         1.00x                   -
+tank/ROOT/root  mounted               yes                     -
+tank/ROOT/root  quota                 none                    default
+tank/ROOT/root  reservation           none                    default
+tank/ROOT/root  recordsize            128K                    default
+tank/ROOT/root  mountpoint            /tank/ROOT/root         default
+tank/ROOT/root  sharenfs              off                     default
+tank/ROOT/root  checksum              on                      default
+tank/ROOT/root  compression           off                     default
+tank/ROOT/root  atime                 on                      default
+tank/ROOT/root  devices               on                      default
+tank/ROOT/root  exec                  on                      default
+tank/ROOT/root  setuid                on                      default
+tank/ROOT/root  readonly              off                     default
+tank/ROOT/root  zoned                 off                     default
+tank/ROOT/root  snapdir               hidden                  default
+tank/ROOT/root  aclmode               discard                 default
+tank/ROOT/root  aclinherit            restricted              default
+tank/ROOT/root  createtxg             10                      -
+tank/ROOT/root  canmount              on                      default
+tank/ROOT/root  xattr                 on                      default
+tank/ROOT/root  copies                1                       default
+tank/ROOT/root  version               5                       -
+tank/ROOT/root  utf8only              off                     -
+tank/ROOT/root  normalization         none                    -
+tank/ROOT/root  casesensitivity       sensitive               -
+tank/ROOT/root  vscan                 off                     default
+tank/ROOT/root  nbmand                off                     default
+tank/ROOT/root  sharesmb              off                     default
+tank/ROOT/root  refquota              none                    default
+tank/ROOT/root  refreservation        none                    default
+tank/ROOT/root  guid                  6730011657800072920     -
+tank/ROOT/root  primarycache          all                     default
+tank/ROOT/root  secondarycache        all                     default
+tank/ROOT/root  usedbysnapshots       0B                      -
+tank/ROOT/root  usedbydataset         24K                     -
+tank/ROOT/root  usedbychildren        0B                      -
+tank/ROOT/root  usedbyrefreservation  0B                      -
+tank/ROOT/root  logbias               latency                 default
+tank/ROOT/root  objsetid              131                     -
+tank/ROOT/root  dedup                 off                     default
+tank/ROOT/root  mlslabel              none                    default
+tank/ROOT/root  sync                  standard                default
+tank/ROOT/root  dnodesize             legacy                  default
+tank/ROOT/root  refcompressratio      1.00x                   -
+tank/ROOT/root  written               24K                     -
+tank/ROOT/root  logicalused           12K                     -
+tank/ROOT/root  logicalreferenced     12K                     -
+tank/ROOT/root  volmode               default                 default
+tank/ROOT/root  filesystem_limit      none                    default
+tank/ROOT/root  snapshot_limit        none                    default
+tank/ROOT/root  filesystem_count      none                    default
+tank/ROOT/root  snapshot_count        none                    default
+tank/ROOT/root  snapdev               hidden                  default
+tank/ROOT/root  acltype               off                     default
+tank/ROOT/root  context               none                    default
+tank/ROOT/root  fscontext             none                    default
+tank/ROOT/root  defcontext            none                    default
+tank/ROOT/root  rootcontext           none                    default
+tank/ROOT/root  relatime              off                     default
+tank/ROOT/root  redundant_metadata    all                     default
+tank/ROOT/root  overlay               on                      default
+tank/ROOT/root  encryption            off                     default
+tank/ROOT/root  keylocation           none                    default
+tank/ROOT/root  keyformat             none                    default
+tank/ROOT/root  pbkdf2iters           0                       default
+tank/ROOT/root  special_small_blocks  0                       default
+```
+
+Örneğin, veri kümesinin yalnızca kotasını görüntülemek istediğimi varsayalım. Aşağıdaki komutu verebiliriz:
+
+```shell
+~# zfs get quota tank/ROOT/root 
+NAME            PROPERTY  VALUE  SOURCE
+tank/ROOT/root  quota     none   default
+```
+
+Birden fazla özniteliğin alınması için:
+
+```shell
+~# zfs get quota,compressratio,available tank/ROOT
+NAME       PROPERTY       VALUE  SOURCE
+tank/ROOT  quota          none   default
+tank/ROOT  compressratio  1.00x  -
+tank/ROOT  available      14.5G  -
+```
+
+### Öznitellikleri Ayarlama
+
+Her bir hiyerarşide öznitelik ayarlamak bir parametre ile yapılabilir `zfs set` komutu ile öznitelik ayarlanabilir.
+
+Örneğin, veri kümesinin yalnızca sıkıştırma oranını belirlemek istediğimi varsayalım. Aşağıdaki komutu verebiliriz:
+
+```shell 
+~# zfs set compression=true tank/ROOT/root
+```
+
+Şimdi de bu sıkıştırmaya bir oran verelim:
+```shell
+~# zfs set compressratio=1.25 tank/ROOT/root 
+```
+
+Diğer parametreleri de bu şekilde ayarlayabiliriz.
+
+### Öznitelikleri Miraslama
+
+Miraslama OOP mantığından çok aşina olduğumuz bir konu. Hemen gözümüz korkmasın. Miras olayı burada nesneler üzerinde değil hiyerarşiler üzerinde yapılabilmekte. Bunun temel amacı bir havuza ait bütün hiyerarşilere aynı özellikleri vermektir. `zfs inherit` komutu ile yapılır.
+
+```shell
+~# zfs inherit compression tank
+~# zfs get -r compression tank
+NAME            PROPERTY     VALUE     SOURCE
+tank            compression  lzjb      local
+tank/ROOT/root  compression  lzjb      inherited from tank
+tank/ROOT/test  compression  lzjb      inherited from tank
+```
