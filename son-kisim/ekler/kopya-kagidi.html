@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Ekler · GitBook</title>
+        <title>ZFS Kopya Kağıdı · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="sikca-sorulan-sorular.html" />
+    <link rel="next" href="../../zfs_oezellik_ek/copy-on-write.html" />
     
     
-    <link rel="prev" href="../../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html" />
+    <link rel="prev" href="sikca-sorulan-sorular.html" />
     
 
     </head>
@@ -281,7 +281,7 @@
         
         
     
-        <li class="chapter active" data-level="8.1" data-path="./">
+        <li class="chapter " data-level="8.1" data-path="./">
             
                 <a href="./">
             
@@ -308,7 +308,7 @@
             
         </li>
     
-        <li class="chapter " data-level="8.1.2" data-path="kopya-kagidi.html">
+        <li class="chapter active" data-level="8.1.2" data-path="kopya-kagidi.html">
             
                 <a href="kopya-kagidi.html">
             
@@ -395,7 +395,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Ekler</a>
+        <a href="../.." >ZFS Kopya Kağıdı</a>
     </h1>
 </div>
 
@@ -410,7 +410,96 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="ekler">Ekler</h1>
+                                <h1 id="zfs-kopya-ka&#x11F;&#x131;d&#x131;">ZFS Kopya Ka&#x11F;&#x131;d&#x131;</h1>
+<h2 id="havuz-i&#x307;&#x15F;lemleri">Havuz &#x130;&#x15F;lemleri</h2>
+<h3 id="havuzlar&#x131;-listele">Havuzlar&#x131; Listele</h3>
+<pre><code class="lang-shell">~# zpool list
+</code></pre>
+<h3 id="havuz-olu&#x15F;turma">Havuz Olu&#x15F;turma</h3>
+<p>Tek bir diskte bir ZFS birimi / havuzu olu&#x15F;turma:</p>
+<pre><code class="lang-shell">~# zpool create vol0 /dev/sd[x]
+</code></pre>
+<p>Not: Havuzunuz otomatik olarak ba&#x11F;lanacakt&#x131;r /[pool name].</p>
+<h3 id="havuz-silme">Havuz Silme</h3>
+<h4 id="havuzu-sil">Havuzu Sil</h4>
+<pre><code class="lang-shell">~# zpool destroy [pool name]
+</code></pre>
+<h4 id="bir-havuzdaki-t&#xFC;m-veri-k&#xFC;melerini-silme">Bir Havuzdaki T&#xFC;m Veri K&#xFC;melerini Silme:</h4>
+<pre><code class="lang-shell">zfs destroy -r [pool name]
+</code></pre>
+<h3 id="havuz-kontrol&#xFC;">Havuz Kontrol&#xFC;</h3>
+<h4 id="disk-durumlar&#x131;n&#x131;-kontrol-etme">Disk Durumlar&#x131;n&#x131; Kontrol Etme</h4>
+<p>Yedekli bir havuz stratejisine sahipseniz, herhangi bir s&#xFC;r&#xFC;c&#xFC;n&#xFC;n arada bir ar&#x131;za yap&#x131;p yapmad&#x131;&#x11F;&#x131;n&#x131; kontrol etmek isteyebilirsiniz. Bu sadece havuzlar&#x131; kontrol ederek yap&#x131;l&#x131;r.</p>
+<pre><code class="lang-shell">~# zpool status
+</code></pre>
+<h4 id="havuzun-bo&#x15F;-alan&#x131;n&#x131;-kontrol-editme">Havuzun Bo&#x15F; Alan&#x131;n&#x131; Kontrol Editme</h4>
+<p>Zaten veri i&#xE7;eren bir havuza eklerseniz, havuzunuz ba&#x15F;lang&#x131;&#xE7;ta &quot;dengesiz&quot; olur ve havuza daha fazla veri yaz&#x131;l&#x131;ncaya kadar dengesiz kal&#x131;r. Bunun nedeni, ZFS&apos;nin yeni diskleri kullanmak i&#xE7;in mevcut verileri yayma zahmetine girmemesidir. Havuza veri eklemeye devam ederseniz, sonunda diskler aras&#x131;nda kullan&#x131;lan alan a&#xE7;&#x131;s&#x131;ndan dengelenir, ancak mevcut verileriniz havuza yeniden yazmad&#x131;&#x11F;&#x131;n&#x131;z s&#xFC;rece yaln&#x131;zca ilk disklere yaz&#x131;l&#x131;r.</p>
+<p>Havuzunuzun kalan alan&#x131;n&#x131; kontrol etmek i&#xE7;in &#x15F;unlar&#x131; yap&#x131;n:</p>
+<pre><code class="lang-shell">zpool list -v
+</code></pre>
+<p>A&#x15F;a&#x11F;&#x131;da, yak&#x131;n zamanda 2 x 8 TB s&#xFC;r&#xFC;c&#xFC;ler ekledi&#x11F;im RAID10 havuzumda bu komutun baz&#x131; &#xF6;rnek &#xE7;&#x131;kt&#x131;lar&#x131; var. G&#xF6;rd&#xFC;&#x11F;&#xFC;n&#xFC;z gibi, dizim olduk&#xE7;a dengesiz ve &#xE7;ok daha iyi bir performans elde etmek istiyorsam diziyi yeniden dengelemem gerekecek.</p>
+<pre><code class="lang-shell"> NAME     SIZE  ALLOC   FREE  EXPANDSZ   FRAG    CAP  DEDUP  HEALTH  ALTROOT 
+  zpool1  13.6T  4.21T  9.39T         -    15%    30%  1.00x  ONLINE  -
+  mirror  3.62T  2.20T  1.43T         -    31%    60%
+    sda      -      -      -         -      -      -
+    sdb      -      -      -         -      -      -
+  mirror  2.72T  1.65T  1.07T         -    32%    60%
+    sdc      -      -      -         -      -      -
+    sdd      -      -      -         -      -      -
+  mirror  7.25T   368G  6.89T         -     2%     4%
+    sde      -      -      -         -      -      -
+    sdf      -      -      -         -      -      -
+</code></pre>
+<p>Bir diziyi yeniden dengelemenin en kolay yolu, muhtemelen yeni bir ge&#xE7;ici veri k&#xFC;mesi olu&#x15F;turmak ve var olan t&#xFC;m verileri ona ta&#x15F;&#x131;mak ve sonra tekrar geri getirmektir. &#x130;lk hareketin sonunda, diskler olduk&#xE7;a kullan&#x131;lmal&#x131;d&#x131;r, ancak tek tek dosyalar kullan&#x131;lmayacakt&#x131;r ve ikinci ge&#xE7;i&#x15F;te dosyalar da olduk&#xE7;a dengeli olacakt&#x131;r.</p>
+<p>Yaln&#x131;zca mv komutunu kullanmaya dikkat edin, &#xE7;&#xFC;nk&#xFC; ba&#x15F;lang&#x131;&#xE7;ta, orijinali silmeden &#xF6;nce t&#xFC;m&#xFC; yaz&#x131;lana kadar verileri kopyalayacakt&#x131;r ve bo&#x15F;luk alan&#x131;n&#x131;z kolayca alan&#x131;n&#x131;z t&#xFC;kenecektir. Dosyalar&#x131; birer birer ta&#x15F;&#x131;mak i&#xE7;in burada g&#xF6;sterildi&#x11F;i gibi rsync gibi bir &#x15F;ey kullanmak daha iyi olacakt&#x131;r .</p>
+<h3 id="havuz-sorunlar&#x131;n&#x131;-temizleme">Havuz Sorunlar&#x131;n&#x131; Temizleme</h3>
+<h4 id="bir-havuzu-f&#x131;r&#xE7;alay&#x131;n">Bir havuzu f&#x131;r&#xE7;alay&#x131;n</h4>
+<pre><code class="lang-shell">~# zpool scrub [pool name]
+</code></pre>
+<p>Bir f&#x131;r&#xE7;alama i&#x15F;leminin ilerlemesini g&#xF6;rmek i&#xE7;in </p>
+<pre><code class="lang-shell">~# zpool status
+</code></pre>
+<h2 id="veri-k&#xFC;meleri">Veri k&#xFC;meleri</h2>
+<h3 id="veri-k&#xFC;mesi-olu&#x15F;turun">Veri K&#xFC;mesi Olu&#x15F;turun</h3>
+<pre><code class="lang-shell">~# zfs create [pool name]/[dataset name]
+</code></pre>
+<p>ZFS, veri k&#xFC;mesini otomatik olarak / yol / havuz / [veri k&#xFC;mesi ad&#x131;] konumuna ba&#x11F;layacakt&#x131;r.</p>
+<p>A&#x15F;a&#x11F;&#x131;daki gibi bir &quot;alt&quot; veri k&#xFC;mesi / dosya sistemi olu&#x15F;turabilirsiniz:</p>
+<pre><code class="lang-shell">~# zfs create [pool name]/[dataset name]/[descendent filesystem]
+</code></pre>
+<h3 id="veri-k&#xFC;melerini-ve-havuzlar&#x131;-listeleme">Veri K&#xFC;melerini ve Havuzlar&#x131; Listeleme</h3>
+<pre><code class="lang-shell">~# zfs list
+</code></pre>
+<h3 id="veri-k&#xFC;mesini-sil">Veri K&#xFC;mesini Sil</h3>
+<pre><code class="lang-shell">~# zfs destroy [pool name]/[dataset name]
+</code></pre>
+<p>Veri k&#xFC;mesinin anl&#x131;k g&#xF6;r&#xFC;nt&#xFC;leri veya klonlar&#x131; mevcutsa veri k&#xFC;mesi yok edilemez.</p>
+<h3 id="veri-k&#xFC;mesi-kay&#x131;t-boyutunu-ayarlama">Veri K&#xFC;mesi Kay&#x131;t Boyutunu Ayarlama</h3>
+<p>Kay&#x131;t boyutunun ger&#xE7;ekte ne yapt&#x131;&#x11F;&#x131; hakk&#x131;nda daha fazla bilgi i&#xE7;in buray&#x131; okuyun.</p>
+<pre><code class="lang-shell">~# zfs set recordsize=[size] pool/dataset/name
+</code></pre>
+<p>Boyut, 16k, 128k veya 1M gibi bir de&#x11F;er olmal&#x131;d&#x131;r.</p>
+<h3 id="veri-k&#xFC;mesi-kay&#x131;t-boyutunu-al&#x131;n">Veri K&#xFC;mesi Kay&#x131;t Boyutunu Al&#x131;n</h3>
+<pre><code class="lang-shell">~# zfs get recordsize pool/dataset/name
+</code></pre>
+<h2 id="zfsde-anl&#x131;k-g&#xF6;r&#xFC;nt&#xFC;ler">ZFS&apos;de Anl&#x131;k g&#xF6;r&#xFC;nt&#xFC;ler</h2>
+<h3 id="anl&#x131;k-g&#xF6;r&#xFC;nt&#xFC;-veri-k&#xFC;meleri">Anl&#x131;k G&#xF6;r&#xFC;nt&#xFC; Veri K&#xFC;meleri</h3>
+<pre><code class="lang-shell">zfs snapshot [pool]/[dataset name]@[snapshot name]
+</code></pre>
+<h3 id="anl&#x131;k-g&#xF6;r&#xFC;nt&#xFC;leri-listele">Anl&#x131;k G&#xF6;r&#xFC;nt&#xFC;leri Listele</h3>
+<pre><code class="lang-shell">~# zfs list -t snapshot
+</code></pre>
+<h3 id="anl&#x131;k-g&#xF6;r&#xFC;nt&#xFC;leri-yeniden-adland&#x131;rma">Anl&#x131;k G&#xF6;r&#xFC;nt&#xFC;leri Yeniden Adland&#x131;rma</h3>
+<pre><code class="lang-shell">zfs rename [pool]/[dataset]@[old name] [new name]
+</code></pre>
+<h3 id="anl&#x131;k-g&#xF6;r&#xFC;nt&#xFC;y&#xFC;-geri-y&#xFC;kle">Anl&#x131;k G&#xF6;r&#xFC;nt&#xFC;y&#xFC; Geri Y&#xFC;kle</h3>
+<pre><code class="lang-shell">zfs rollback -r [pool]/[dataset]@[snapshot name]
+</code></pre>
+<p>Bu, [anl&#x131;k g&#xF6;r&#xFC;nt&#xFC; ad&#x131;] al&#x131;nd&#x131;ktan sonra &#xE7;ekilen t&#xFC;m anl&#x131;k g&#xF6;r&#xFC;nt&#xFC;leri silecek !</p>
+<p>Geri almak istedi&#x11F;iniz dosya sistemi, &#x15F;u anda ba&#x11F;l&#x131;ysa, &#xE7;&#x131;kar&#x131;l&#x131;r ve yeniden ba&#x11F;lan&#x131;r. Dosya sistemi &#xE7;&#x131;kar&#x131;lamazsa, geri alma ba&#x15F;ar&#x131;s&#x131;z olur. -fGerekirse se&#xE7;enek kuvvetleri dosya sistemi, sistemden ayr&#x131;ld&#x131; edilecek.</p>
+<h3 id="anl&#x131;k-g&#xF6;r&#xFC;nt&#xFC;y&#xFC;-silme">Anl&#x131;k G&#xF6;r&#xFC;nt&#xFC;y&#xFC; Silme</h3>
+<pre><code class="lang-shell">zfs destroy tank/home/cindys@snap1
+</code></pre>
 
                                 
                                 </section>
@@ -438,12 +527,12 @@
 
             
                 
-                <a href="../../gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.html" class="navigation navigation-prev " aria-label="Previous page: ZFS Veri Kurtarma Senaryoları">
+                <a href="sikca-sorulan-sorular.html" class="navigation navigation-prev " aria-label="Previous page: Sıkça Sorulan Sorular">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="sikca-sorulan-sorular.html" class="navigation navigation-next " aria-label="Next page: Sıkça Sorulan Sorular">
+                <a href="../../zfs_oezellik_ek/copy-on-write.html" class="navigation navigation-next " aria-label="Next page: Copy-On-Write Nedir?">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -454,7 +543,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ekler","level":"8.1","depth":1,"next":{"title":"Sıkça Sorulan Sorular","level":"8.1.1","depth":2,"path":"son-kisim/ekler/sikca-sorulan-sorular.md","ref":"son-kisim/ekler/sikca-sorulan-sorular.md","articles":[]},"previous":{"title":"ZFS Veri Kurtarma Senaryoları","level":"7.1","depth":1,"path":"gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.md","ref":"gercek-hayatta-zfsnin-kullanimi/zfs-veri-kurtarma-senaryolari.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"son-kisim/ekler/README.md","mtime":"2021-03-26T11:59:59.535Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-26T12:00:41.230Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"ZFS Kopya Kağıdı","level":"8.1.2","depth":2,"next":{"title":"Copy-On-Write Nedir?","level":"8.1.3","depth":2,"path":"zfs_oezellik_ek/copy-on-write.md","ref":"zfs_oezellik_ek/copy-on-write.md","articles":[]},"previous":{"title":"Sıkça Sorulan Sorular","level":"8.1.1","depth":2,"path":"son-kisim/ekler/sikca-sorulan-sorular.md","ref":"son-kisim/ekler/sikca-sorulan-sorular.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"son-kisim/ekler/kopya-kagidi.md","mtime":"2021-03-26T11:59:59.535Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-26T12:00:41.230Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

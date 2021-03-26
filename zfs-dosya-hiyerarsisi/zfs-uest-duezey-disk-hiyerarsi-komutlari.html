@@ -308,6 +308,32 @@
             
         </li>
     
+        <li class="chapter " data-level="8.1.2" data-path="../son-kisim/ekler/kopya-kagidi.html">
+            
+                <a href="../son-kisim/ekler/kopya-kagidi.html">
+            
+                    
+                    ZFS Kopya Kağıdı
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../zfs_oezellik_ek/copy-on-write.html">
+            
+                <a href="../zfs_oezellik_ek/copy-on-write.html">
+            
+                    
+                    Copy-On-Write Nedir?
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -681,6 +707,131 @@ wlo1: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
 <p>SMB ve NFS&apos;de oldu&#x11F;u gibi, iSCSI arka plan program&#x131;n&#x131;n kurulu ve &#xE7;al&#x131;&#x15F;&#x131;yor olmas&#x131; gerekir.</p>
 <pre><code class="lang-text">~# zfs set shareiscsi=on tank/srv
 </code></pre>
+<h2 id="zfs-disk-hiyerar&#x15F;ilerinin-detayl&#x131;-&#xF6;znitelikleri">ZFS Disk Hiyerar&#x15F;ilerinin Detayl&#x131; &#xD6;znitelikleri</h2>
+<p>ZFS disk hiyerar&#x15F;ilerinde ayn&#x131; havuzlarda oldu&#x11F;u gibi bir &#xF6;znitelik mant&#x131;&#x11F;&#x131; bulunmakta. Bayrak yap&#x131;s&#x131;n&#x131; kar&#x15F;&#x131;layan bu &#xF6;znitelikler havuzun baz&#x131; k&#x131;s&#x131;mlar&#x131;n&#x131;n farkl&#x131; baz&#x131; k&#x131;s&#x131;mlar&#x131;n&#x131;n farkl&#x131; davranmas&#x131; sa&#x11F;lanarak b&#xFC;t&#xFC;n bir havuzun farkl&#x131; par&#xE7;alara ayr&#x131;l&#x131;p farkl&#x131; &#x15F;ekillerde &#xE7;al&#x131;&#x15F;mas&#x131;na imkan sa&#x11F;lamayarak farkl&#x131; diskler kullanmadan farkl&#x131; ama&#xE7;lar i&#xE7;in &#xF6;zelle&#x15F;tirilmi&#x15F; hiyerar&#x15F;ileri ayn&#x131; havuz i&#xE7;erisinden kullanabiliriz. (Bayaa uzun c&#xFC;mle kurmu&#x15F;um haa)</p>
+<p>Bu b&#xF6;l&#xFC;mde sadece ZFS hiyerar&#x15F;ilerinin &#xF6;zniteliklerinden bahsedece&#x11F;iz. Ancak bunu havuz &#xF6;zniteliklerinden farkl&#x131; olarak &#xF6;rneklerle g&#xF6;sterece&#x11F;iz.</p>
+<h3 id="belli-ba&#x15F;l&#x131;-baz&#x131;-&#xF6;znitelikler">Belli Ba&#x15F;l&#x131; Baz&#x131; &#xD6;znitelikler</h3>
+<ul>
+<li><strong>allocated</strong>: T&#xFC;m ZFS hiyerar&#x15F;ileri taraf&#x131;ndan havuza kaydedilen veri miktar&#x131;d&#x131;r. Bu ayar salt okunurdur</li>
+<li><strong>type</strong>: T&#xFC;m ZFS hiyerar&#x15F;ilerinin tipini belirlemede kullan&#x131;l&#x131;r</li>
+<li><strong>used</strong>: Bu hiyerar&#x15F;ide kullan&#x131;lan boyutu belirtir.</li>
+<li><strong>compressratio</strong>: Dosya hiyerar&#x15F;isinin s&#x131;k&#x131;&#x15F;t&#x131;rma oran&#x131;n&#x131; belirtir.</li>
+<li><strong>guid</strong>: ZFS hiyerar&#x15F;isine donan&#x131;m GUID de&#x11F;eri tarz&#x131; sanal de&#x11F;er atar. Bu de&#x11F;eri tutan parametredir.</li>
+<li><strong>quota</strong>: Bu hiyerar&#x15F;ide kullan&#x131;lacak maksimum boyutu belirler. Bu boyut sanal bir boyuttur. Belli bir hiyerar&#x15F;inin havuzu domine etmesini &#xF6;nlemek i&#xE7;in kullanabiliriz. </li>
+<li><strong>sharenfs</strong>: NFS ile hiyerar&#x15F;inin payla&#x15F;&#x131;labilirli&#x11F;ini kontrol eden parametredir.</li>
+<li><strong>sharensmb</strong>: SAMBA ile hiyerar&#x15F;inin payla&#x15F;&#x131;labilirli&#x11F;ini kontrol eden parametredir.</li>
+<li><strong>readonly</strong>: Hiyerar&#x15F;iyi raw okunabilir konuma getirir.</li>
+<li><strong>compression</strong>: Hiyerar&#x15F;iyi s&#x131;k&#x131;&#x15F;t&#x131;rmay&#x131; ayarlar.</li>
+<li><strong>copies</strong>: Hiyerar&#x15F;inin ayne ve klon say&#x131;s&#x131;n&#x131; belirtir.</li>
+<li><strong>version</strong>: Hiyerar&#x15F;inin versiyonunu belirler.</li>
+</ul>
+<h3 id="&#xF6;znitellikleri-g&#xF6;r&#xFC;nt&#xFC;leme">&#xD6;znitellikleri G&#xF6;r&#xFC;nt&#xFC;leme</h3>
+<p>Depolama havuzu &#xF6;znitelliklerini g&#xF6;r&#xFC;nt&#xFC;leme ve ayarlamada oldu&#x11F;u gibi, hiyerar&#x15F;i &#xF6;znitelliklerini de alabilece&#x11F;iniz birka&#xE7; yol vard&#x131;r - t&#xFC;m &#xF6;znitelikleri bir kerede, yaln&#x131;zca bir m&#xFC;lk veya birden fazla virg&#xFC;lle ayr&#x131;lm&#x131;&#x15F; olarak alabilirsiniz. </p>
+<pre><code class="lang-shell">~# zfs get all tank/ROOT/root 
+NAME            PROPERTY              VALUE                   SOURCE
+tank/ROOT/root  type                  filesystem              -
+tank/ROOT/root  creation              Pr&#x15F; Mar 18 20:26 2021  -
+tank/ROOT/root  used                  24K                     -
+tank/ROOT/root  available             14.5G                   -
+tank/ROOT/root  referenced            24K                     -
+tank/ROOT/root  compressratio         1.00x                   -
+tank/ROOT/root  mounted               yes                     -
+tank/ROOT/root  quota                 none                    default
+tank/ROOT/root  reservation           none                    default
+tank/ROOT/root  recordsize            128K                    default
+tank/ROOT/root  mountpoint            /tank/ROOT/root         default
+tank/ROOT/root  sharenfs              off                     default
+tank/ROOT/root  checksum              on                      default
+tank/ROOT/root  compression           off                     default
+tank/ROOT/root  atime                 on                      default
+tank/ROOT/root  devices               on                      default
+tank/ROOT/root  exec                  on                      default
+tank/ROOT/root  setuid                on                      default
+tank/ROOT/root  readonly              off                     default
+tank/ROOT/root  zoned                 off                     default
+tank/ROOT/root  snapdir               hidden                  default
+tank/ROOT/root  aclmode               discard                 default
+tank/ROOT/root  aclinherit            restricted              default
+tank/ROOT/root  createtxg             10                      -
+tank/ROOT/root  canmount              on                      default
+tank/ROOT/root  xattr                 on                      default
+tank/ROOT/root  copies                1                       default
+tank/ROOT/root  version               5                       -
+tank/ROOT/root  utf8only              off                     -
+tank/ROOT/root  normalization         none                    -
+tank/ROOT/root  casesensitivity       sensitive               -
+tank/ROOT/root  vscan                 off                     default
+tank/ROOT/root  nbmand                off                     default
+tank/ROOT/root  sharesmb              off                     default
+tank/ROOT/root  refquota              none                    default
+tank/ROOT/root  refreservation        none                    default
+tank/ROOT/root  guid                  6730011657800072920     -
+tank/ROOT/root  primarycache          all                     default
+tank/ROOT/root  secondarycache        all                     default
+tank/ROOT/root  usedbysnapshots       0B                      -
+tank/ROOT/root  usedbydataset         24K                     -
+tank/ROOT/root  usedbychildren        0B                      -
+tank/ROOT/root  usedbyrefreservation  0B                      -
+tank/ROOT/root  logbias               latency                 default
+tank/ROOT/root  objsetid              131                     -
+tank/ROOT/root  dedup                 off                     default
+tank/ROOT/root  mlslabel              none                    default
+tank/ROOT/root  sync                  standard                default
+tank/ROOT/root  dnodesize             legacy                  default
+tank/ROOT/root  refcompressratio      1.00x                   -
+tank/ROOT/root  written               24K                     -
+tank/ROOT/root  logicalused           12K                     -
+tank/ROOT/root  logicalreferenced     12K                     -
+tank/ROOT/root  volmode               default                 default
+tank/ROOT/root  filesystem_limit      none                    default
+tank/ROOT/root  snapshot_limit        none                    default
+tank/ROOT/root  filesystem_count      none                    default
+tank/ROOT/root  snapshot_count        none                    default
+tank/ROOT/root  snapdev               hidden                  default
+tank/ROOT/root  acltype               off                     default
+tank/ROOT/root  context               none                    default
+tank/ROOT/root  fscontext             none                    default
+tank/ROOT/root  defcontext            none                    default
+tank/ROOT/root  rootcontext           none                    default
+tank/ROOT/root  relatime              off                     default
+tank/ROOT/root  redundant_metadata    all                     default
+tank/ROOT/root  overlay               on                      default
+tank/ROOT/root  encryption            off                     default
+tank/ROOT/root  keylocation           none                    default
+tank/ROOT/root  keyformat             none                    default
+tank/ROOT/root  pbkdf2iters           0                       default
+tank/ROOT/root  special_small_blocks  0                       default
+</code></pre>
+<p>&#xD6;rne&#x11F;in, veri k&#xFC;mesinin yaln&#x131;zca kotas&#x131;n&#x131; g&#xF6;r&#xFC;nt&#xFC;lemek istedi&#x11F;imi varsayal&#x131;m. A&#x15F;a&#x11F;&#x131;daki komutu verebiliriz:</p>
+<pre><code class="lang-shell">~# zfs get quota tank/ROOT/root 
+NAME            PROPERTY  VALUE  SOURCE
+tank/ROOT/root  quota     none   default
+</code></pre>
+<p>Birden fazla &#xF6;zniteli&#x11F;in al&#x131;nmas&#x131; i&#xE7;in:</p>
+<pre><code class="lang-shell">~# zfs get quota,compressratio,available tank/ROOT
+NAME       PROPERTY       VALUE  SOURCE
+tank/ROOT  quota          none   default
+tank/ROOT  compressratio  1.00x  -
+tank/ROOT  available      14.5G  -
+</code></pre>
+<h3 id="&#xF6;znitellikleri-ayarlama">&#xD6;znitellikleri Ayarlama</h3>
+<p>Her bir hiyerar&#x15F;ide &#xF6;znitelik ayarlamak bir parametre ile yap&#x131;labilir <code>zfs set</code> komutu ile &#xF6;znitelik ayarlanabilir.</p>
+<p>&#xD6;rne&#x11F;in, veri k&#xFC;mesinin yaln&#x131;zca s&#x131;k&#x131;&#x15F;t&#x131;rma oran&#x131;n&#x131; belirlemek istedi&#x11F;imi varsayal&#x131;m. A&#x15F;a&#x11F;&#x131;daki komutu verebiliriz:</p>
+<pre><code class="lang-shell">~# zfs set compression=true tank/ROOT/root
+</code></pre>
+<p>&#x15E;imdi de bu s&#x131;k&#x131;&#x15F;t&#x131;rmaya bir oran verelim:</p>
+<pre><code class="lang-shell">~# zfs set compressratio=1.25 tank/ROOT/root
+</code></pre>
+<p>Di&#x11F;er parametreleri de bu &#x15F;ekilde ayarlayabiliriz.</p>
+<h3 id="&#xF6;znitelikleri-miraslama">&#xD6;znitelikleri Miraslama</h3>
+<p>Miraslama OOP mant&#x131;&#x11F;&#x131;ndan &#xE7;ok a&#x15F;ina oldu&#x11F;umuz bir konu. Hemen g&#xF6;z&#xFC;m&#xFC;z korkmas&#x131;n. Miras olay&#x131; burada nesneler &#xFC;zerinde de&#x11F;il hiyerar&#x15F;iler &#xFC;zerinde yap&#x131;labilmekte. Bunun temel amac&#x131; bir havuza ait b&#xFC;t&#xFC;n hiyerar&#x15F;ilere ayn&#x131; &#xF6;zellikleri vermektir. <code>zfs inherit</code> komutu ile yap&#x131;l&#x131;r.</p>
+<pre><code class="lang-shell">~# zfs inherit compression tank
+~# zfs get -r compression tank
+NAME            PROPERTY     VALUE     SOURCE
+tank            compression  lzjb      local
+tank/ROOT/root  compression  lzjb      inherited from tank
+tank/ROOT/test  compression  lzjb      inherited from tank
+</code></pre>
 
                                 
                                 </section>
@@ -724,7 +875,7 @@ wlo1: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"ZFS'de üst düzey olarak nitelendirilebilecek hiyerarşi komutları.","title":"ZFS Üst Düzey Disk Hiyerarşi Komutları","level":"5.2","depth":1,"next":{"title":"ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları","level":"6.1","depth":1,"path":"zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.md","ref":"zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.md","articles":[]},"previous":{"title":"ZFS Disk Hiyerarşisi","level":"5.1","depth":1,"path":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","ref":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.md","mtime":"2021-03-04T20:58:13.626Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-04T20:58:20.525Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"ZFS'de üst düzey olarak nitelendirilebilecek hiyerarşi komutları.","title":"ZFS Üst Düzey Disk Hiyerarşi Komutları","level":"5.2","depth":1,"next":{"title":"ZFS Havuz Yönetimi - Bazı Ek Havuz Yönetimi Komutları","level":"6.1","depth":1,"path":"zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.md","ref":"zfsde-ek-oezellikler/zfs-havuz-yoenetimi-bazi-ek-oezellikler.md","articles":[]},"previous":{"title":"ZFS Disk Hiyerarşisi","level":"5.1","depth":1,"path":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","ref":"zfs-dosya-hiyerarsisi/zfs-hiyerarshisi.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"zfs-dosya-hiyerarsisi/zfs-uest-duezey-disk-hiyerarsi-komutlari.md","mtime":"2021-03-26T11:59:59.535Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-26T12:00:41.230Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -732,10 +883,6 @@ wlo1: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
         
     <script src="../gitbook/gitbook.js"></script>
     <script src="../gitbook/theme.js"></script>
-    
-        
-        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
     
         
         <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
