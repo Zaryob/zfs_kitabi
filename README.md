@@ -2,6 +2,8 @@
 description: ZFS ve OpenZFS üzerine Türkçe bir kaynak oluşturma çabamın meyvesidir.
 ---
 
+[![Auto Deploy](https://github.com/Zaryob/zfs_kitabi/actions/workflows/publish.yml/badge.svg)](https://github.com/Zaryob/zfs_kitabi/actions/workflows/publish.yml)
+
 # Giriş
 
 ## Lisans
