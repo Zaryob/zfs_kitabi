@@ -1,7 +1,7 @@
 name: Auto Deploy
 on:
   push:
-    branches: [master] # run on pushes to master
+    branches: [main] # run on pushes to master
 jobs:
   build:
     name: Build Gitbook
