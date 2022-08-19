@@ -4,7 +4,7 @@
 
 ### Havuzları Listele
 
-```shell
+```
 ~# zpool list
 ```
 
@@ -12,26 +12,25 @@
 
 Tek bir diskte bir ZFS birimi / havuzu oluşturma:
 
-```shell
+```
 ~# zpool create vol0 /dev/sd[x]
 ```
 
-Not: Havuzunuz otomatik olarak bağlanacaktır /[pool name].
+Not: Havuzunuz otomatik olarak bağlanacaktır /\[pool name].
 
 ### Havuz Silme
 
 #### Havuzu Sil
 
-```shell
+```
 ~# zpool destroy [pool name]
 ```
 
 #### Bir Havuzdaki Tüm Veri Kümelerini Silme:
 
-```shell
+```
 zfs destroy -r [pool name]
 ```
-
 
 ### Havuz Kontrolü
 
@@ -39,7 +38,7 @@ zfs destroy -r [pool name]
 
 Yedekli bir havuz stratejisine sahipseniz, herhangi bir sürücünün arada bir arıza yapıp yapmadığını kontrol etmek isteyebilirsiniz. Bu sadece havuzları kontrol ederek yapılır.
 
-```shell
+```
 ~# zpool status
 ```
 
@@ -49,14 +48,14 @@ Zaten veri içeren bir havuza eklerseniz, havuzunuz başlangıçta "dengesiz" ol
 
 Havuzunuzun kalan alanını kontrol etmek için şunları yapın:
 
-```shell
+```
 zpool list -v
 ```
 
 Aşağıda, yakın zamanda 2 x 8 TB sürücüler eklediğim RAID10 havuzumda bu komutun bazı örnek çıktıları var. Gördüğünüz gibi, dizim oldukça dengesiz ve çok daha iyi bir performans elde etmek istiyorsam diziyi yeniden dengelemem gerekecek.
 
-```shell
- NAME     SIZE  ALLOC   FREE  EXPANDSZ   FRAG    CAP  DEDUP  HEALTH  ALTROOT
+```
+ NAME     SIZE  ALLOC   FREE  EXPANDSZ   FRAG    CAP  DEDUP  HEALTH  ALTROOT 
   zpool1  13.6T  4.21T  9.39T         -    15%    30%  1.00x  ONLINE  -
   mirror  3.62T  2.20T  1.43T         -    31%    60%
     sda      -      -      -         -      -      -
@@ -77,13 +76,13 @@ Yalnızca mv komutunu kullanmaya dikkat edin, çünkü başlangıçta, orijinali
 
 #### Bir havuzu fırçalayın
 
-```shell
+```
 ~# zpool scrub [pool name]
 ```
 
 Bir fırçalama işleminin ilerlemesini görmek için
 
-```shell
+```
 ~# zpool status
 ```
 
@@ -91,27 +90,27 @@ Bir fırçalama işleminin ilerlemesini görmek için
 
 ### Veri Kümesi Oluşturun
 
-```shell
+```
 ~# zfs create [pool name]/[dataset name]
 ```
 
-ZFS, veri kümesini otomatik olarak / yol / havuz / [veri kümesi adı] konumuna bağlayacaktır.
+ZFS, veri kümesini otomatik olarak / yol / havuz / \[veri kümesi adı] konumuna bağlayacaktır.
 
 Aşağıdaki gibi bir "alt" veri kümesi / dosya sistemi oluşturabilirsiniz:
 
-```shell
+```
 ~# zfs create [pool name]/[dataset name]/[descendent filesystem]
 ```
 
 ### Veri Kümelerini ve Havuzları Listeleme
 
-```shell
+```
 ~# zfs list
 ```
 
 ### Veri Kümesini Sil
 
-```shell
+```
 ~# zfs destroy [pool name]/[dataset name]
 ```
 
@@ -121,7 +120,7 @@ Veri kümesinin anlık görüntüleri veya klonları mevcutsa veri kümesi yok e
 
 Kayıt boyutunun gerçekte ne yaptığı hakkında daha fazla bilgi için burayı okuyun.
 
-```shell
+```
 ~# zfs set recordsize=[size] pool/dataset/name
 ```
 
@@ -129,7 +128,7 @@ Boyut, 16k, 128k veya 1M gibi bir değer olmalıdır.
 
 ### Veri Kümesi Kayıt Boyutunu Alın
 
-```shell
+```
 ~# zfs get recordsize pool/dataset/name
 ```
 
@@ -137,34 +136,34 @@ Boyut, 16k, 128k veya 1M gibi bir değer olmalıdır.
 
 ### Anlık Görüntü Veri Kümeleri
 
-```shell
+```
 zfs snapshot [pool]/[dataset name]@[snapshot name]
 ```
 
 ### Anlık Görüntüleri Listele
 
-```shell
+```
 ~# zfs list -t snapshot
 ```
 
 ### Anlık Görüntüleri Yeniden Adlandırma
 
-```shell
+```
 zfs rename [pool]/[dataset]@[old name] [new name]
 ```
 
 ### Anlık Görüntüyü Geri Yükle
 
-```shell
+```
 zfs rollback -r [pool]/[dataset]@[snapshot name]
 ```
 
-Bu, [anlık görüntü adı] alındıktan sonra çekilen tüm anlık görüntüleri silecek !
+Bu, \[anlık görüntü adı] alındıktan sonra çekilen tüm anlık görüntüleri silecek !
 
 Geri almak istediğiniz dosya sistemi, şu anda bağlıysa, çıkarılır ve yeniden bağlanır. Dosya sistemi çıkarılamazsa, geri alma başarısız olur. -fGerekirse seçenek kuvvetleri dosya sistemi, sistemden ayrıldı edilecek.
 
 ### Anlık Görüntüyü Silme
 
-```shell
+```
 zfs destroy tank/home/cindys@snap1
 ```

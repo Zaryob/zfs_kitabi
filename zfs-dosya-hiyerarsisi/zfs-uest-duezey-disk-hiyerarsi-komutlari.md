@@ -8,7 +8,7 @@ description: ZFS'de üst düzey olarak nitelendirilebilecek hiyerarşi komutlar�
 
 ### ZFS'de Anlık Görüntü Özelliği
 
-ZFS'de anlık görüntüler \(snapshot\), Linux LVM anlık görüntülerine benzemektedir. Anlık görüntü, birinci sınıf salt okunur bir dosya sistemidir. Anlık görüntüyü aldığınız andaki dosya sisteminin durumunun aynalanmış bir kopyasıdır. Diskimizin o andaki verilerinin bir fotoğrafı gibidir. Disk verileri değişiyor olsa da, tam o fotoğrafı çektiğiniz anda diskin neye benzediğine dair bir imajımız olduğu için o ana geri dönerek verileri kurtarabiliriz. Sonuç olarak veri kümesinin parçası olan veri değişiklikleri, orijinal kopyayı anlık görüntünün kendisinde tutarsınız. Bu şekilde, o dosya sisteminin kalıcılığını koruyabilirsiniz.
+ZFS'de anlık görüntüler (snapshot), Linux LVM anlık görüntülerine benzemektedir. Anlık görüntü, birinci sınıf salt okunur bir dosya sistemidir. Anlık görüntüyü aldığınız andaki dosya sisteminin durumunun aynalanmış bir kopyasıdır. Diskimizin o andaki verilerinin bir fotoğrafı gibidir. Disk verileri değişiyor olsa da, tam o fotoğrafı çektiğiniz anda diskin neye benzediğine dair bir imajımız olduğu için o ana geri dönerek verileri kurtarabiliriz. Sonuç olarak veri kümesinin parçası olan veri değişiklikleri, orijinal kopyayı anlık görüntünün kendisinde tutarsınız. Bu şekilde, o dosya sisteminin kalıcılığını koruyabilirsiniz.
 
 Havuzunuzda 2^64'e kadar anlık görüntü tutabilirsiniz, ZFS anlık görüntüleri yeniden başlatma sırasında kalıcıdır ve herhangi bir ek yedekleme deposu gerektirmez; verilerinizin geri kalanıyla aynı depolama havuzunu kullanırlar. Bir ZFS anlık görüntüsü, bu ZFS veri ağacının bir kopyasıdır, ancak bu veri ağacının anlık görüntüsünün hiçbir zaman değiştirilmediğinden imajın %100 sağlam olduğundan emin olabilirsiniz.
 
@@ -18,20 +18,20 @@ Anlık görüntü oluşturmak neredeyse anlıktır ve maaliyeti çok azdır. Bun
 
 İki tür anlık görüntü oluşturabilirsiniz: havuz anlık görüntüleri ve veri kümesi anlık görüntüleri. Hangi tür anlık görüntü almak istediğiniz size kalmış. Ancak anlık görüntüye bir ad vermelisiniz. Anlık görüntü adının sözdizimi şöyledir:
 
-```text
+```
 havuz/veri kümesi@anlık_görüntü-adı
 havuz@anlık_görüntü-adı
 ```
 
 Bir anlık görüntü oluşturmak için "zfs snapshot" komutunu kullanıyoruz. Örneğin, "tank/deneme" veri kümesinin anlık görüntüsünü almak için şunları çıkarırız:
 
-```text
+```
 ~# zfs snapshot tank/test@20210403
 ```
 
 Anlık görüntü birinci sınıf bir dosya sistemi olsa da, standart ZFS veri kümeleri veya havuzlar gibi değiştirilebilir özellikler içermez. Aslında, anlık görüntü hakkındaki her şey salt okunurdur. Örneğin, bir anlık görüntüde sıkıştırmayı etkinleştirmek isterseniz, şu şekilde olur:
 
-```text
+```
 # zfs set compression=lzma tank/test@20210403
 cannot set property for 'tank/test@20210403': this property can not be modified for snapshots
 ```
@@ -40,7 +40,7 @@ cannot set property for 'tank/test@20210403': this property can not be modified 
 
 Anlık görüntüler iki şekilde görüntülenebilir: veri kümesinin kök dizininde yer alan gizli ".zfs" dizinine erişerek veya "zfs list" komutunu kullanarak görüntüleyebiliriz.
 
-```text
+```
 ~# ls -a /tank/test
 ./ ../ boot.tar text.tar text.tar.2
 ~# cd /tank/test/.zfs/
@@ -50,7 +50,7 @@ Anlık görüntüler iki şekilde görüntülenebilir: veri kümesinin kök dizi
 
 Varsayılan zfs detay dizini gizlidir. Ancak ZFS'deki her şey gibi bunu da değiştirebiliriz:
 
-```text
+```
 # zfs set snapdir=visible tank/test
 # ls -a /tank/test
 ./  ../  zfs/
@@ -58,7 +58,7 @@ Varsayılan zfs detay dizini gizlidir. Ancak ZFS'deki her şey gibi bunu da değ
 
 Anlık görüntüleri görüntülemenin diğer yolu, "-t anlık snapshot" parametresi ile "zfs list" komutunu kullanmaktır:
 
-```text
+```
 # zfs list -t snapshot
 NAME                       USED  AVAIL  REFER  MOUNTPOINT
 tank/test@20210403            0      -   525M  -
@@ -68,7 +68,7 @@ Bende bir tane aygıt havuzu ve bir tane snaphot olduğuna dikkat çekerim. Vars
 
 Çıktıyla daha spesifik olmak istiyorsanız, ister veri kümesi ister depolama havuzu olsun, belirli bir kök sistemin tüm anlık görüntülerini görebilirsiniz. Özyineleme için yalnızca "-r" parametresini kullanmamız ve ardından kök sistemi sağlamanız gerekir. Bu durumda, yalnızca depolama havuzu "tank" ın anlık görüntülerini göreceğim ve diğer havuzların içindekileri göz ardı edeceğim:
 
-```text
+```
 ~# zpool create tank2
 ~# zfs snapshot tank2@firstcreated
 ~# zpool create tank3
@@ -87,13 +87,13 @@ tank/test@20210403            0      -   525M  -
 
 Bir depolama havuzunu veya bir ZFS veri kümesini yok edeceğiniz gibi, anlık görüntüleri yok etmek için benzer bir yöntem kullanırız. Bir anlık görüntüyü yok etmek için, "zfs destroy" komutunu kullanırız, bu komuta parametre olarak yok etmek istediğiniz anlık görüntüyü vererek anlık görüntüleri yok edebiliriz:
 
-```text
+```
 ~# zfs destroy tank/test@20210403
 ```
 
 Bilinmesi gereken önemli bir nokta, bir anlık görüntü varsa, veri kümesinin alt dosya sistemi olarak kabul edilmektedir. Bu nedenle, tüm anlık görüntüler ve iç içe geçmiş veri kümeleri yok edilene kadar bir veri kümesini kaldıramazsınız.
 
-```text
+```
 ~# zfs destroy tank/test 
 cannot destroy 'tank/test': filesystem has children
 use '-r' to destroy the following datasets:
@@ -106,7 +106,7 @@ Anlık görüntüleri yok etmek, diğer anlık görüntülerin tuttuğu ek alan�
 
 Anlık görüntüleri yeniden adlandırabilirsiniz, ancak oluşturuldukları depolama havuzunda ve ZFS veri kümesinde yeniden adlandırılmaları gerekir. Bunun dışında, anlık görüntüleri yeniden adlandırmak disk hiyerarşisi veya havuzu yeniden adlandırmak kadar basittir:
 
-```text
+```
 # zfs rename tank/test@20210403 tank/test@2021-mart-carsamba
 ```
 
@@ -116,13 +116,13 @@ Anlık görüntüleri yeniden adlandırabilirsiniz, ancak oluşturuldukları dep
 
 `zfs rollback` komutu ile bu işlem yapılmaktadır.
 
-```text
+```
 ~# zfs rollback tank/test@20210403
 ```
 
 Eğer bu anlık görüntülerden sonra alınmış başka anlık görüntüler varsa bu işlem yapılmayacaktır.
 
-```text
+```
 # zfs rollback tank/test@20210403
 cannot rollback to 'tank/test@20210403': more recent snapshots exist
 use '-r' to force deletion of the following snapshots:
@@ -140,7 +140,7 @@ Klonlar oluşturmak, tıpkı anlık görüntüler gibi neredeyse anlıktır ve b
 
 Bir klon oluşturma, "zfs klonu" komutu, klonlanacak anlık görüntü ve yeni dosya sisteminin adı ile yapılır. Klonun, klonla aynı veri kümesinde bulunması gerekmez, ancak aynı depolama havuzunda bulunması gerekir. Örneğin, "tank/test@20210403" anlık görüntüsünü klonlamak ve ona "tank/klon1" adını vermek istersem, aşağıdaki şekilde bunu yapabilirim:
 
-```text
+```
 ~# zfs clone tank/test@20210403 tank/klon1
 ~# zfs list -r tank
 NAME           USED   AVAIL  REFER  MOUNTPOINT
@@ -155,7 +155,7 @@ Klonlarla alakalı bir durum da onları hiyerarşi gibi kullanıyor olmamızdır
 
 Veri kümelerini ve tabi ki anlık görüntüleri yok ederken olduğu gibi, "zfs destory" komutunu kullanıyoruz. Yine, klonları yok edene kadar bir anlık görüntüyü yok edemezsiniz. Ayrıca bir görüntü bir klona bağlıysa yine başta bu klonu yok etmeden görüntüyü yok edemezsiniz.
 
-```text
+```
 ~# zfs destroy tank/klon1
 ```
 
@@ -175,7 +175,7 @@ Son dönemlerde pekçok dağıtımın ve paket yönetim sisteminin göç ettiği
 
 ZFS hiyerarşilerinde veri kümesinin sıkıştırma özelliği `compression` parametresi ile ayarlanmaktadır. Bu parametre sıkıştırma algoritmasının tipini parametre olarak almaktadır.
 
-```text
+```
 ~# zpool list
 NAME   SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
 tank  11.2G   230K  11.2G        -         -     0%     0%  1.00x    ONLINE  -
@@ -189,7 +189,7 @@ tank/deneme    24K  10.9G       24K  /tank/deneme
 
 Şimdi boyutu belirli bir boyutu kullanarak **`urandom`** ile elde edilmiş dosyayı kök dizine yazalım.
 
-```text
+```
 ~# dd bs=1024 count=100000 < /dev/urandom > dosya
 100000+0 kayıt girdi
 100000+0 kayıt çıktı
@@ -200,7 +200,7 @@ tank/deneme    24K  10.9G       24K  /tank/deneme
 
 Şimdi bu dosyayı **`/tank/deneme`** yoluna yaşıyalım.
 
-```text
+```
 ~# mv dosya /tank/deneme
 ~# ls -lh /tank/deneme/
 toplam 98M
@@ -209,7 +209,7 @@ toplam 98M
 
 Gördüğümüz gibi 2 MB kadarı sıkıştırmadan kazanıldı. Şimdi sıkıştırma oranını inceleyelim.
 
-```text
+```
 ~# zfs get compressratio tank/deneme
 NAME         PROPERTY       VALUE  SOURCE
 tank/deneme  compressratio  2.14x  -
@@ -233,7 +233,7 @@ Tekilleştirmede RAM kullandığımız için akıllarımıza gelen soru şu: Tek
 
 Blok bilgilerini `zdb` komutu ile öğrenebiliriz.
 
-```text
+```
 ~# zdb -b tank
 Traversing all blocks to verify nothing leaked ...
 
@@ -254,11 +254,11 @@ loading concrete vdev 3, metaslab 14 of 15 ...
         indirect vdev id 0 has 4 segments (4 in memory)
 ```
 
-Bu durumda, depolama havuzumuz içerisinde 916 kullanılmış blok vardır \("bp count" sayısı\).
+Bu durumda, depolama havuzumuz içerisinde 916 kullanılmış blok vardır ("bp count" sayısı).
 
 Havuzdaki her tekilleştirilmiş blok için yaklaşık 320 bayt RAM gerektirir. Dolayısıyla, blok başına 320 bayt ile çarpılan 916 blok için bize yaklaşık 0.2 MB RAM gerekmekte. Toplamda 10 GB için 100 milyon bloğa sahip olduğumuzu varsayarsak bu bizim 1.3MB tekelleştirme tablosuna ihtiyacımız vardır. Bu, her 1 GB dosya sistemi için 3,1 MB tekilleştirme tablosu, 1 TB disk başına 3,12 GB tekelleştirme tablosu ihtiyacı anlamına gelmektedir yanı 1TB diski tekilleştirdikten sonra bizim 3.12 GB boyutunda RAM kullanmamız gerekmektedir.
 
-Depolamanızı önceden planlıyorsanız ve verileri işlemeden önce boyutunu bilmek istiyorsanız, ortalama blok boyutunuzun ne olacağını bulmanız gerekir.  
+Depolamanızı önceden planlıyorsanız ve verileri işlemeden önce boyutunu bilmek istiyorsanız, ortalama blok boyutunuzun ne olacağını bulmanız gerekir.\
 Bu durumda, verilere yakından aşina olmanız gerekir. ZFS, verileri 128 KB'lik bloklar halinde okur ve yazar. Ancak, çok sayıda yapılandırma dosyası, ana dizin vb. depoluyorsanız, dosyalarınız 128 KB'tan küçük olacaktır. Bu örnek için, yukarıdaki örneğimizde olduğu gibi ortalama blok boyutunun 100 KB olacağını varsayalım. Toplam depolama alanım 1 TB boyutundaysa, blok başına 100 KB'ye bölünen 1 TB yaklaşık 10 milyon blok demektir. Blok başına 320 bayt ile çarpıldığında, elimizdeki verileri tekilleştirmek için 3.2 GB RAM kullanmamız gerekiyor.
 
 Sonuçta her ihtimali göz önünde tutarak, her 1 TB disk için 5 GB RAM ihtiyacımız olacağını varsaymak mantıklı olacaktır. Bu durum maliyet açısından oldukça sorunlu gibi dursa da, disk üzerinde, ciddi performans etkilerine sahiptir.
@@ -279,7 +279,7 @@ Bir veri kümesi için tekilleştirmeyi etkinleştirmek için "**`dedup`**" öze
 
 Sıkıştırmada olduğu gibi şimdi de tekilleştirme için `deneme` veri kümesini kullanalım.
 
-```text
+```
 ~# zfs set dedup=on tank/deneme
 ~# cd tank/deneme/
 ~# ls
@@ -321,7 +321,7 @@ Meşru bir blok cihazı olduğu için, ZVOL'nuzla çok ilginç şeyler yapabilir
 
 Bir ZVOL oluşturmak için, "zfs create" komutumuzla "-V" parametresini kullanıyoruz ve ona bir boyut veriyoruz. ZVOL'ü ZFS havuzları altında oluşturuyoruz, hiyerarşilerden tek farkımız ZVOL oluştururken boyut belirlememiz gerekmektedir. Şimdi 1G boyutunda bir ZVOL oluşturalım:
 
-```text
+```
 # zfs create -V 1G tank/zvoldisk
 # ls -l /dev/zvol/tank/zvoldisk
 lrwxrwxrwx  2 root root   4096 Şub  1 14:41  /dev/zvol/tank/disk1 -> ../../zd145
@@ -341,7 +341,7 @@ Bu ZVOL ile yapabileceğimiz bazı şeylere bakalım.
 
 Bu kulağa tuhaf gelebilir, ancak ZVOL aynen bir donanım aygıtı gibidir, başka bir dosya sistemini ZVOL'ü biçimlendirmek için kullanabilir ve onu bir ZVOL'un üzerine bağlayabilirsiniz. Diğer bir deyişle, ext4 formatlı bir ZVOL oluşturup ve bunu /mnt'ye bağlayabiliriz. Hatta ZVOL'u alt bölümlere ayırabilir ve üzerine birden çok dosya sistemi koyabiliriz. Hadi bunu yapalım!
 
-```text
+```
 ~# zfs create -V 100G tank/ext4
 ~# fdisk /dev/tank/ext4
 ( follow the prompts to create 2 partitions- the first 1 GB in size, the second to fill the rest )
@@ -365,7 +365,7 @@ lrwxrwxrwx  2 root root   4096 Şub  1 14:41  /dev/tank/ext4p2 -> ../../zd0p2
 
 ZFS 2 ZVOL aygıtımızı /dev/zd0p1 ve /dev/zd0p2 olarak linklemiş oldu. Bunları biçimlendirelim.
 
-```text
+```
 ~# mkfs.ext4 /dev/zd0p1
 ~# mkfs.ext4 /dev/zd0p2
 ~# mkdir /mnt/zd0p{1,2}
@@ -375,7 +375,7 @@ ZFS 2 ZVOL aygıtımızı /dev/zd0p1 ve /dev/zd0p2 olarak linklemiş oldu. Bunla
 
 Gördüğümüz gibi diskler oluşturup bunları bağlamış olduk ama bu ne işimize yaradı. Mesela ZFS'nin anlık görüntü oluşturma özelliğini ext4 ile kullanabiliriz.
 
-```text
+```
 ~# zfs snapshot tank/ext4@001
 ```
 
@@ -397,13 +397,13 @@ Bir diğer yandan OpenSUSE, Fedora, RHEL ve CentOS için `nfs-utils` paketi nfs 
 
 Gerekli paketleri kurmamızın ardından NFS sunucumuzu başlatalım:
 
-```text
+```
 ~# service nfs start
 ```
 
 Şimdi de ip adresimize bakalım
 
-```text
+```
 ~# ifconfig
 
 enp2s0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
@@ -434,7 +434,7 @@ wlo1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 Ve artık hazırız, ZFS veri kümesini paylaşalım
 
-```text
+```
 ~# zfs set sharenfs="rw=@192.168.1.123/24" tank/srv
 ~# zfs share tank/srv
 ```
@@ -443,7 +443,7 @@ Ve artık hazırız, ZFS veri kümesini paylaşalım
 
 NFS'de olduğu gibi, SMB/CIFS aracılığıyla bir ZFS veri kümesini paylaşmak için, arka plan sunucusunun kurulu ve çalışıyor olması gerekir. SMB 2.1 dosya paylaşım desteği, kümelenmiş dosya sunucuları ve çok daha fazlasını verimektedir. Samba 4 desteği ile beraber disk üzerinde NFS'den daha fazlasını daha esnekçe yapabileceğimiz bir yapıya sahibiz.
 
-```text
+```
 ~# zfs set sharesmb=on tank/srv
 ~# zfs share tank/srv
 ```
@@ -452,7 +452,7 @@ NFS'de olduğu gibi, SMB/CIFS aracılığıyla bir ZFS veri kümesini paylaşmak
 
 SMB ve NFS'de olduğu gibi, iSCSI arka plan programının kurulu ve çalışıyor olması gerekir.
 
-```text
+```
 ~# zfs set shareiscsi=on tank/srv
 ```
 
@@ -469,7 +469,7 @@ Bu bölümde sadece ZFS hiyerarşilerinin özniteliklerinden bahsedeceğiz. Anca
 * **used**: Bu hiyerarşide kullanılan boyutu belirtir.
 * **compressratio**: Dosya hiyerarşisinin sıkıştırma oranını belirtir.
 * **guid**: ZFS hiyerarşisine donanım GUID değeri tarzı sanal değer atar. Bu değeri tutan parametredir.
-* **quota**: Bu hiyerarşide kullanılacak maksimum boyutu belirler. Bu boyut sanal bir boyuttur. Belli bir hiyerarşinin havuzu domine etmesini önlemek için kullanabiliriz. 
+* **quota**: Bu hiyerarşide kullanılacak maksimum boyutu belirler. Bu boyut sanal bir boyuttur. Belli bir hiyerarşinin havuzu domine etmesini önlemek için kullanabiliriz.&#x20;
 * **sharenfs**: NFS ile hiyerarşinin paylaşılabilirliğini kontrol eden parametredir.
 * **sharensmb**: SAMBA ile hiyerarşinin paylaşılabilirliğini kontrol eden parametredir.
 * **readonly**: Hiyerarşiyi raw okunabilir konuma getirir.
@@ -479,9 +479,9 @@ Bu bölümde sadece ZFS hiyerarşilerinin özniteliklerinden bahsedeceğiz. Anca
 
 ### Öznitellikleri Görüntüleme
 
-Depolama havuzu öznitelliklerini görüntüleme ve ayarlamada olduğu gibi, hiyerarşi öznitelliklerini de alabileceğiniz birkaç yol vardır - tüm öznitelikleri bir kerede, yalnızca bir mülk veya birden fazla virgülle ayrılmış olarak alabilirsiniz. 
+Depolama havuzu öznitelliklerini görüntüleme ve ayarlamada olduğu gibi, hiyerarşi öznitelliklerini de alabileceğiniz birkaç yol vardır - tüm öznitelikleri bir kerede, yalnızca bir mülk veya birden fazla virgülle ayrılmış olarak alabilirsiniz.
 
-```shell
+```
 ~# zfs get all tank/ROOT/root 
 NAME            PROPERTY              VALUE                   SOURCE
 tank/ROOT/root  type                  filesystem              -
@@ -560,7 +560,7 @@ tank/ROOT/root  special_small_blocks  0                       default
 
 Örneğin, veri kümesinin yalnızca kotasını görüntülemek istediğimi varsayalım. Aşağıdaki komutu verebiliriz:
 
-```shell
+```
 ~# zfs get quota tank/ROOT/root 
 NAME            PROPERTY  VALUE  SOURCE
 tank/ROOT/root  quota     none   default
@@ -568,7 +568,7 @@ tank/ROOT/root  quota     none   default
 
 Birden fazla özniteliğin alınması için:
 
-```shell
+```
 ~# zfs get quota,compressratio,available tank/ROOT
 NAME       PROPERTY       VALUE  SOURCE
 tank/ROOT  quota          none   default
@@ -582,13 +582,14 @@ Her bir hiyerarşide öznitelik ayarlamak bir parametre ile yapılabilir `zfs se
 
 Örneğin, veri kümesinin yalnızca sıkıştırma oranını belirlemek istediğimi varsayalım. Aşağıdaki komutu verebiliriz:
 
-```shell 
+```
 ~# zfs set compression=true tank/ROOT/root
 ```
 
 Şimdi de bu sıkıştırmaya bir oran verelim:
-```shell
-~# zfs set compressratio=1.25 tank/ROOT/root 
+
+```
+~# zfs set compressratio=1.25 tank/ROOT/root
 ```
 
 Diğer parametreleri de bu şekilde ayarlayabiliriz.
@@ -597,7 +598,7 @@ Diğer parametreleri de bu şekilde ayarlayabiliriz.
 
 Miraslama OOP mantığından çok aşina olduğumuz bir konu. Hemen gözümüz korkmasın. Miras olayı burada nesneler üzerinde değil hiyerarşiler üzerinde yapılabilmekte. Bunun temel amacı bir havuza ait bütün hiyerarşilere aynı özellikleri vermektir. `zfs inherit` komutu ile yapılır.
 
-```shell
+```
 ~# zfs inherit compression tank
 ~# zfs get -r compression tank
 NAME            PROPERTY     VALUE     SOURCE
