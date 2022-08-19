@@ -35,8 +35,6 @@
 * [Ekler](son-kisim/ekler/README.md)
   * [Sıkça Sorulan Sorular](son-kisim/ekler/sikca-sorulan-sorular.md)
   * [ZFS Kopya Kağıdı](son-kisim/ekler/kopya-kagidi.md)
-  * [Copy-On-Write Nedir?](zfs_oezellik_ek/copy-on-write.md)
-
+  * [Copy-On-Write Nedir?](son-kisim/ekler/copy-on-write.md)
 * [Kaynakça](son-kisim/kaynakca.md)
 * [GNU Özgür Belgelendirme Lisansı](son-kisim/lisans.md)
-
